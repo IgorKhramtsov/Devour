@@ -1,0 +1,8 @@
+{
+    "editor.formatOnSave": false,
+    "[dart]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnPaste": false,
+        "editor.formatOnType": false
+    }
+}
