@@ -1,4 +1,6 @@
 import 'package:devour/screens/Login/phone_input.widget.dart';
+import 'package:devour/widgets/platform/platform_button.dart';
+import 'package:devour/widgets/platform/platform_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -15,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
+      child: PlatformScaffold(
         body: AnimatedSize(
           duration: Duration(milliseconds: 200),
           vsync: this,
@@ -30,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                 const SizedBox(height: 40),
                 PhoneInputField(),
                 const SizedBox(height: 20),
-                ElevatedButton(
+                PlatformButton(
                   onPressed: () => null, 
                   child: Text('Press me')
                 )

@@ -1,4 +1,5 @@
 import 'package:devour/screens/Login/login.screen.dart';
+import 'package:devour/widgets/platform/platform_app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,11 +9,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return PlatformApp(
       title: 'Devour',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      primaryColor: Colors.blue,
       home: LoginScreen(),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:devour/screens/Login/fake_phone_input.widget.dart';
+import 'package:devour/widgets/platform/platform_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +17,7 @@ class PhoneInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final hiddenTextFieldWidget = Opacity(
       opacity: 0.0,
-      child: TextField(
+      child: PlatformTextField(
         controller: _textEditingController,
         focusNode: _focusNode,
         maxLength: 11,
