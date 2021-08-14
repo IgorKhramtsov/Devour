@@ -1,15 +1,18 @@
+import 'package:devour/injection.dart' as di;
 import 'package:devour/presentation/screens/Login/login.screen.dart';
 import 'package:devour/presentation/widgets/platform/platform_app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  di.setupInjections();
+
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PlatformApp(
+    return const PlatformApp(
       title: 'Devour',
       primaryColor: Colors.blue,
       home: LoginScreen(),

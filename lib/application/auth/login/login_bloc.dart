@@ -5,11 +5,13 @@ import 'package:devour/domain/auth/auth_failure.dart';
 import 'package:devour/domain/auth/i_auth_facade.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 part 'login_bloc.freezed.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final IAuthFacade _authFacade;
   LoginBloc(this._authFacade) : super(LoginState.initial());
