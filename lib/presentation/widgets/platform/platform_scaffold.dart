@@ -1,9 +1,10 @@
-import 'package:devour/widgets/platform/abstract_platform_widget.dart';
+import 'package:devour/presentation/widgets/platform/abstract_platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class PlatformScaffold extends AbstractPlatformWidget<CupertinoPageScaffold, Scaffold> {
+class PlatformScaffold
+    extends AbstractPlatformWidget<CupertinoPageScaffold, Scaffold> {
   const PlatformScaffold({
     Key? key,
     required this.body,
@@ -14,11 +15,10 @@ class PlatformScaffold extends AbstractPlatformWidget<CupertinoPageScaffold, Sca
   @override
   CupertinoPageScaffold buildCupertino() {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Home'),
-      ),
-      child: body
-    );
+        navigationBar: CupertinoNavigationBar(
+          middle: Text('Home'),
+        ),
+        child: body);
   }
 
   @override

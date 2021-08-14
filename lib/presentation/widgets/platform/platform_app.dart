@@ -1,4 +1,4 @@
-import 'package:devour/widgets/platform/abstract_platform_widget.dart';
+import 'package:devour/presentation/widgets/platform/abstract_platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -29,11 +29,10 @@ class PlatformApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   @override
   MaterialApp buildMaterial() {
     return MaterialApp(
-      title: title,
-      home: home,
-      theme: ThemeData(
-        primaryColor: primaryColor,
-      )
-    );
+        title: title,
+        home: home,
+        theme: ThemeData(
+          primaryColor: primaryColor,
+        ));
   }
 }

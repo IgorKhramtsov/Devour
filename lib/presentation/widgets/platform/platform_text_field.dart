@@ -1,10 +1,11 @@
-import 'package:devour/widgets/platform/abstract_platform_widget.dart';
+import 'package:devour/presentation/widgets/platform/abstract_platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-class PlatformTextField extends AbstractPlatformWidget<CupertinoTextField, TextField> {
+class PlatformTextField
+    extends AbstractPlatformWidget<CupertinoTextField, TextField> {
   const PlatformTextField({
     Key? key,
     this.controller,

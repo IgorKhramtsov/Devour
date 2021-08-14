@@ -1,5 +1,5 @@
-import 'package:devour/screens/Login/fake_phone_input.widget.dart';
-import 'package:devour/widgets/platform/platform_text_field.dart';
+import 'package:devour/presentation/screens/Login/fake_phone_input.widget.dart';
+import 'package:devour/presentation/widgets/platform/platform_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +10,8 @@ double _kInputWidth = 280.0;
 class PhoneInputField extends StatelessWidget {
   PhoneInputField({Key? key}) : super(key: key);
 
-  final TextEditingController _textEditingController = TextEditingController(text: '7');
+  final TextEditingController _textEditingController =
+      TextEditingController(text: '7');
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -21,23 +22,23 @@ class PhoneInputField extends StatelessWidget {
         controller: _textEditingController,
         focusNode: _focusNode,
         maxLength: 11,
-        inputFormatters: [ FilteringTextInputFormatter.digitsOnly ],
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         keyboardType: TextInputType.number,
         autocorrect: false,
         toolbarOptions: ToolbarOptions(),
       ),
     );
-    
+
     return SizedBox(
       width: _kInputWidth,
       child: Stack(
-         children: [
+        children: [
           hiddenTextFieldWidget,
           FakePhoneInputWidget(
-            focusNode: _focusNode, 
-            textEditingController: _textEditingController, 
+            focusNode: _focusNode,
+            textEditingController: _textEditingController,
           )
-         ],
+        ],
       ),
     );
   }
