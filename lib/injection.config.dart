@@ -17,7 +17,7 @@ import 'infrastructure/telegram_auth_facade.dart'
 _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
-  gh.lazySingleton<_i3.IAuthFacade>(() => _i4.TelegramAuthFacade());
+  gh.factory<_i3.IAuthFacade>(() => _i4.TelegramAuthFacade());
   gh.factory<_i5.LoginBloc>(() => _i5.LoginBloc(get<_i3.IAuthFacade>()));
   return get;
 }

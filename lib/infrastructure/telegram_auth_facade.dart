@@ -3,7 +3,8 @@ import 'package:devour/domain/auth/i_auth_facade.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: IAuthFacade)
+/// TODO
+@Injectable(as: IAuthFacade)
 class TelegramAuthFacade implements IAuthFacade {
   @override
   Future<Option<AuthFailure>> auth(String number) {
