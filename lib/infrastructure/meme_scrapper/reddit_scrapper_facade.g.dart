@@ -16,7 +16,7 @@ class _RedditScrapperFacade implements RedditScrapperFacade {
   String? baseUrl;
 
   @override
-  Future<RedditMemeModel> getRandomMeme(count) async {
+  Future<RedditMemeModel> getOneMeme() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -27,6 +27,23 @@ class _RedditScrapperFacade implements RedditScrapperFacade {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RedditMemeModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<RedditMemeModel>> getMemes(count) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<RedditMemeModel>>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/$count',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => RedditMemeModel.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
