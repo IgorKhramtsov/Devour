@@ -1,4 +1,4 @@
-import 'package:devour/presentation/screens/Login/fake_phone_input.widget.dart';
+import 'package:devour/presentation/screens/telegram_login/fake_phone_input.widget.dart';
 import 'package:devour/presentation/widgets/platform/platform_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

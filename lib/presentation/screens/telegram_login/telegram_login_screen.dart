@@ -1,20 +1,20 @@
 import 'package:devour/application/auth/login/login_bloc.dart';
 import 'package:devour/injection.dart';
-import 'package:devour/presentation/screens/Login/phone_input.widget.dart';
+import 'package:devour/presentation/screens/telegram_login/phone_input.widget.dart';
 import 'package:devour/presentation/widgets/platform/platform_button.dart';
 import 'package:devour/presentation/widgets/platform/platform_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class TelegramLoginScreen extends StatefulWidget {
+  const TelegramLoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _TelegramLoginScreenState createState() => _TelegramLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
+class _TelegramLoginScreenState extends State<TelegramLoginScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
