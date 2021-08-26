@@ -19,7 +19,7 @@ class _TelegramLoginScreenState extends State<TelegramLoginScreen>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt.get<LoginBloc>(),
+      create: (context) => serviceLocator.get<LoginBloc>(),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: PlatformScaffold(

@@ -15,10 +15,10 @@ class FeedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformScaffold(
         body: BlocProvider(
-      create: (context) => getIt.get<FeedBloc>(
+      create: (context) => serviceLocator.get<FeedBloc>(
           // maybe its not the best soltion, but i don't know, how to do injectable
           // with generics like <T extends AbstractMemeModel>
-          param1: getIt.get<IMemeScrapperFacade<RedditMemeModel>>())
+          param1: serviceLocator.get<IMemeScrapperFacade<RedditMemeModel>>())
         ..add(FeedEvent.init()),
       child: Feed(),
     ));

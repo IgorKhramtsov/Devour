@@ -1,3 +1,5 @@
+import 'package:devour/application/navigator/app_navigator.dart';
+import 'package:devour/injection.dart';
 import 'package:devour/presentation/widgets/platform/abstract_platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,19 +9,17 @@ class PlatformApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   const PlatformApp({
     Key? key,
     required this.title,
-    required this.home,
     this.primaryColor,
   }) : super(key: key);
 
   final String title;
-  final Widget home;
   final Color? primaryColor;
 
   @override
   CupertinoApp buildCupertino() {
     return CupertinoApp(
       title: title,
-      home: home,
+      onGenerateRoute: serviceLocator<AppNavigator>().navigate,
       theme: CupertinoThemeData(
         primaryColor: primaryColor,
       ),
@@ -30,7 +30,7 @@ class PlatformApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   MaterialApp buildMaterial() {
     return MaterialApp(
         title: title,
-        home: home,
+        onGenerateRoute: serviceLocator<AppNavigator>().navigate,
         theme: ThemeData(
           primaryColor: primaryColor,
         ));
