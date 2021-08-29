@@ -41,5 +41,25 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>FlutterDeepLinkingEnabled</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>dev.khramtsov.devour</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+		<string>devour</string>
+		</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	<string>https</string>
+	<string>http</string>
+	</array>
 </dict>
 </plist>

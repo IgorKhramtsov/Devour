@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:devour/presentation/screens/accounts/accounts_screen.dart';
 import 'package:devour/presentation/screens/telegram_login/telegram_login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class AppNavigator {
 
   Widget Function(BuildContext) _builder(RouteSettings settings) =>
       (BuildContext ctx) {
-        return TelegramLoginScreen();
+        return AccountScreen();
       };
 
   String getTitle(RouteSettings settings) => 'Title';

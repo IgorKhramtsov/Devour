@@ -14,10 +14,11 @@ import 'application/navigator/app_navigator.dart' as _i3;
 import 'domain/auth/i_auth_facade.dart' as _i8;
 import 'domain/meme/abstract_meme_model.dart' as _i7;
 import 'domain/meme_scrapper/i_meme_scrapper_facade.dart' as _i6;
+import 'infrastructure/api/reddit_api.dart' as _i12;
 import 'infrastructure/auth/telegram_auth_facade.dart' as _i9;
 import 'infrastructure/meme_scrapper/reddit_scrapper_facade.dart' as _i11;
 import 'infrastructure/register_module.dart'
-    as _i12; // ignore_for_file: unnecessary_lambdas
+    as _i13; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -33,7 +34,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i10.LoginBloc>(() => _i10.LoginBloc(get<_i8.IAuthFacade>()));
   gh.singleton<_i6.IMemeScrapperFacade<_i7.RedditMemeModel>>(
       _i11.RedditScrapperFacade(get<_i4.Dio>()));
+  gh.singleton<_i12.RedditAPI>(_i12.RedditAPI(get<_i4.Dio>()));
   return get;
 }
 
-class _$RegisterModule extends _i12.RegisterModule {}
+class _$RegisterModule extends _i13.RegisterModule {}
