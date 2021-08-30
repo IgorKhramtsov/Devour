@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:devour/infrastructure/core/misc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,15 +16,16 @@ abstract class RedditAPI {
   factory RedditAPI(Dio dio) = _RedditAPI;
 }
 
+/// Extension for authorization
 extension Authorize on RedditAPI {
-  // https://www.reddit.com/api/v1/authorize?client_id=CLIENT_ID&response_type=code&state=RANDOM_STRING&redirect_uri=https://khramtsov.dev&duration=permanent&scope=read
+  /// Open authorization link in browser
   Future<void> authorize() => _authorize(
         dotenv.env['CLIENT_ID'] ??
             (throw Exception(
                 'CLIENT_ID is not defined in environment variables!')),
         'code',
         getRandomString(15),
-        'devour://redirect/reddit_auth',
+        'devour://ignored/reddit/auth_redirect', // add ignored to path, because flutter sometimes dont show first path element
         'permanent',
         'read',
       );
