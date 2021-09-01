@@ -1,27 +1,47 @@
+import 'package:devour/application/accounts/bloc/accounts_bloc.dart';
 import 'package:devour/application/navigator/routes.dart';
 import 'package:devour/infrastructure/api/reddit_api.dart';
+import 'package:devour/injection.dart';
 import 'package:devour/presentation/widgets/platform/platform_button.dart';
 import 'package:devour/presentation/widgets/platform/platform_scaffold.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// Accounts screen
 class AccountScreen extends StatelessWidget {
-  final RedditRedirectArguments? redirectArguments;
-  const AccountScreen({Key? key, this.redirectArguments}) : super(key: key);
+  /// Accounts screen
+  AccountScreen({Key? key, RedditRedirectArguments? redirectArguments})
+      : super(key: key) {
+    if (redirectArguments != null) {
+      _accountsBloc.add(AccountsEvent.AuthorizeReddit(redirectArguments));
+    }
+  }
+
+  final AccountsBloc _accountsBloc = serviceLocator<AccountsBloc>();
 
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
         body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          PlatformButton(
-              onPressed: () => RedditAPI(Dio()).authorize(),
-              child: Text('reddit')),
-          SizedBox(height: 20),
-          PlatformButton(onPressed: () => null, child: Text('vk')),
-        ],
+      child: BlocBuilder<AccountsBloc, AccountsState>(
+        bloc: _accountsBloc,
+        builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PlatformButton(
+                  onPressed: () => _accountsBloc
+                      .add(const AccountsEvent.RequestAuthorizationReddit()),
+                  child: Text(_accountsBloc.state.redditAccount
+                      .foldLeft('reddit', (acc, t) => 'reddit(${t.token})'))),
+              const SizedBox(height: 20),
+              PlatformButton(
+                  onPressed: () =>
+                      _accountsBloc.add(const AccountsEvent.AuthorizeVK()),
+                  child: Text('vk')),
+            ],
+          );
+        },
       ),
     ));
   }

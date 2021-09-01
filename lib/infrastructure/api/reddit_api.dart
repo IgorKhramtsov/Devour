@@ -19,12 +19,12 @@ abstract class RedditAPI {
 /// Extension for authorization
 extension Authorize on RedditAPI {
   /// Open authorization link in browser
-  Future<void> authorize() => _authorize(
+  Future<void> authorize(String randomString) => _authorize(
         dotenv.env['CLIENT_ID'] ??
             (throw Exception(
                 'CLIENT_ID is not defined in environment variables!')),
         'code',
-        getRandomString(15),
+        randomString,
         'devour://ignored/reddit/auth_redirect', // add ignored to path, because flutter sometimes dont show first path element
         'permanent',
         'read',
