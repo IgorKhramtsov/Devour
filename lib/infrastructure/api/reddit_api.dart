@@ -14,12 +14,14 @@ const String _kBaseUrl = 'https://www.reddit.com/api/v1/';
 abstract class RedditAPI {
   @factoryMethod
   factory RedditAPI(Dio dio) = _RedditAPI;
+
+  static String get baseUrl => _kBaseUrl;
 }
 
 /// Extension for authorization
 extension Authorize on RedditAPI {
   /// Open authorization link in browser
-  Future<void> authorize(String randomString) => _authorize(
+  Future<String> getAuthorizationLink(String randomString) => _authorize(
         dotenv.env['CLIENT_ID'] ??
             (throw Exception(
                 'CLIENT_ID is not defined in environment variables!')),
@@ -30,7 +32,7 @@ extension Authorize on RedditAPI {
         'read',
       );
 
-  Future<void> _authorize(
+  Future<String> _authorize(
     String clientId,
     String responseType,
     String state,
@@ -47,10 +49,10 @@ extension Authorize on RedditAPI {
     query['scope'] = scope;
 
     final options = Options(method: 'GET', headers: <String, dynamic>{})
-        .compose(BaseOptions(), 'authorize', queryParameters: query)
-        .copyWith(baseUrl: _kBaseUrl);
+        .compose(BaseOptions(), 'authorize.compact', queryParameters: query)
+        .copyWith(baseUrl: RedditAPI.baseUrl);
     final url = options.uri;
 
-    await launch(url.toString(), forceSafariVC: false);
+    return url.toString();
   }
 }

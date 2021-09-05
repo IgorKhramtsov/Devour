@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:devour/application/navigator/app_navigator.dart';
 import 'package:devour/application/navigator/routes.dart';
-import 'package:devour/domain/accounts/reddit_account.dart';
+import 'package:devour/domain/auth/reddit_account.dart';
 import 'package:devour/infrastructure/api/reddit_api.dart';
 import 'package:devour/infrastructure/core/misc.dart';
+import 'package:devour/infrastructure/repositories/reddit_account_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -16,8 +18,10 @@ part 'accounts_bloc.freezed.dart';
 @injectable
 class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
   static String? _authRandomString;
-  RedditAPI _redditAPI;
-  AccountsBloc(this._redditAPI) : super(AccountsState.initial());
+  final RedditAPI _redditAPI;
+  final RedditAccountRepository _redditAccountRepository;
+  AccountsBloc(this._redditAPI, this._redditAccountRepository)
+      : super(AccountsState.initial());
 
   @override
   Stream<AccountsState> mapEventToState(
@@ -26,17 +30,21 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
     yield* event.map(
       AuthorizeReddit: (e) async* {
         if (e.args.state == _authRandomString) {
-          // TODO: Save to DB
+          _redditAccountRepository
+              .setAccount(RedditAccount(token: e.args.token));
           yield state.copyWith(
-            redditAccount: Option.of(RedditAccount(token: e.args.token)),
+            redditAccount: _redditAccountRepository.getAccount(),
           );
         }
       },
       AuthorizeVK: (e) async* {},
       RequestAuthorizationReddit: (e) async* {
         _authRandomString = getRandomString(15);
-        await _redditAPI.authorize(_authRandomString!);
-        yield state;
+        final authorizationLink =
+            await _redditAPI.getAuthorizationLink(_authRandomString!);
+
+        AppNavigator.openLink(authorizationLink);
+        // yield state;
       },
       RequestAuthorizationVK: (e) async* {
         yield state;

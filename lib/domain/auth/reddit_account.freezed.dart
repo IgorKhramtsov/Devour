@@ -101,8 +101,8 @@ class __$RedditAccountCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RedditAccount implements _RedditAccount {
-  const _$_RedditAccount({required this.token});
+class _$_RedditAccount extends _RedditAccount {
+  const _$_RedditAccount({required this.token}) : super._();
 
   @override
   final String token;
@@ -130,8 +130,9 @@ class _$_RedditAccount implements _RedditAccount {
       __$RedditAccountCopyWithImpl<_RedditAccount>(this, _$identity);
 }
 
-abstract class _RedditAccount implements RedditAccount {
+abstract class _RedditAccount extends RedditAccount {
   const factory _RedditAccount({required String token}) = _$_RedditAccount;
+  const _RedditAccount._() : super._();
 
   @override
   String get token => throw _privateConstructorUsedError;

@@ -17,9 +17,10 @@ import 'domain/meme/abstract_meme_model.dart' as _i7;
 import 'domain/meme_scrapper/i_meme_scrapper_facade.dart' as _i6;
 import 'infrastructure/api/reddit_api.dart' as _i12;
 import 'infrastructure/auth/telegram_auth_facade.dart' as _i9;
-import 'infrastructure/meme_scrapper/reddit_scrapper_facade.dart' as _i13;
-import 'infrastructure/register_module.dart'
-    as _i14; // ignore_for_file: unnecessary_lambdas
+import 'infrastructure/meme_scrapper/reddit_scrapper_facade.dart' as _i14;
+import 'infrastructure/register_module.dart' as _i15;
+import 'infrastructure/repositories/reddit_account_repository.dart'
+    as _i13; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -33,11 +34,13 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       dynamic>((memeScrapper, _) => _i5.FeedBloc(memeScrapper));
   gh.factory<_i8.IAuthFacade>(() => _i9.TelegramAuthFacade());
   gh.factory<_i10.LoginBloc>(() => _i10.LoginBloc(get<_i8.IAuthFacade>()));
-  gh.factory<_i11.AccountsBloc>(() => _i11.AccountsBloc(get<_i12.RedditAPI>()));
+  gh.factory<_i11.AccountsBloc>(() => _i11.AccountsBloc(
+      get<_i12.RedditAPI>(), get<_i13.RedditAccountRepository>()));
   gh.singleton<_i6.IMemeScrapperFacade<_i7.RedditMemeModel>>(
-      _i13.RedditScrapperFacade(get<_i4.Dio>()));
+      _i14.RedditScrapperFacade(get<_i4.Dio>()));
   gh.singleton<_i12.RedditAPI>(_i12.RedditAPI(get<_i4.Dio>()));
+  gh.singleton<_i13.RedditAccountRepository>(_i13.RedditAccountRepository());
   return get;
 }
 
-class _$RegisterModule extends _i14.RegisterModule {}
+class _$RegisterModule extends _i15.RegisterModule {}

@@ -5,6 +5,7 @@ import 'package:devour/presentation/screens/accounts/accounts_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @injectable
 class AppNavigator {
@@ -58,4 +59,9 @@ class AppNavigator {
   }
 
   String _getTitle(RouteSettings settings) => 'Title';
+
+  /// Opens passed [link] in browser. Pass true to [forceSafariVC], to open link in
+  /// view controller (ios only).
+  static Future<void> openLink(String link, {bool forceSafariVC = false}) =>
+      launch(link, forceSafariVC: forceSafariVC);
 }
