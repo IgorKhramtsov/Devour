@@ -17,16 +17,25 @@ class RedditAccountAdapter extends TypeAdapter<_$_RedditAccount> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_RedditAccount(
-      token: fields[0] as String,
+      accessToken: fields[0] as String,
+      expiresIn: fields[1] as int,
+      refreshToken: fields[2] as String,
+      scope: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_RedditAccount obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.token);
+      ..write(obj.accessToken)
+      ..writeByte(1)
+      ..write(obj.expiresIn)
+      ..writeByte(2)
+      ..write(obj.refreshToken)
+      ..writeByte(3)
+      ..write(obj.scope);
   }
 
   @override

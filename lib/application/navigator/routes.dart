@@ -25,10 +25,10 @@ class RedditRedirectArguments with _$RedditRedirectArguments {
     assert(state != null);
     assert(code != null);
 
-    return RedditRedirectArguments(state: state!, token: code!);
+    return RedditRedirectArguments(state: state!, code: code!);
   }
   factory RedditRedirectArguments({
-    required String token,
+    required String code,
     required String state,
   }) = _RedditRedirectArguments;
 }

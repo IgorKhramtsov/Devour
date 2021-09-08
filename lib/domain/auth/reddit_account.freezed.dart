@@ -16,9 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$RedditAccountTearOff {
   const _$RedditAccountTearOff();
 
-  _RedditAccount call({@HiveField(0) required String token}) {
+  _RedditAccount call(
+      {@HiveField(0) required String accessToken,
+      @HiveField(1) required int expiresIn,
+      @HiveField(2) required String refreshToken,
+      @HiveField(3) required String scope}) {
     return _RedditAccount(
-      token: token,
+      accessToken: accessToken,
+      expiresIn: expiresIn,
+      refreshToken: refreshToken,
+      scope: scope,
     );
   }
 }
@@ -29,7 +36,13 @@ const $RedditAccount = _$RedditAccountTearOff();
 /// @nodoc
 mixin _$RedditAccount {
   @HiveField(0)
-  String get token => throw _privateConstructorUsedError;
+  String get accessToken => throw _privateConstructorUsedError;
+  @HiveField(1)
+  int get expiresIn => throw _privateConstructorUsedError;
+  @HiveField(2)
+  String get refreshToken => throw _privateConstructorUsedError;
+  @HiveField(3)
+  String get scope => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RedditAccountCopyWith<RedditAccount> get copyWith =>
@@ -41,7 +54,11 @@ abstract class $RedditAccountCopyWith<$Res> {
   factory $RedditAccountCopyWith(
           RedditAccount value, $Res Function(RedditAccount) then) =
       _$RedditAccountCopyWithImpl<$Res>;
-  $Res call({@HiveField(0) String token});
+  $Res call(
+      {@HiveField(0) String accessToken,
+      @HiveField(1) int expiresIn,
+      @HiveField(2) String refreshToken,
+      @HiveField(3) String scope});
 }
 
 /// @nodoc
@@ -55,12 +72,27 @@ class _$RedditAccountCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? accessToken = freezed,
+    Object? expiresIn = freezed,
+    Object? refreshToken = freezed,
+    Object? scope = freezed,
   }) {
     return _then(_value.copyWith(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      accessToken: accessToken == freezed
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      expiresIn: expiresIn == freezed
+          ? _value.expiresIn
+          : expiresIn // ignore: cast_nullable_to_non_nullable
+              as int,
+      refreshToken: refreshToken == freezed
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      scope: scope == freezed
+          ? _value.scope
+          : scope // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -73,7 +105,11 @@ abstract class _$RedditAccountCopyWith<$Res>
           _RedditAccount value, $Res Function(_RedditAccount) then) =
       __$RedditAccountCopyWithImpl<$Res>;
   @override
-  $Res call({@HiveField(0) String token});
+  $Res call(
+      {@HiveField(0) String accessToken,
+      @HiveField(1) int expiresIn,
+      @HiveField(2) String refreshToken,
+      @HiveField(3) String scope});
 }
 
 /// @nodoc
@@ -89,12 +125,27 @@ class __$RedditAccountCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? accessToken = freezed,
+    Object? expiresIn = freezed,
+    Object? refreshToken = freezed,
+    Object? scope = freezed,
   }) {
     return _then(_RedditAccount(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      accessToken: accessToken == freezed
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      expiresIn: expiresIn == freezed
+          ? _value.expiresIn
+          : expiresIn // ignore: cast_nullable_to_non_nullable
+              as int,
+      refreshToken: refreshToken == freezed
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      scope: scope == freezed
+          ? _value.scope
+          : scope // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -104,28 +155,55 @@ class __$RedditAccountCopyWithImpl<$Res>
 
 @HiveType(typeId: 0)
 class _$_RedditAccount extends _RedditAccount {
-  const _$_RedditAccount({@HiveField(0) required this.token}) : super._();
+  const _$_RedditAccount(
+      {@HiveField(0) required this.accessToken,
+      @HiveField(1) required this.expiresIn,
+      @HiveField(2) required this.refreshToken,
+      @HiveField(3) required this.scope})
+      : super._();
 
   @override
   @HiveField(0)
-  final String token;
+  final String accessToken;
+  @override
+  @HiveField(1)
+  final int expiresIn;
+  @override
+  @HiveField(2)
+  final String refreshToken;
+  @override
+  @HiveField(3)
+  final String scope;
 
   @override
   String toString() {
-    return 'RedditAccount(token: $token)';
+    return 'RedditAccount(accessToken: $accessToken, expiresIn: $expiresIn, refreshToken: $refreshToken, scope: $scope)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _RedditAccount &&
-            (identical(other.token, token) ||
-                const DeepCollectionEquality().equals(other.token, token)));
+            (identical(other.accessToken, accessToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.accessToken, accessToken)) &&
+            (identical(other.expiresIn, expiresIn) ||
+                const DeepCollectionEquality()
+                    .equals(other.expiresIn, expiresIn)) &&
+            (identical(other.refreshToken, refreshToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.refreshToken, refreshToken)) &&
+            (identical(other.scope, scope) ||
+                const DeepCollectionEquality().equals(other.scope, scope)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(token);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(accessToken) ^
+      const DeepCollectionEquality().hash(expiresIn) ^
+      const DeepCollectionEquality().hash(refreshToken) ^
+      const DeepCollectionEquality().hash(scope);
 
   @JsonKey(ignore: true)
   @override
@@ -134,13 +212,25 @@ class _$_RedditAccount extends _RedditAccount {
 }
 
 abstract class _RedditAccount extends RedditAccount {
-  const factory _RedditAccount({@HiveField(0) required String token}) =
-      _$_RedditAccount;
+  const factory _RedditAccount(
+      {@HiveField(0) required String accessToken,
+      @HiveField(1) required int expiresIn,
+      @HiveField(2) required String refreshToken,
+      @HiveField(3) required String scope}) = _$_RedditAccount;
   const _RedditAccount._() : super._();
 
   @override
   @HiveField(0)
-  String get token => throw _privateConstructorUsedError;
+  String get accessToken => throw _privateConstructorUsedError;
+  @override
+  @HiveField(1)
+  int get expiresIn => throw _privateConstructorUsedError;
+  @override
+  @HiveField(2)
+  String get refreshToken => throw _privateConstructorUsedError;
+  @override
+  @HiveField(3)
+  String get scope => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RedditAccountCopyWith<_RedditAccount> get copyWith =>

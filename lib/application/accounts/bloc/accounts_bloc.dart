@@ -40,7 +40,9 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
       },
       AuthorizeReddit: (e) async* {
         if (e.args.state == _authRandomString) {
-          final account = RedditAccount(token: e.args.token);
+          final response = await _redditAPI.getAccessToken(e.args.code);
+          final account = RedditAccount.fromResponse(response);
+
           _accountsRepository.setAccount(account);
           yield state.copyWith(
             redditAccount: Option.of(account),

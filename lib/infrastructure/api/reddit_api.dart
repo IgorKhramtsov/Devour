@@ -1,13 +1,16 @@
+import 'package:devour/infrastructure/core/env.dart';
 import 'package:devour/infrastructure/core/misc.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:dio/dio.dart' hide Headers;
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 part 'reddit_api.g.dart';
+part 'reddit_api.freezed.dart';
 
 const String _kBaseUrl = 'https://www.reddit.com/api/v1/';
+// add ignored to path, because flutter sometimes dont show first path element
+const String _kRedirectUrl = 'devour://ignored/reddit/auth_redirect';
 
 @Singleton()
 @RestApi(baseUrl: _kBaseUrl)
@@ -15,24 +18,54 @@ abstract class RedditAPI {
   @factoryMethod
   factory RedditAPI(Dio dio) = _RedditAPI;
 
+  @POST('/access_token')
+  Future<AuthorizationResponse> _getAccessToken(
+    @Query('grant_type') String grantType,
+    @Query('code') String code,
+    @Query('redirect_uri') String redirectUri,
+    @Header('Authorization') String authorization,
+  );
+
   static String get baseUrl => _kBaseUrl;
+}
+
+/// Authorization response data
+@freezed
+class AuthorizationResponse with _$AuthorizationResponse {
+  // ignore: public_member_api_docs
+  factory AuthorizationResponse({
+    @JsonKey(name: 'access_token') required String accessToken,
+    @JsonKey(name: 'token_type') required String tokenType,
+    @JsonKey(name: 'expires_in') required int expiresIn,
+    @JsonKey(name: 'refresh_token') required String refreshToken,
+    @JsonKey(name: 'scope') required String scope,
+  }) = _AuthorizationResponse;
+
+  factory AuthorizationResponse.fromJson(Map<String, Object?> json) =>
+      _$AuthorizationResponseFromJson(json);
 }
 
 /// Extension for authorization
 extension Authorize on RedditAPI {
-  /// Open authorization link in browser
-  Future<String> getAuthorizationLink(String randomString) => _authorize(
-        dotenv.env['CLIENT_ID'] ??
-            (throw Exception(
-                'CLIENT_ID is not defined in environment variables!')),
-        'code',
-        randomString,
-        'devour://ignored/reddit/auth_redirect', // add ignored to path, because flutter sometimes dont show first path element
-        'permanent',
-        'read',
+  Future<AuthorizationResponse> getAccessToken(String code) => _getAccessToken(
+        'authorization_code',
+        code,
+        _kRedirectUrl,
+        getBasicCredentials(EnvVariables.clientId, ''),
       );
 
-  Future<String> _authorize(
+  /// Open authorization link in browser
+  Future<String> getAuthorizationLink(String randomString) =>
+      _createAuthorizationLink(
+        EnvVariables.clientId,
+        'code',
+        randomString,
+        _kRedirectUrl,
+        'permanent',
+        'read identity',
+      );
+
+  Future<String> _createAuthorizationLink(
     String clientId,
     String responseType,
     String state,

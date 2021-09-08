@@ -16,10 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$RedditRedirectArgumentsTearOff {
   const _$RedditRedirectArgumentsTearOff();
 
-  _RedditRedirectArguments call(
-      {required String token, required String state}) {
+  _RedditRedirectArguments call({required String code, required String state}) {
     return _RedditRedirectArguments(
-      token: token,
+      code: code,
       state: state,
     );
   }
@@ -30,7 +29,7 @@ const $RedditRedirectArguments = _$RedditRedirectArgumentsTearOff();
 
 /// @nodoc
 mixin _$RedditRedirectArguments {
-  String get token => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -43,7 +42,7 @@ abstract class $RedditRedirectArgumentsCopyWith<$Res> {
   factory $RedditRedirectArgumentsCopyWith(RedditRedirectArguments value,
           $Res Function(RedditRedirectArguments) then) =
       _$RedditRedirectArgumentsCopyWithImpl<$Res>;
-  $Res call({String token, String state});
+  $Res call({String code, String state});
 }
 
 /// @nodoc
@@ -57,13 +56,13 @@ class _$RedditRedirectArgumentsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? code = freezed,
     Object? state = freezed,
   }) {
     return _then(_value.copyWith(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String,
       state: state == freezed
           ? _value.state
@@ -80,7 +79,7 @@ abstract class _$RedditRedirectArgumentsCopyWith<$Res>
           $Res Function(_RedditRedirectArguments) then) =
       __$RedditRedirectArgumentsCopyWithImpl<$Res>;
   @override
-  $Res call({String token, String state});
+  $Res call({String code, String state});
 }
 
 /// @nodoc
@@ -97,13 +96,13 @@ class __$RedditRedirectArgumentsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? code = freezed,
     Object? state = freezed,
   }) {
     return _then(_RedditRedirectArguments(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String,
       state: state == freezed
           ? _value.state
@@ -116,24 +115,24 @@ class __$RedditRedirectArgumentsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RedditRedirectArguments implements _RedditRedirectArguments {
-  _$_RedditRedirectArguments({required this.token, required this.state});
+  _$_RedditRedirectArguments({required this.code, required this.state});
 
   @override
-  final String token;
+  final String code;
   @override
   final String state;
 
   @override
   String toString() {
-    return 'RedditRedirectArguments(token: $token, state: $state)';
+    return 'RedditRedirectArguments(code: $code, state: $state)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _RedditRedirectArguments &&
-            (identical(other.token, token) ||
-                const DeepCollectionEquality().equals(other.token, token)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.state, state) ||
                 const DeepCollectionEquality().equals(other.state, state)));
   }
@@ -141,7 +140,7 @@ class _$_RedditRedirectArguments implements _RedditRedirectArguments {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(token) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(state);
 
   @JsonKey(ignore: true)
@@ -153,11 +152,11 @@ class _$_RedditRedirectArguments implements _RedditRedirectArguments {
 
 abstract class _RedditRedirectArguments implements RedditRedirectArguments {
   factory _RedditRedirectArguments(
-      {required String token,
+      {required String code,
       required String state}) = _$_RedditRedirectArguments;
 
   @override
-  String get token => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
   @override
   String get state => throw _privateConstructorUsedError;
   @override

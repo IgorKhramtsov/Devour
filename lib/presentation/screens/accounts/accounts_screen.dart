@@ -33,7 +33,7 @@ class AccountScreen extends StatelessWidget {
                   onPressed: () => _accountsBloc
                       .add(const AccountsEvent.RequestAuthorizationReddit()),
                   child: Text(_accountsBloc.state.redditAccount
-                      .foldLeft('reddit', (acc, t) => 'reddit(${t.token})'))),
+                      .foldLeft('reddit', (acc, t) => 'reddit(${t.scope})'))),
               const SizedBox(height: 20),
               PlatformButton(
                   onPressed: () =>

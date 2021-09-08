@@ -1,5 +1,8 @@
 abstract class OAuthAccountModel {
   const OAuthAccountModel();
 
-  String get token;
+  String get accessToken;
+  int get expiresIn;
+  String get refreshToken;
+  String get scope;
 }

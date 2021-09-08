@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 const _kCharSamples =
@@ -10,3 +11,6 @@ String getRandomString(int len) {
 
 /// Return Type of T
 Type typeOf<T>() => T;
+
+String getBasicCredentials(String username, String password) =>
+    'Basic ${base64Encode(utf8.encode('$username:$password'))}';
