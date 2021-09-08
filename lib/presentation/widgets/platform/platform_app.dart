@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+/// Platform dependent app widget (CupertinoApp for iOS, MaterialApp for android)
 class PlatformApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
+  /// Platform dependent app widget (CupertinoApp for iOS, MaterialApp for android)
   const PlatformApp({
     Key? key,
     required this.title,

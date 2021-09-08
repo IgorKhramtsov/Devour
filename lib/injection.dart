@@ -4,5 +4,7 @@ import 'package:injectable/injectable.dart';
 
 final GetIt serviceLocator = GetIt.instance;
 
-@injectableInit
-void setupInjections() => $initGetIt(serviceLocator);
+@InjectableInit(
+  preferRelativeImports: false,
+)
+Future<GetIt> setupInjections() => $initGetIt(serviceLocator);
