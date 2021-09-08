@@ -5,7 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   await dotenv.load();
-  di.setupInjections();
+  await di.setupInjections();
 
   runApp(MyApp());
 }

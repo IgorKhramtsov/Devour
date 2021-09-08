@@ -16,6 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AccountsEventTearOff {
   const _$AccountsEventTearOff();
 
+  _Fetching Fetching() {
+    return const _Fetching();
+  }
+
   _RequestAuthorizationReddit RequestAuthorizationReddit() {
     return const _RequestAuthorizationReddit();
   }
@@ -42,6 +46,7 @@ const $AccountsEvent = _$AccountsEventTearOff();
 mixin _$AccountsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
     required TResult Function() RequestAuthorizationReddit,
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
@@ -50,6 +55,7 @@ mixin _$AccountsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
@@ -59,6 +65,7 @@ mixin _$AccountsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
     required TResult Function(_RequestAuthorizationReddit value)
         RequestAuthorizationReddit,
     required TResult Function(_RequestAuthorizationVK value)
@@ -69,6 +76,7 @@ mixin _$AccountsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
     TResult Function(_RequestAuthorizationReddit value)?
         RequestAuthorizationReddit,
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
@@ -94,6 +102,104 @@ class _$AccountsEventCopyWithImpl<$Res>
   final AccountsEvent _value;
   // ignore: unused_field
   final $Res Function(AccountsEvent) _then;
+}
+
+/// @nodoc
+abstract class _$FetchingCopyWith<$Res> {
+  factory _$FetchingCopyWith(_Fetching value, $Res Function(_Fetching) then) =
+      __$FetchingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$FetchingCopyWithImpl<$Res> extends _$AccountsEventCopyWithImpl<$Res>
+    implements _$FetchingCopyWith<$Res> {
+  __$FetchingCopyWithImpl(_Fetching _value, $Res Function(_Fetching) _then)
+      : super(_value, (v) => _then(v as _Fetching));
+
+  @override
+  _Fetching get _value => super._value as _Fetching;
+}
+
+/// @nodoc
+
+class _$_Fetching implements _Fetching {
+  const _$_Fetching();
+
+  @override
+  String toString() {
+    return 'AccountsEvent.Fetching()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Fetching);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
+    required TResult Function() RequestAuthorizationReddit,
+    required TResult Function() RequestAuthorizationVK,
+    required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
+    required TResult Function() AuthorizeVK,
+  }) {
+    return Fetching();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+    required TResult orElse(),
+  }) {
+    if (Fetching != null) {
+      return Fetching();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
+    required TResult Function(_RequestAuthorizationReddit value)
+        RequestAuthorizationReddit,
+    required TResult Function(_RequestAuthorizationVK value)
+        RequestAuthorizationVK,
+    required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
+    required TResult Function(_AuthorizeVK value) AuthorizeVK,
+  }) {
+    return Fetching(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    required TResult orElse(),
+  }) {
+    if (Fetching != null) {
+      return Fetching(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Fetching implements AccountsEvent {
+  const factory _Fetching() = _$_Fetching;
 }
 
 /// @nodoc
@@ -138,6 +244,7 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
     required TResult Function() RequestAuthorizationReddit,
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
@@ -149,6 +256,7 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
@@ -164,6 +272,7 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
     required TResult Function(_RequestAuthorizationReddit value)
         RequestAuthorizationReddit,
     required TResult Function(_RequestAuthorizationVK value)
@@ -177,6 +286,7 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
     TResult Function(_RequestAuthorizationReddit value)?
         RequestAuthorizationReddit,
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
@@ -235,6 +345,7 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
     required TResult Function() RequestAuthorizationReddit,
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
@@ -246,6 +357,7 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
@@ -261,6 +373,7 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
     required TResult Function(_RequestAuthorizationReddit value)
         RequestAuthorizationReddit,
     required TResult Function(_RequestAuthorizationVK value)
@@ -274,6 +387,7 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
     TResult Function(_RequestAuthorizationReddit value)?
         RequestAuthorizationReddit,
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
@@ -366,6 +480,7 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
     required TResult Function() RequestAuthorizationReddit,
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
@@ -377,6 +492,7 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
@@ -392,6 +508,7 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
     required TResult Function(_RequestAuthorizationReddit value)
         RequestAuthorizationReddit,
     required TResult Function(_RequestAuthorizationVK value)
@@ -405,6 +522,7 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
     TResult Function(_RequestAuthorizationReddit value)?
         RequestAuthorizationReddit,
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
@@ -468,6 +586,7 @@ class _$_AuthorizeVK implements _AuthorizeVK {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
     required TResult Function() RequestAuthorizationReddit,
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
@@ -479,6 +598,7 @@ class _$_AuthorizeVK implements _AuthorizeVK {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
@@ -494,6 +614,7 @@ class _$_AuthorizeVK implements _AuthorizeVK {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
     required TResult Function(_RequestAuthorizationReddit value)
         RequestAuthorizationReddit,
     required TResult Function(_RequestAuthorizationVK value)
@@ -507,6 +628,7 @@ class _$_AuthorizeVK implements _AuthorizeVK {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
     TResult Function(_RequestAuthorizationReddit value)?
         RequestAuthorizationReddit,
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,

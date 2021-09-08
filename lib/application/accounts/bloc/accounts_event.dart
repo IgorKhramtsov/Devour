@@ -2,6 +2,9 @@ part of 'accounts_bloc.dart';
 
 @freezed
 class AccountsEvent with _$AccountsEvent {
+  /// Initial event, to fetch from db
+  const factory AccountsEvent.Fetching() = _Fetching;
+
   const factory AccountsEvent.RequestAuthorizationReddit() =
       _RequestAuthorizationReddit;
   const factory AccountsEvent.RequestAuthorizationVK() =

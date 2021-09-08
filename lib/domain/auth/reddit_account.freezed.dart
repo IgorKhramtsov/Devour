@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$RedditAccountTearOff {
   const _$RedditAccountTearOff();
 
-  _RedditAccount call({required String token}) {
+  _RedditAccount call({@HiveField(0) required String token}) {
     return _RedditAccount(
       token: token,
     );
@@ -28,6 +28,7 @@ const $RedditAccount = _$RedditAccountTearOff();
 
 /// @nodoc
 mixin _$RedditAccount {
+  @HiveField(0)
   String get token => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,7 +41,7 @@ abstract class $RedditAccountCopyWith<$Res> {
   factory $RedditAccountCopyWith(
           RedditAccount value, $Res Function(RedditAccount) then) =
       _$RedditAccountCopyWithImpl<$Res>;
-  $Res call({String token});
+  $Res call({@HiveField(0) String token});
 }
 
 /// @nodoc
@@ -72,7 +73,7 @@ abstract class _$RedditAccountCopyWith<$Res>
           _RedditAccount value, $Res Function(_RedditAccount) then) =
       __$RedditAccountCopyWithImpl<$Res>;
   @override
-  $Res call({String token});
+  $Res call({@HiveField(0) String token});
 }
 
 /// @nodoc
@@ -101,10 +102,12 @@ class __$RedditAccountCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: 0)
 class _$_RedditAccount extends _RedditAccount {
-  const _$_RedditAccount({required this.token}) : super._();
+  const _$_RedditAccount({@HiveField(0) required this.token}) : super._();
 
   @override
+  @HiveField(0)
   final String token;
 
   @override
@@ -131,10 +134,12 @@ class _$_RedditAccount extends _RedditAccount {
 }
 
 abstract class _RedditAccount extends RedditAccount {
-  const factory _RedditAccount({required String token}) = _$_RedditAccount;
+  const factory _RedditAccount({@HiveField(0) required String token}) =
+      _$_RedditAccount;
   const _RedditAccount._() : super._();
 
   @override
+  @HiveField(0)
   String get token => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

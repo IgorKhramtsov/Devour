@@ -7,3 +7,6 @@ String getRandomString(int len) {
   return List<String>.generate(
       len, (index) => _kCharSamples[r.nextInt(_kCharSamples.length)]).join();
 }
+
+/// Return Type of T
+Type typeOf<T>() => T;
