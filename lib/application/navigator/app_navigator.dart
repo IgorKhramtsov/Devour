@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:devour/application/navigator/routes.dart';
 import 'package:devour/presentation/screens/accounts/accounts_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -60,8 +61,12 @@ class AppNavigator {
 
   String _getTitle(RouteSettings settings) => 'Title';
 
-  /// Opens passed [link] in browser. Pass true to [forceSafariVC], to open link in
-  /// view controller (ios only).
+  /// Opens passed authorization [link] in browser. For debug build it will open
+  /// Safari browser, to help with debugging, in release mode it will open viewController,
+  /// because of Apple guidlines
+  static Future<void> openAuthLink(String link) =>
+      openLink(link, forceSafariVC: kReleaseMode ? true : false);
+
   static Future<void> openLink(String link, {bool forceSafariVC = false}) =>
       launch(link, forceSafariVC: forceSafariVC);
 }

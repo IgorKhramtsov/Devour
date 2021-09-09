@@ -1,4 +1,5 @@
 import 'package:devour/domain/auth/oauth_account_model.dart';
+import 'package:devour/domain/repositories/account_repository.dart';
 import 'package:devour/infrastructure/core/misc.dart';
 import 'package:devour/infrastructure/data/local/data_adapter.dart';
 import 'package:fpdart/fpdart.dart';
@@ -8,13 +9,13 @@ import 'package:collection/collection.dart';
 
 @preResolve
 @singleton
-class AccountsRepository {
+class AccountsRepositoryImpl implements AccountsRepository {
   /// Create repostitory with local data adapter
-  AccountsRepository(this._localDataAdapter) : super();
+  AccountsRepositoryImpl(this._localDataAdapter) : super();
 
   @factoryMethod
   static Future<AccountsRepository> create(IDataAdapter adapter) async {
-    final repo = AccountsRepository(adapter);
+    final repo = AccountsRepositoryImpl(adapter);
     await repo.fetch();
 
     return repo;
@@ -26,14 +27,17 @@ class AccountsRepository {
   final BehaviorSubject<Map<String, OAuthAccountModel>> _accounts =
       BehaviorSubject<Map<String, OAuthAccountModel>>.seeded({});
 
+  @override
   Stream<Iterable<OAuthAccountModel>> get accounts =>
       _accounts.stream.map((map) => map.values);
 
+  @override
   Future<void> fetch() async {
     final rawData = await _localDataAdapter.fetch(_tableName);
     _accounts.add(rawData.cast());
   }
 
+  @override
   void setAccount<T extends OAuthAccountModel>(T account) {
     final newAccountsState = _accounts.value;
     newAccountsState[_typeToString(account.runtimeType)] = account;
@@ -43,18 +47,21 @@ class AccountsRepository {
     _localDataAdapter.save(_tableName, key, account);
   }
 
+  @override
   Option<T> getAccount<T extends OAuthAccountModel>() {
     assert(dynamic is! T);
     final key = _getKey<T>();
     return Option.fromNullable(_accounts.value[key] as T?);
   }
 
+  @override
   bool isAuthenticated<T extends OAuthAccountModel>() {
     assert(dynamic is! T);
     final key = _getKey<T>();
     return _accounts.value[key] != null;
   }
 
+  @override
   void removeAccount<T extends OAuthAccountModel>() {
     assert(dynamic is! T);
     final key = _getKey<T>();

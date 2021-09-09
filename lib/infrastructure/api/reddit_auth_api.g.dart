@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reddit_api.dart';
+part of 'reddit_auth_api.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -31,8 +31,8 @@ Map<String, dynamic> _$_$_AuthorizationResponseToJson(
 // RetrofitGenerator
 // **************************************************************************
 
-class _RedditAPI implements RedditAPI {
-  _RedditAPI(this._dio, {this.baseUrl}) {
+class _RedditAuthAPI implements RedditAuthAPI {
+  _RedditAuthAPI(this._dio, {this.baseUrl}) {
     baseUrl ??= 'https://www.reddit.com/api/v1/';
   }
 
@@ -42,13 +42,19 @@ class _RedditAPI implements RedditAPI {
 
   @override
   Future<AuthorizationResponse> _getAccessToken(
-      grantType, code, redirectUri, authorization) async {
+      {required grantType,
+      refreshToken,
+      code,
+      redirectUri,
+      authorization}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'grant_type': grantType,
+      r'refresh_token': refreshToken,
       r'code': code,
       r'redirect_uri': redirectUri
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AuthorizationResponse>(Options(
