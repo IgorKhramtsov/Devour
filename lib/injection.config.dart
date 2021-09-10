@@ -17,10 +17,10 @@ import 'package:devour/infrastructure/auth/telegram_auth_facade.dart' as _i8;
 import 'package:devour/infrastructure/data/local/data_adapter.dart' as _i14;
 import 'package:devour/infrastructure/data/local/hive_adapter.dart' as _i15;
 import 'package:devour/infrastructure/meme_scrapper/reddit_scrapper_facade.dart'
-    as _i17;
+    as _i16;
 import 'package:devour/infrastructure/register_module.dart' as _i18;
 import 'package:devour/infrastructure/repositories/accounts_repository.dart'
-    as _i16;
+    as _i17;
 import 'package:dio/dio.dart' as _i13;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart'
@@ -43,13 +43,13 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       instanceName: 'redditDio');
   await gh.singletonAsync<_i14.IDataAdapter>(() => _i15.HiveAdapter.create(),
       preResolve: true);
+  gh.singleton<_i5.IMemeScrapperFacade<_i6.RedditMemeModel>>(
+      _i16.RedditScrapperFacade(get<_i13.Dio>(instanceName: 'redditDio')));
   gh.singleton<_i11.RedditAuthAPI>(
       _i11.RedditAuthAPI(get<_i13.Dio>(instanceName: 'redditDio')));
-  await gh.singletonAsync<_i16.AccountsRepositoryImpl>(
-      () => _i16.AccountsRepositoryImpl.create(get<_i14.IDataAdapter>()),
+  await gh.singletonAsync<_i12.AccountsRepository>(
+      () => _i17.AccountsRepositoryImpl.create(get<_i14.IDataAdapter>()),
       preResolve: true);
-  gh.singleton<_i5.IMemeScrapperFacade<_i6.RedditMemeModel>>(
-      _i17.RedditScrapperFacade(get<_i13.Dio>()));
   return get;
 }
 

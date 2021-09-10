@@ -25,7 +25,7 @@ abstract class RedditAuthAPI {
 
   @POST('/access_token')
   Future<AuthorizationResponse> _getAccessToken({
-    @Query('grant_type') String grantType,
+    @Query('grant_type') required String grantType,
     @Query('refresh_token') String? refreshToken,
     @Query('code') String? code,
     @Query('redirect_uri') String? redirectUri,

@@ -4,6 +4,8 @@ import 'package:devour/injection.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+part 'reddit_api.g.dart';
+
 @RestApi(baseUrl: 'https://oauth.reddit.com/api/v1')
 class RedditAPI {
   static Interceptor getAuthenticationTokenInterceptor() =>

@@ -1,5 +1,6 @@
 import 'package:devour/domain/meme/abstract_meme_model.dart';
 import 'package:devour/domain/meme_scrapper/i_meme_scrapper_facade.dart';
+import 'package:devour/infrastructure/register_module.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -14,7 +15,7 @@ abstract class IRedditScrapperFacade
 abstract class RedditScrapperFacade
     implements IMemeScrapperFacade<RedditMemeModel> {
   @factoryMethod
-  factory RedditScrapperFacade(Dio dio) = _RedditScrapperFacade;
+  factory RedditScrapperFacade(@Named(kRedditDioName) Dio dio) = _RedditScrapperFacade;
 
   @override
   @GET('/1')

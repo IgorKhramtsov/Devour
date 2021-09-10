@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:collection/collection.dart';
 
 @preResolve
-@singleton
+@Singleton(as: AccountsRepository)
 class AccountsRepositoryImpl implements AccountsRepository {
   /// Create repostitory with local data adapter
   AccountsRepositoryImpl(this._localDataAdapter) : super();
