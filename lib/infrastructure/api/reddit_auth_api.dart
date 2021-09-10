@@ -13,9 +13,10 @@ part 'reddit_auth_api.g.dart';
 part 'reddit_auth_api.freezed.dart';
 
 const String _kBaseUrl = 'https://www.reddit.com/api/v1/';
+const String kAccessTokenPath = '/access_token';
 // add ignored to path, because flutter sometimes dont show first path element
 const String _kRedirectUrl = 'devour://ignored/reddit/auth_redirect';
-const int _kRefreshTokenNeeded = 0;
+const int _kRefreshTokenNeeded = 401;
 
 @Singleton()
 @RestApi(baseUrl: _kBaseUrl)
@@ -23,7 +24,7 @@ abstract class RedditAuthAPI {
   @factoryMethod
   factory RedditAuthAPI(@Named(kRedditDioName) Dio dio) = _RedditAuthAPI;
 
-  @POST('/access_token')
+  @POST(kAccessTokenPath)
   Future<AuthorizationResponse> _getAccessToken({
     @Query('grant_type') required String grantType,
     @Query('refresh_token') String? refreshToken,
@@ -45,7 +46,8 @@ class RefreshTokenInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == _kRefreshTokenNeeded) {
+    if (err.response?.statusCode == _kRefreshTokenNeeded &&
+        err.response?.requestOptions.path != kAccessTokenPath) {
       final requestOptions = err.response!.requestOptions;
       final options = Options(
         method: requestOptions.method,
@@ -58,7 +60,7 @@ class RefreshTokenInterceptor extends Interceptor {
       final newAccount = RedditAccount.fromResponse(
           await serviceLocator<RedditAuthAPI>().refreshToken(account));
       serviceLocator<AccountsRepository>().setAccount(newAccount);
-      options.headers!['Authorization'] = 'Bearer ${newAccount.accessToken}';
+      options.headers!['Authorization'] = 'bearer ${newAccount.accessToken}';
 
       final cloneRequest = await dio.request(requestOptions.path,
           options: options, queryParameters: requestOptions.queryParameters);
@@ -91,6 +93,7 @@ extension Authorize on RedditAuthAPI {
       _getAccessToken(
         grantType: 'refresh_token',
         refreshToken: account.refreshToken,
+        authorization: getBasicCredentials(EnvVariables.clientId, ''),
       );
 
   Future<AuthorizationResponse> getAccessToken(String code) => _getAccessToken(

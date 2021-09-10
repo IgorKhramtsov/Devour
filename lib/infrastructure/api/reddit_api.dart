@@ -1,13 +1,23 @@
 import 'package:devour/domain/auth/reddit_account.dart';
 import 'package:devour/domain/repositories/account_repository.dart';
+import 'package:devour/infrastructure/api/reddit_auth_api.dart';
+import 'package:devour/infrastructure/register_module.dart';
 import 'package:devour/injection.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'reddit_api.g.dart';
 
-@RestApi(baseUrl: 'https://oauth.reddit.com/api/v1')
-class RedditAPI {
+@singleton
+@RestApi(baseUrl: 'https://oauth.reddit.com')
+abstract class RedditAPI {
+  @factoryMethod
+  factory RedditAPI(@Named(kRedditDioName) Dio dio) = _RedditAPI;
+
+  @GET('/r/memes')
+  Future<dynamic> getMemes();
+
   static Interceptor getAuthenticationTokenInterceptor() =>
       AuthenticationTokenInterceptor();
 }
@@ -17,11 +27,13 @@ class AuthenticationTokenInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final account =
-        serviceLocator<AccountsRepository>().getAccount<RedditAccount>();
-    if (account.isSome()) {
-      options.headers['Authorization'] =
-          'Bearer ${account.toNullable()!.accessToken}';
+    if (options.path != kAccessTokenPath) {
+      final account =
+          serviceLocator<AccountsRepository>().getAccount<RedditAccount>();
+      if (account.isSome()) {
+        options.headers['Authorization'] =
+            'bearer ${account.toNullable()!.accessToken}';
+      }
     }
 
     handler.next(options);
