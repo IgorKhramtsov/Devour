@@ -1,5 +1,5 @@
 import 'package:devour/domain/auth/oauth_account_model.dart';
-import 'package:devour/infrastructure/api/reddit_auth_api.dart';
+import 'package:devour/infrastructure/api/reddit/response/reddit_auth_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

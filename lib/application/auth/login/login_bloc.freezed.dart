@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'login_bloc.dart';
 
@@ -51,6 +52,14 @@ mixin _$LoginEvent {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String number)? numberChanged,
+    TResult Function(String confirmationCode)? confirmationCodeChanged,
+    TResult Function()? loginPressed,
+    TResult Function()? confirmPressed,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? numberChanged,
     TResult Function(String confirmationCode)? confirmationCodeChanged,
@@ -66,6 +75,14 @@ mixin _$LoginEvent {
         confirmationCodeChanged,
     required TResult Function(LoginPressed value) loginPressed,
     required TResult Function(ConfirmPressed value) confirmPressed,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NumberChanged value)? numberChanged,
+    TResult Function(ConfirmationCodeChanged value)? confirmationCodeChanged,
+    TResult Function(LoginPressed value)? loginPressed,
+    TResult Function(ConfirmPressed value)? confirmPressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -169,6 +186,17 @@ class _$NumberChanged implements NumberChanged {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String number)? numberChanged,
+    TResult Function(String confirmationCode)? confirmationCodeChanged,
+    TResult Function()? loginPressed,
+    TResult Function()? confirmPressed,
+  }) {
+    return numberChanged?.call(number);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? numberChanged,
     TResult Function(String confirmationCode)? confirmationCodeChanged,
@@ -192,6 +220,17 @@ class _$NumberChanged implements NumberChanged {
     required TResult Function(ConfirmPressed value) confirmPressed,
   }) {
     return numberChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NumberChanged value)? numberChanged,
+    TResult Function(ConfirmationCodeChanged value)? confirmationCodeChanged,
+    TResult Function(LoginPressed value)? loginPressed,
+    TResult Function(ConfirmPressed value)? confirmPressed,
+  }) {
+    return numberChanged?.call(this);
   }
 
   @override
@@ -297,6 +336,17 @@ class _$ConfirmationCodeChanged implements ConfirmationCodeChanged {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String number)? numberChanged,
+    TResult Function(String confirmationCode)? confirmationCodeChanged,
+    TResult Function()? loginPressed,
+    TResult Function()? confirmPressed,
+  }) {
+    return confirmationCodeChanged?.call(confirmationCode);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? numberChanged,
     TResult Function(String confirmationCode)? confirmationCodeChanged,
@@ -320,6 +370,17 @@ class _$ConfirmationCodeChanged implements ConfirmationCodeChanged {
     required TResult Function(ConfirmPressed value) confirmPressed,
   }) {
     return confirmationCodeChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NumberChanged value)? numberChanged,
+    TResult Function(ConfirmationCodeChanged value)? confirmationCodeChanged,
+    TResult Function(LoginPressed value)? loginPressed,
+    TResult Function(ConfirmPressed value)? confirmPressed,
+  }) {
+    return confirmationCodeChanged?.call(this);
   }
 
   @override
@@ -397,6 +458,17 @@ class _$LoginPressed implements LoginPressed {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String number)? numberChanged,
+    TResult Function(String confirmationCode)? confirmationCodeChanged,
+    TResult Function()? loginPressed,
+    TResult Function()? confirmPressed,
+  }) {
+    return loginPressed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? numberChanged,
     TResult Function(String confirmationCode)? confirmationCodeChanged,
@@ -420,6 +492,17 @@ class _$LoginPressed implements LoginPressed {
     required TResult Function(ConfirmPressed value) confirmPressed,
   }) {
     return loginPressed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NumberChanged value)? numberChanged,
+    TResult Function(ConfirmationCodeChanged value)? confirmationCodeChanged,
+    TResult Function(LoginPressed value)? loginPressed,
+    TResult Function(ConfirmPressed value)? confirmPressed,
+  }) {
+    return loginPressed?.call(this);
   }
 
   @override
@@ -491,6 +574,17 @@ class _$ConfirmPressed implements ConfirmPressed {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String number)? numberChanged,
+    TResult Function(String confirmationCode)? confirmationCodeChanged,
+    TResult Function()? loginPressed,
+    TResult Function()? confirmPressed,
+  }) {
+    return confirmPressed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? numberChanged,
     TResult Function(String confirmationCode)? confirmationCodeChanged,
@@ -514,6 +608,17 @@ class _$ConfirmPressed implements ConfirmPressed {
     required TResult Function(ConfirmPressed value) confirmPressed,
   }) {
     return confirmPressed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(NumberChanged value)? numberChanged,
+    TResult Function(ConfirmationCodeChanged value)? confirmationCodeChanged,
+    TResult Function(LoginPressed value)? loginPressed,
+    TResult Function(ConfirmPressed value)? confirmPressed,
+  }) {
+    return confirmPressed?.call(this);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:devour/domain/auth/reddit_account.dart';
 import 'package:devour/domain/repositories/account_repository.dart';
-import 'package:devour/infrastructure/api/reddit_auth_api.dart';
+import 'package:devour/infrastructure/api/reddit/reddit_auth_api.dart';
+import 'package:devour/infrastructure/api/reddit/response/reddit_responses.dart';
 import 'package:devour/infrastructure/register_module.dart';
 import 'package:devour/injection.dart';
 import 'package:dio/dio.dart';
@@ -16,7 +17,7 @@ abstract class RedditAPI {
   factory RedditAPI(@Named(kRedditDioName) Dio dio) = _RedditAPI;
 
   @GET('/r/memes')
-  Future<dynamic> getMemes();
+  Future<RedditResponse> getMemes();
 
   static Interceptor getAuthenticationTokenInterceptor() =>
       AuthenticationTokenInterceptor();

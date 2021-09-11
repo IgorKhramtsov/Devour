@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:devour/application/navigator/app_navigator.dart';
 import 'package:devour/application/navigator/routes.dart';
 import 'package:devour/domain/auth/reddit_account.dart';
 import 'package:devour/domain/repositories/account_repository.dart';
-import 'package:devour/infrastructure/api/reddit_auth_api.dart';
+import 'package:devour/infrastructure/api/reddit/reddit_auth_api.dart';
 import 'package:devour/infrastructure/core/misc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

@@ -1,9 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:devour/domain/auth/oauth_account_model.dart';
 import 'package:devour/domain/auth/reddit_account.dart';
 import 'package:devour/domain/repositories/account_repository.dart';
-import 'package:collection/collection.dart';
-import 'package:devour/infrastructure/api/reddit_api.dart';
-import 'package:devour/infrastructure/api/reddit_auth_api.dart';
+import 'package:devour/infrastructure/api/reddit/reddit_api.dart';
+import 'package:devour/infrastructure/api/reddit/reddit_auth_api.dart';
 import 'package:devour/infrastructure/register_module.dart';
 import 'package:devour/injection.dart';
 import 'package:dio/dio.dart';
@@ -17,7 +17,8 @@ class AccountsManager {
 
   /// Creates account manager, and listen to accounts repo, to update interceptors
   @factoryMethod
-  static Future<AccountsManager> init(AccountsRepository accountsRepository) async {
+  static Future<AccountsManager> init(
+      AccountsRepository accountsRepository) async {
     final manager = AccountsManager(accountsRepository);
     manager.initAccountsListener();
 

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'abstract_meme_model.dart';
 
@@ -13,14 +14,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AbstractMemeModel _$AbstractMemeModelFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
+  switch (json['runtimeType'] as String?) {
     case 'default':
       return _AbstractMemeModel.fromJson(json);
     case 'reddit':
       return RedditMemeModel.fromJson(json);
 
     default:
-      throw FallThroughError();
+      throw CheckedFromJsonException(json, 'runtimeType', 'AbstractMemeModel',
+          'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
@@ -101,6 +103,24 @@ mixin _$AbstractMemeModel {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(String sourceLink, String imageLink, String title,
+            String author, List<String> imagePreviews)?
+        $default, {
+    TResult Function(
+            String title,
+            String author,
+            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
+            @JsonKey(name: 'url') String imageLink,
+            @JsonKey(name: 'post_link') String sourceLink,
+            String subreddit,
+            int ups,
+            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
+            bool nsfw)?
+        reddit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
@@ -123,6 +143,12 @@ mixin _$AbstractMemeModel {
   TResult map<TResult extends Object?>(
     TResult Function(_AbstractMemeModel value) $default, {
     required TResult Function(RedditMemeModel value) reddit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(_AbstractMemeModel value)? $default, {
+    TResult Function(RedditMemeModel value)? reddit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -264,7 +290,7 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
       : super._();
 
   factory _$_AbstractMemeModel.fromJson(Map<String, dynamic> json) =>
-      _$_$_AbstractMemeModelFromJson(json);
+      _$$_AbstractMemeModelFromJson(json);
 
   @override
   final String sourceLink;
@@ -338,6 +364,27 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(String sourceLink, String imageLink, String title,
+            String author, List<String> imagePreviews)?
+        $default, {
+    TResult Function(
+            String title,
+            String author,
+            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
+            @JsonKey(name: 'url') String imageLink,
+            @JsonKey(name: 'post_link') String sourceLink,
+            String subreddit,
+            int ups,
+            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
+            bool nsfw)?
+        reddit,
+  }) {
+    return $default?.call(sourceLink, imageLink, title, author, imagePreviews);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
@@ -372,6 +419,15 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(_AbstractMemeModel value)? $default, {
+    TResult Function(RedditMemeModel value)? reddit,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_AbstractMemeModel value)? $default, {
     TResult Function(RedditMemeModel value)? reddit,
@@ -385,7 +441,7 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AbstractMemeModelToJson(this)..['runtimeType'] = 'default';
+    return _$$_AbstractMemeModelToJson(this)..['runtimeType'] = 'default';
   }
 }
 
@@ -516,7 +572,7 @@ class _$RedditMemeModel extends RedditMemeModel {
       : super._();
 
   factory _$RedditMemeModel.fromJson(Map<String, dynamic> json) =>
-      _$_$RedditMemeModelFromJson(json);
+      _$$RedditMemeModelFromJson(json);
 
   @override
   final String title;
@@ -617,6 +673,28 @@ class _$RedditMemeModel extends RedditMemeModel {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(String sourceLink, String imageLink, String title,
+            String author, List<String> imagePreviews)?
+        $default, {
+    TResult Function(
+            String title,
+            String author,
+            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
+            @JsonKey(name: 'url') String imageLink,
+            @JsonKey(name: 'post_link') String sourceLink,
+            String subreddit,
+            int ups,
+            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
+            bool nsfw)?
+        reddit,
+  }) {
+    return reddit?.call(title, author, imagePreviews, imageLink, sourceLink,
+        subreddit, ups, spoilersEnabled, nsfw);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
@@ -652,6 +730,15 @@ class _$RedditMemeModel extends RedditMemeModel {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(_AbstractMemeModel value)? $default, {
+    TResult Function(RedditMemeModel value)? reddit,
+  }) {
+    return reddit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_AbstractMemeModel value)? $default, {
     TResult Function(RedditMemeModel value)? reddit,
@@ -665,7 +752,7 @@ class _$RedditMemeModel extends RedditMemeModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$RedditMemeModelToJson(this)..['runtimeType'] = 'reddit';
+    return _$$RedditMemeModelToJson(this)..['runtimeType'] = 'reddit';
   }
 }
 

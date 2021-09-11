@@ -12,5 +12,10 @@ String getRandomString(int len) {
 /// Return Type of T
 Type typeOf<T>() => T;
 
+class _IsSubtypeHelper<T> {}
+
+// T<S> is not T, so use this helper to check subtypes
+bool isSubtype<T, S>() => _IsSubtypeHelper<T>() is _IsSubtypeHelper<S>;
+
 String getBasicCredentials(String username, String password) =>
     'Basic ${base64Encode(utf8.encode('$username:$password'))}';

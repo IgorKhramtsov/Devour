@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:devour/domain/meme/abstract_meme_model.dart';
-import 'package:devour/domain/meme_scrapper/i_meme_scrapper_facade.dart';
-import 'package:devour/infrastructure/api/reddit_api.dart';
-import 'package:fpdart/fpdart.dart';
+import 'package:devour/infrastructure/api/reddit/reddit_api.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 

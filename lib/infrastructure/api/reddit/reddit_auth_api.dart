@@ -1,16 +1,15 @@
 import 'package:devour/domain/auth/reddit_account.dart';
 import 'package:devour/domain/repositories/account_repository.dart';
+import 'package:devour/infrastructure/api/reddit/response/reddit_auth_response.dart';
 import 'package:devour/infrastructure/core/env.dart';
 import 'package:devour/infrastructure/core/misc.dart';
 import 'package:devour/infrastructure/register_module.dart';
 import 'package:devour/injection.dart';
 import 'package:dio/dio.dart' hide Headers;
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'reddit_auth_api.g.dart';
-part 'reddit_auth_api.freezed.dart';
 
 const String _kBaseUrl = 'https://www.reddit.com/api/v1/';
 const String kAccessTokenPath = '/access_token';
@@ -69,22 +68,6 @@ class RefreshTokenInterceptor extends Interceptor {
       handler.next(err);
     }
   }
-}
-
-/// Authorization response data
-@freezed
-class AuthorizationResponse with _$AuthorizationResponse {
-  // ignore: public_member_api_docs
-  factory AuthorizationResponse({
-    @JsonKey(name: 'access_token') required String accessToken,
-    @JsonKey(name: 'token_type') required String tokenType,
-    @JsonKey(name: 'expires_in') required int expiresIn,
-    @JsonKey(name: 'refresh_token') required String refreshToken,
-    @JsonKey(name: 'scope') required String scope,
-  }) = _AuthorizationResponse;
-
-  factory AuthorizationResponse.fromJson(Map<String, Object?> json) =>
-      _$AuthorizationResponseFromJson(json);
 }
 
 /// Extension for authorization

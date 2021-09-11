@@ -6,19 +6,18 @@ part of 'abstract_meme_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AbstractMemeModel _$_$_AbstractMemeModelFromJson(Map<String, dynamic> json) {
-  return _$_AbstractMemeModel(
-    sourceLink: json['sourceLink'] as String,
-    imageLink: json['imageLink'] as String,
-    title: json['title'] as String,
-    author: json['author'] as String,
-    imagePreviews: (json['imagePreviews'] as List<dynamic>)
-        .map((e) => e as String)
-        .toList(),
-  );
-}
+_$_AbstractMemeModel _$$_AbstractMemeModelFromJson(Map<String, dynamic> json) =>
+    _$_AbstractMemeModel(
+      sourceLink: json['sourceLink'] as String,
+      imageLink: json['imageLink'] as String,
+      title: json['title'] as String,
+      author: json['author'] as String,
+      imagePreviews: (json['imagePreviews'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+    );
 
-Map<String, dynamic> _$_$_AbstractMemeModelToJson(
+Map<String, dynamic> _$$_AbstractMemeModelToJson(
         _$_AbstractMemeModel instance) =>
     <String, dynamic>{
       'sourceLink': instance.sourceLink,
@@ -28,23 +27,22 @@ Map<String, dynamic> _$_$_AbstractMemeModelToJson(
       'imagePreviews': instance.imagePreviews,
     };
 
-_$RedditMemeModel _$_$RedditMemeModelFromJson(Map<String, dynamic> json) {
-  return _$RedditMemeModel(
-    title: json['title'] as String,
-    author: json['author'] as String,
-    imagePreviews: (json['image_reviews'] as List<dynamic>)
-        .map((e) => e as String)
-        .toList(),
-    imageLink: json['url'] as String,
-    sourceLink: json['post_link'] as String,
-    subreddit: json['subreddit'] as String,
-    ups: json['ups'] as int,
-    spoilersEnabled: json['spoilers_enabled'] as bool,
-    nsfw: json['nsfw'] as bool,
-  );
-}
+_$RedditMemeModel _$$RedditMemeModelFromJson(Map<String, dynamic> json) =>
+    _$RedditMemeModel(
+      title: json['title'] as String,
+      author: json['author'] as String,
+      imagePreviews: (json['image_reviews'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      imageLink: json['url'] as String,
+      sourceLink: json['post_link'] as String,
+      subreddit: json['subreddit'] as String,
+      ups: json['ups'] as int,
+      spoilersEnabled: json['spoilers_enabled'] as bool,
+      nsfw: json['nsfw'] as bool,
+    );
 
-Map<String, dynamic> _$_$RedditMemeModelToJson(_$RedditMemeModel instance) =>
+Map<String, dynamic> _$$RedditMemeModelToJson(_$RedditMemeModel instance) =>
     <String, dynamic>{
       'title': instance.title,
       'author': instance.author,

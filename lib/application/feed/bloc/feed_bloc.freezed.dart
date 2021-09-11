@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'feed_bloc.dart';
 
@@ -47,6 +48,14 @@ mixin _$FeedEvent {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? like,
+    TResult Function()? refresh,
+    TResult Function()? next,
+    TResult Function()? init,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
@@ -61,6 +70,14 @@ mixin _$FeedEvent {
     required TResult Function(_Refresh value) refresh,
     required TResult Function(_Next value) next,
     required TResult Function(_Init value) init,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Like value)? like,
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Init value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -136,6 +153,17 @@ class _$_Like implements _Like {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? like,
+    TResult Function()? refresh,
+    TResult Function()? next,
+    TResult Function()? init,
+  }) {
+    return like?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
@@ -158,6 +186,17 @@ class _$_Like implements _Like {
     required TResult Function(_Init value) init,
   }) {
     return like(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Like value)? like,
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Init value)? init,
+  }) {
+    return like?.call(this);
   }
 
   @override
@@ -227,6 +266,17 @@ class _$_Refresh implements _Refresh {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? like,
+    TResult Function()? refresh,
+    TResult Function()? next,
+    TResult Function()? init,
+  }) {
+    return refresh?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
@@ -249,6 +299,17 @@ class _$_Refresh implements _Refresh {
     required TResult Function(_Init value) init,
   }) {
     return refresh(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Like value)? like,
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Init value)? init,
+  }) {
+    return refresh?.call(this);
   }
 
   @override
@@ -318,6 +379,17 @@ class _$_Next implements _Next {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? like,
+    TResult Function()? refresh,
+    TResult Function()? next,
+    TResult Function()? init,
+  }) {
+    return next?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
@@ -340,6 +412,17 @@ class _$_Next implements _Next {
     required TResult Function(_Init value) init,
   }) {
     return next(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Like value)? like,
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Init value)? init,
+  }) {
+    return next?.call(this);
   }
 
   @override
@@ -409,6 +492,17 @@ class _$_Init implements _Init {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? like,
+    TResult Function()? refresh,
+    TResult Function()? next,
+    TResult Function()? init,
+  }) {
+    return init?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
@@ -431,6 +525,17 @@ class _$_Init implements _Init {
     required TResult Function(_Init value) init,
   }) {
     return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Like value)? like,
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Init value)? init,
+  }) {
+    return init?.call(this);
   }
 
   @override

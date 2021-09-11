@@ -1,6 +1,5 @@
 import 'package:devour/application/accounts/bloc/accounts_bloc.dart';
 import 'package:devour/application/navigator/routes.dart';
-import 'package:devour/infrastructure/api/reddit_auth_api.dart';
 import 'package:devour/injection.dart';
 import 'package:devour/presentation/widgets/platform/platform_button.dart';
 import 'package:devour/presentation/widgets/platform/platform_scaffold.dart';
