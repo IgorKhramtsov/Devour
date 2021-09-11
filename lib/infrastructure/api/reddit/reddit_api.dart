@@ -16,11 +16,39 @@ abstract class RedditAPI {
   @factoryMethod
   factory RedditAPI(@Named(kRedditDioName) Dio dio) = _RedditAPI;
 
-  @GET('/r/memes')
-  Future<RedditResponse> getMemes();
+  // /r/subbreddit/random
+  // /r/subbreddit/sort (top, controversial)
+
+  /// Grabs posts from /r/[subreddit] (memes) by default. [after] and [before] are
+  /// used for navigation, [limit] for number of posts.
+  @GET('/r/{subreddit}')
+  Future<RedditResponse> _getMemes({
+    @Query('after') String? after,
+    @Query('before') String? before,
+    @Query('count') int? count,
+    @Query('limit') int? limit,
+    @Path('subreddit') String subreddit = 'memes',
+  });
 
   static Interceptor getAuthenticationTokenInterceptor() =>
       AuthenticationTokenInterceptor();
+}
+
+extension RedditAPIWrapper on RedditAPI {
+  Future<RedditListingResponse> getMemes({
+    String? after,
+    String? before,
+    int? count,
+    int? limit,
+    String subreddit = 'memes',
+  }) =>
+      _getMemes(
+        after: after,
+        before: before,
+        count: count,
+        limit: limit,
+        subreddit: subreddit,
+      ).then((it) => it.data as RedditListingResponse);
 }
 
 class AuthenticationTokenInterceptor extends Interceptor {

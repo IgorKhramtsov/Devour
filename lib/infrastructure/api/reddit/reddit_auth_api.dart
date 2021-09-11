@@ -57,12 +57,16 @@ class RefreshTokenInterceptor extends Interceptor {
           .getAccount<RedditAccount>()
           .toNullable()!;
       final newAccount = RedditAccount.fromResponse(
-          await serviceLocator<RedditAuthAPI>().refreshToken(account));
+        await serviceLocator<RedditAuthAPI>().refreshToken(account),
+      );
       serviceLocator<AccountsRepository>().setAccount(newAccount);
       options.headers!['Authorization'] = 'bearer ${newAccount.accessToken}';
 
-      final cloneRequest = await dio.request(requestOptions.path,
-          options: options, queryParameters: requestOptions.queryParameters);
+      final cloneRequest = await dio.request(
+        requestOptions.path,
+        options: options,
+        queryParameters: requestOptions.queryParameters,
+      );
       handler.resolve(cloneRequest);
     } else {
       handler.next(err);

@@ -16,14 +16,21 @@ class _RedditAPI implements RedditAPI {
   String? baseUrl;
 
   @override
-  Future<RedditResponse<dynamic>> getMemes() async {
+  Future<RedditResponse<dynamic>> _getMemes(
+      {after, before, count, limit, subreddit = 'memes'}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'after': after,
+      r'before': before,
+      r'count': count,
+      r'limit': limit
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RedditResponse<dynamic>>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/r/memes',
+                .compose(_dio.options, '/r/$subreddit',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RedditResponse<dynamic>.fromJson(_result.data!);

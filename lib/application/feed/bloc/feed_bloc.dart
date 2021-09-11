@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:devour/domain/meme/abstract_meme_model.dart';
-import 'package:devour/infrastructure/api/reddit/reddit_api.dart';
+import 'package:devour/infrastructure/meme_scrapper/reddit_scrapper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,10 +14,10 @@ const int kMemeChunkSize = 20;
 
 @injectable
 class FeedBloc extends Bloc<FeedEvent, FeedState> {
-  RedditAPI redditAPI;
+  RedditScrapperFacade redditScrapper;
 
   /// BLoC for feed widget.
-  FeedBloc(this.redditAPI) : super(FeedState.loading());
+  FeedBloc(this.redditScrapper) : super(FeedState.loading());
 
   @override
   Stream<FeedState> mapEventToState(
@@ -26,13 +26,12 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     yield* event.map(
       init: (e) async* {
         yield FeedState.loading();
-        final scrappedMemes = await redditAPI.getMemes();
-        print(scrappedMemes);
-        // yield state.copyWith(
-        //   isLoading: false,
-        //   memes: scrappedMemes,
-        //   iterator: 0,
-        // );
+        final scrappedMemes = await redditScrapper.getMemes(kMemeChunkSize);
+        yield state.copyWith(
+          isLoading: false,
+          memes: scrappedMemes,
+          iterator: 0,
+        );
       },
       like: (e) async* {
         yield state;

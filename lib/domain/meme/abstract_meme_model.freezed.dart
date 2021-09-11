@@ -13,19 +13,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-AbstractMemeModel _$AbstractMemeModelFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String?) {
-    case 'default':
-      return _AbstractMemeModel.fromJson(json);
-    case 'reddit':
-      return RedditMemeModel.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'AbstractMemeModel',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
-}
-
 /// @nodoc
 class _$AbstractMemeModelTearOff {
   const _$AbstractMemeModelTearOff();
@@ -48,28 +35,20 @@ class _$AbstractMemeModelTearOff {
   RedditMemeModel reddit(
       {required String title,
       required String author,
-      @JsonKey(name: 'image_reviews') required List<String> imagePreviews,
-      @JsonKey(name: 'url') required String imageLink,
-      @JsonKey(name: 'post_link') required String sourceLink,
+      required String imageLink,
+      required String sourceLink,
       required String subreddit,
       required int ups,
-      @JsonKey(name: 'spoilers_enabled') required bool spoilersEnabled,
       required bool nsfw}) {
     return RedditMemeModel(
       title: title,
       author: author,
-      imagePreviews: imagePreviews,
       imageLink: imageLink,
       sourceLink: sourceLink,
       subreddit: subreddit,
       ups: ups,
-      spoilersEnabled: spoilersEnabled,
       nsfw: nsfw,
     );
-  }
-
-  AbstractMemeModel fromJson(Map<String, Object> json) {
-    return AbstractMemeModel.fromJson(json);
   }
 }
 
@@ -82,23 +61,14 @@ mixin _$AbstractMemeModel {
   String get imageLink => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
-  List<String> get imagePreviews => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)
         $default, {
-    required TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)
+    required TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)
         reddit,
   }) =>
       throw _privateConstructorUsedError;
@@ -107,16 +77,8 @@ mixin _$AbstractMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
         $default, {
-    TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)?
+    TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)?
         reddit,
   }) =>
       throw _privateConstructorUsedError;
@@ -125,16 +87,8 @@ mixin _$AbstractMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
         $default, {
-    TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)?
+    TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)?
         reddit,
     required TResult orElse(),
   }) =>
@@ -158,7 +112,7 @@ mixin _$AbstractMemeModel {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $AbstractMemeModelCopyWith<AbstractMemeModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -169,12 +123,7 @@ abstract class $AbstractMemeModelCopyWith<$Res> {
   factory $AbstractMemeModelCopyWith(
           AbstractMemeModel value, $Res Function(AbstractMemeModel) then) =
       _$AbstractMemeModelCopyWithImpl<$Res>;
-  $Res call(
-      {String sourceLink,
-      String imageLink,
-      String title,
-      String author,
-      List<String> imagePreviews});
+  $Res call({String sourceLink, String imageLink, String title, String author});
 }
 
 /// @nodoc
@@ -192,7 +141,6 @@ class _$AbstractMemeModelCopyWithImpl<$Res>
     Object? imageLink = freezed,
     Object? title = freezed,
     Object? author = freezed,
-    Object? imagePreviews = freezed,
   }) {
     return _then(_value.copyWith(
       sourceLink: sourceLink == freezed
@@ -211,10 +159,6 @@ class _$AbstractMemeModelCopyWithImpl<$Res>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      imagePreviews: imagePreviews == freezed
-          ? _value.imagePreviews
-          : imagePreviews // ignore: cast_nullable_to_non_nullable
-              as List<String>,
     ));
   }
 }
@@ -279,18 +223,14 @@ class __$AbstractMemeModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_AbstractMemeModel extends _AbstractMemeModel {
+
+class _$_AbstractMemeModel implements _AbstractMemeModel {
   _$_AbstractMemeModel(
       {required this.sourceLink,
       required this.imageLink,
       required this.title,
       required this.author,
-      required this.imagePreviews})
-      : super._();
-
-  factory _$_AbstractMemeModel.fromJson(Map<String, dynamic> json) =>
-      _$$_AbstractMemeModelFromJson(json);
+      required this.imagePreviews});
 
   @override
   final String sourceLink;
@@ -347,16 +287,8 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)
         $default, {
-    required TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)
+    required TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)
         reddit,
   }) {
     return $default(sourceLink, imageLink, title, author, imagePreviews);
@@ -368,16 +300,8 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
         $default, {
-    TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)?
+    TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)?
         reddit,
   }) {
     return $default?.call(sourceLink, imageLink, title, author, imagePreviews);
@@ -389,16 +313,8 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
         $default, {
-    TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)?
+    TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)?
         reddit,
     required TResult orElse(),
   }) {
@@ -438,24 +354,15 @@ class _$_AbstractMemeModel extends _AbstractMemeModel {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_AbstractMemeModelToJson(this)..['runtimeType'] = 'default';
-  }
 }
 
-abstract class _AbstractMemeModel extends AbstractMemeModel {
+abstract class _AbstractMemeModel implements AbstractMemeModel {
   factory _AbstractMemeModel(
       {required String sourceLink,
       required String imageLink,
       required String title,
       required String author,
       required List<String> imagePreviews}) = _$_AbstractMemeModel;
-  _AbstractMemeModel._() : super._();
-
-  factory _AbstractMemeModel.fromJson(Map<String, dynamic> json) =
-      _$_AbstractMemeModel.fromJson;
 
   @override
   String get sourceLink => throw _privateConstructorUsedError;
@@ -465,7 +372,6 @@ abstract class _AbstractMemeModel extends AbstractMemeModel {
   String get title => throw _privateConstructorUsedError;
   @override
   String get author => throw _privateConstructorUsedError;
-  @override
   List<String> get imagePreviews => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
@@ -483,12 +389,10 @@ abstract class $RedditMemeModelCopyWith<$Res>
   $Res call(
       {String title,
       String author,
-      @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-      @JsonKey(name: 'url') String imageLink,
-      @JsonKey(name: 'post_link') String sourceLink,
+      String imageLink,
+      String sourceLink,
       String subreddit,
       int ups,
-      @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
       bool nsfw});
 }
 
@@ -507,12 +411,10 @@ class _$RedditMemeModelCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? author = freezed,
-    Object? imagePreviews = freezed,
     Object? imageLink = freezed,
     Object? sourceLink = freezed,
     Object? subreddit = freezed,
     Object? ups = freezed,
-    Object? spoilersEnabled = freezed,
     Object? nsfw = freezed,
   }) {
     return _then(RedditMemeModel(
@@ -524,10 +426,6 @@ class _$RedditMemeModelCopyWithImpl<$Res>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      imagePreviews: imagePreviews == freezed
-          ? _value.imagePreviews
-          : imagePreviews // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       imageLink: imageLink == freezed
           ? _value.imageLink
           : imageLink // ignore: cast_nullable_to_non_nullable
@@ -544,10 +442,6 @@ class _$RedditMemeModelCopyWithImpl<$Res>
           ? _value.ups
           : ups // ignore: cast_nullable_to_non_nullable
               as int,
-      spoilersEnabled: spoilersEnabled == freezed
-          ? _value.spoilersEnabled
-          : spoilersEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       nsfw: nsfw == freezed
           ? _value.nsfw
           : nsfw // ignore: cast_nullable_to_non_nullable
@@ -557,49 +451,35 @@ class _$RedditMemeModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$RedditMemeModel extends RedditMemeModel {
+
+class _$RedditMemeModel implements RedditMemeModel {
   _$RedditMemeModel(
       {required this.title,
       required this.author,
-      @JsonKey(name: 'image_reviews') required this.imagePreviews,
-      @JsonKey(name: 'url') required this.imageLink,
-      @JsonKey(name: 'post_link') required this.sourceLink,
+      required this.imageLink,
+      required this.sourceLink,
       required this.subreddit,
       required this.ups,
-      @JsonKey(name: 'spoilers_enabled') required this.spoilersEnabled,
-      required this.nsfw})
-      : super._();
-
-  factory _$RedditMemeModel.fromJson(Map<String, dynamic> json) =>
-      _$$RedditMemeModelFromJson(json);
+      required this.nsfw});
 
   @override
   final String title;
   @override
   final String author;
   @override
-  @JsonKey(name: 'image_reviews')
-  final List<String> imagePreviews;
-  @override
-  @JsonKey(name: 'url')
   final String imageLink;
   @override
-  @JsonKey(name: 'post_link')
   final String sourceLink;
   @override
   final String subreddit;
   @override
   final int ups;
   @override
-  @JsonKey(name: 'spoilers_enabled')
-  final bool spoilersEnabled;
-  @override
   final bool nsfw;
 
   @override
   String toString() {
-    return 'AbstractMemeModel.reddit(title: $title, author: $author, imagePreviews: $imagePreviews, imageLink: $imageLink, sourceLink: $sourceLink, subreddit: $subreddit, ups: $ups, spoilersEnabled: $spoilersEnabled, nsfw: $nsfw)';
+    return 'AbstractMemeModel.reddit(title: $title, author: $author, imageLink: $imageLink, sourceLink: $sourceLink, subreddit: $subreddit, ups: $ups, nsfw: $nsfw)';
   }
 
   @override
@@ -610,9 +490,6 @@ class _$RedditMemeModel extends RedditMemeModel {
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.author, author) ||
                 const DeepCollectionEquality().equals(other.author, author)) &&
-            (identical(other.imagePreviews, imagePreviews) ||
-                const DeepCollectionEquality()
-                    .equals(other.imagePreviews, imagePreviews)) &&
             (identical(other.imageLink, imageLink) ||
                 const DeepCollectionEquality()
                     .equals(other.imageLink, imageLink)) &&
@@ -624,9 +501,6 @@ class _$RedditMemeModel extends RedditMemeModel {
                     .equals(other.subreddit, subreddit)) &&
             (identical(other.ups, ups) ||
                 const DeepCollectionEquality().equals(other.ups, ups)) &&
-            (identical(other.spoilersEnabled, spoilersEnabled) ||
-                const DeepCollectionEquality()
-                    .equals(other.spoilersEnabled, spoilersEnabled)) &&
             (identical(other.nsfw, nsfw) ||
                 const DeepCollectionEquality().equals(other.nsfw, nsfw)));
   }
@@ -636,12 +510,10 @@ class _$RedditMemeModel extends RedditMemeModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(author) ^
-      const DeepCollectionEquality().hash(imagePreviews) ^
       const DeepCollectionEquality().hash(imageLink) ^
       const DeepCollectionEquality().hash(sourceLink) ^
       const DeepCollectionEquality().hash(subreddit) ^
       const DeepCollectionEquality().hash(ups) ^
-      const DeepCollectionEquality().hash(spoilersEnabled) ^
       const DeepCollectionEquality().hash(nsfw);
 
   @JsonKey(ignore: true)
@@ -655,20 +527,11 @@ class _$RedditMemeModel extends RedditMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)
         $default, {
-    required TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)
+    required TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)
         reddit,
   }) {
-    return reddit(title, author, imagePreviews, imageLink, sourceLink,
-        subreddit, ups, spoilersEnabled, nsfw);
+    return reddit(title, author, imageLink, sourceLink, subreddit, ups, nsfw);
   }
 
   @override
@@ -677,20 +540,12 @@ class _$RedditMemeModel extends RedditMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
         $default, {
-    TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)?
+    TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)?
         reddit,
   }) {
-    return reddit?.call(title, author, imagePreviews, imageLink, sourceLink,
-        subreddit, ups, spoilersEnabled, nsfw);
+    return reddit?.call(
+        title, author, imageLink, sourceLink, subreddit, ups, nsfw);
   }
 
   @override
@@ -699,22 +554,13 @@ class _$RedditMemeModel extends RedditMemeModel {
     TResult Function(String sourceLink, String imageLink, String title,
             String author, List<String> imagePreviews)?
         $default, {
-    TResult Function(
-            String title,
-            String author,
-            @JsonKey(name: 'image_reviews') List<String> imagePreviews,
-            @JsonKey(name: 'url') String imageLink,
-            @JsonKey(name: 'post_link') String sourceLink,
-            String subreddit,
-            int ups,
-            @JsonKey(name: 'spoilers_enabled') bool spoilersEnabled,
-            bool nsfw)?
+    TResult Function(String title, String author, String imageLink,
+            String sourceLink, String subreddit, int ups, bool nsfw)?
         reddit,
     required TResult orElse(),
   }) {
     if (reddit != null) {
-      return reddit(title, author, imagePreviews, imageLink, sourceLink,
-          subreddit, ups, spoilersEnabled, nsfw);
+      return reddit(title, author, imageLink, sourceLink, subreddit, ups, nsfw);
     }
     return orElse();
   }
@@ -749,46 +595,28 @@ class _$RedditMemeModel extends RedditMemeModel {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RedditMemeModelToJson(this)..['runtimeType'] = 'reddit';
-  }
 }
 
-abstract class RedditMemeModel extends AbstractMemeModel {
+abstract class RedditMemeModel implements AbstractMemeModel {
   factory RedditMemeModel(
       {required String title,
       required String author,
-      @JsonKey(name: 'image_reviews') required List<String> imagePreviews,
-      @JsonKey(name: 'url') required String imageLink,
-      @JsonKey(name: 'post_link') required String sourceLink,
+      required String imageLink,
+      required String sourceLink,
       required String subreddit,
       required int ups,
-      @JsonKey(name: 'spoilers_enabled') required bool spoilersEnabled,
       required bool nsfw}) = _$RedditMemeModel;
-  RedditMemeModel._() : super._();
-
-  factory RedditMemeModel.fromJson(Map<String, dynamic> json) =
-      _$RedditMemeModel.fromJson;
 
   @override
   String get title => throw _privateConstructorUsedError;
   @override
   String get author => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'image_reviews')
-  List<String> get imagePreviews => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'url')
   String get imageLink => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'post_link')
   String get sourceLink => throw _privateConstructorUsedError;
   String get subreddit => throw _privateConstructorUsedError;
   int get ups => throw _privateConstructorUsedError;
-  @JsonKey(name: 'spoilers_enabled')
-  bool get spoilersEnabled => throw _privateConstructorUsedError;
   bool get nsfw => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

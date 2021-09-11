@@ -1,6 +1,5 @@
 import 'package:devour/application/feed/bloc/feed_bloc.dart';
-import 'package:devour/domain/meme/abstract_meme_model.dart';
-import 'package:devour/domain/meme_scrapper/i_meme_scrapper_facade.dart';
+import 'package:devour/infrastructure/meme_scrapper/reddit_scrapper.dart';
 import 'package:devour/injection.dart';
 import 'package:devour/presentation/widgets/platform/platform_scaffold.dart';
 import 'package:flutter/widgets.dart';
@@ -14,13 +13,12 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-        body: BlocProvider(
-      create: (context) => serviceLocator.get<FeedBloc>(
-          // maybe its not the best soltion, but i don't know, how to do injectable
-          // with generics like <T extends AbstractMemeModel>
-          param1: serviceLocator.get<IMemeScrapperFacade<RedditMemeModel>>())
-        ..add(FeedEvent.init()),
-      child: Feed(),
-    ));
+      body: BlocProvider(
+        create: (context) => serviceLocator.get<FeedBloc>(
+          param1: serviceLocator.get<RedditScrapperFacade>(),
+        )..add(FeedEvent.init()),
+        child: Feed(),
+      ),
+    );
   }
 }
