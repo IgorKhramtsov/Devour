@@ -15,12 +15,12 @@ class PlatformButton
   final VoidCallback onPressed;
 
   @override
-  CupertinoButton buildCupertino() {
+  CupertinoButton buildCupertino(BuildContext context) {
     return CupertinoButton.filled(onPressed: onPressed, child: child);
   }
 
   @override
-  ElevatedButton buildMaterial() {
+  ElevatedButton buildMaterial(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
       child: child,

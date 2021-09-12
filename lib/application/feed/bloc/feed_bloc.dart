@@ -24,7 +24,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     FeedEvent event,
   ) async* {
     yield* event.map(
-      init: (e) async* {
+      refresh: (e) async* {
         yield FeedState.loading();
         final scrappedMemes = await redditScrapper.getMemes(kMemeChunkSize);
         yield state.copyWith(
@@ -34,9 +34,6 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         );
       },
       like: (e) async* {
-        yield state;
-      },
-      refresh: (e) async* {
         yield state;
       },
       next: (e) async* {

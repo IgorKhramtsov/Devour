@@ -62,10 +62,14 @@ class RefreshTokenInterceptor extends Interceptor {
       serviceLocator<AccountsRepository>().setAccount(newAccount);
       options.headers!['Authorization'] = 'bearer ${newAccount.accessToken}';
 
-      final cloneRequest = await dio.request(
-        requestOptions.path,
-        options: options,
-        queryParameters: requestOptions.queryParameters,
+      final cloneRequest = await dio.fetch(
+        options
+            .compose(
+              dio.options,
+              requestOptions.path,
+              queryParameters: requestOptions.queryParameters,
+            )
+            .copyWith(baseUrl: requestOptions.baseUrl),
       );
       handler.resolve(cloneRequest);
     } else {

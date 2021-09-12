@@ -28,10 +28,6 @@ class _$FeedEventTearOff {
   _Next next() {
     return const _Next();
   }
-
-  _Init init() {
-    return const _Init();
-  }
 }
 
 /// @nodoc
@@ -44,7 +40,6 @@ mixin _$FeedEvent {
     required TResult Function() like,
     required TResult Function() refresh,
     required TResult Function() next,
-    required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,7 +47,6 @@ mixin _$FeedEvent {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,7 +54,6 @@ mixin _$FeedEvent {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,7 +62,6 @@ mixin _$FeedEvent {
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
     required TResult Function(_Next value) next,
-    required TResult Function(_Init value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,7 +69,6 @@ mixin _$FeedEvent {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -85,7 +76,6 @@ mixin _$FeedEvent {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -146,7 +136,6 @@ class _$_Like implements _Like {
     required TResult Function() like,
     required TResult Function() refresh,
     required TResult Function() next,
-    required TResult Function() init,
   }) {
     return like();
   }
@@ -157,7 +146,6 @@ class _$_Like implements _Like {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
   }) {
     return like?.call();
   }
@@ -168,7 +156,6 @@ class _$_Like implements _Like {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (like != null) {
@@ -183,7 +170,6 @@ class _$_Like implements _Like {
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
     required TResult Function(_Next value) next,
-    required TResult Function(_Init value) init,
   }) {
     return like(this);
   }
@@ -194,7 +180,6 @@ class _$_Like implements _Like {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
   }) {
     return like?.call(this);
   }
@@ -205,7 +190,6 @@ class _$_Like implements _Like {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (like != null) {
@@ -259,7 +243,6 @@ class _$_Refresh implements _Refresh {
     required TResult Function() like,
     required TResult Function() refresh,
     required TResult Function() next,
-    required TResult Function() init,
   }) {
     return refresh();
   }
@@ -270,7 +253,6 @@ class _$_Refresh implements _Refresh {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
   }) {
     return refresh?.call();
   }
@@ -281,7 +263,6 @@ class _$_Refresh implements _Refresh {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -296,7 +277,6 @@ class _$_Refresh implements _Refresh {
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
     required TResult Function(_Next value) next,
-    required TResult Function(_Init value) init,
   }) {
     return refresh(this);
   }
@@ -307,7 +287,6 @@ class _$_Refresh implements _Refresh {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
   }) {
     return refresh?.call(this);
   }
@@ -318,7 +297,6 @@ class _$_Refresh implements _Refresh {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -372,7 +350,6 @@ class _$_Next implements _Next {
     required TResult Function() like,
     required TResult Function() refresh,
     required TResult Function() next,
-    required TResult Function() init,
   }) {
     return next();
   }
@@ -383,7 +360,6 @@ class _$_Next implements _Next {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
   }) {
     return next?.call();
   }
@@ -394,7 +370,6 @@ class _$_Next implements _Next {
     TResult Function()? like,
     TResult Function()? refresh,
     TResult Function()? next,
-    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (next != null) {
@@ -409,7 +384,6 @@ class _$_Next implements _Next {
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
     required TResult Function(_Next value) next,
-    required TResult Function(_Init value) init,
   }) {
     return next(this);
   }
@@ -420,7 +394,6 @@ class _$_Next implements _Next {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
   }) {
     return next?.call(this);
   }
@@ -431,7 +404,6 @@ class _$_Next implements _Next {
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (next != null) {
@@ -443,119 +415,6 @@ class _$_Next implements _Next {
 
 abstract class _Next implements FeedEvent {
   const factory _Next() = _$_Next;
-}
-
-/// @nodoc
-abstract class _$InitCopyWith<$Res> {
-  factory _$InitCopyWith(_Init value, $Res Function(_Init) then) =
-      __$InitCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$InitCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
-    implements _$InitCopyWith<$Res> {
-  __$InitCopyWithImpl(_Init _value, $Res Function(_Init) _then)
-      : super(_value, (v) => _then(v as _Init));
-
-  @override
-  _Init get _value => super._value as _Init;
-}
-
-/// @nodoc
-
-class _$_Init implements _Init {
-  const _$_Init();
-
-  @override
-  String toString() {
-    return 'FeedEvent.init()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Init);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() like,
-    required TResult Function() refresh,
-    required TResult Function() next,
-    required TResult Function() init,
-  }) {
-    return init();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? like,
-    TResult Function()? refresh,
-    TResult Function()? next,
-    TResult Function()? init,
-  }) {
-    return init?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? like,
-    TResult Function()? refresh,
-    TResult Function()? next,
-    TResult Function()? init,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Like value) like,
-    required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
-    required TResult Function(_Init value) init,
-  }) {
-    return init(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Like value)? like,
-    TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
-  }) {
-    return init?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Like value)? like,
-    TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
-    TResult Function(_Init value)? init,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Init implements FeedEvent {
-  const factory _Init() = _$_Init;
 }
 
 /// @nodoc

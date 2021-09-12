@@ -1,5 +1,4 @@
 import 'package:devour/domain/meme/abstract_meme_model.dart';
-import 'package:devour/domain/meme_scrapper/i_meme_scrapper_facade.dart';
 import 'package:devour/infrastructure/api/reddit/reddit_api.dart';
 import 'package:devour/infrastructure/api/reddit/response/reddit_responses.dart';
 import 'package:devour/infrastructure/meme_scrapper/reddit_meme_mapper.dart';

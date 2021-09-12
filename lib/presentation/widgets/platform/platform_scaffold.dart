@@ -13,7 +13,7 @@ class PlatformScaffold
   final Widget body;
 
   @override
-  CupertinoPageScaffold buildCupertino() {
+  CupertinoPageScaffold buildCupertino(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Home'),
@@ -22,7 +22,7 @@ class PlatformScaffold
   }
 
   @override
-  Scaffold buildMaterial() {
+  Scaffold buildMaterial(BuildContext context) {
     return Scaffold(
       body: body,
     );

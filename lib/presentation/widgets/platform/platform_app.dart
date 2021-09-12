@@ -18,23 +18,26 @@ class PlatformApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   final Color? primaryColor;
 
   @override
-  CupertinoApp buildCupertino() {
+  CupertinoApp buildCupertino(BuildContext context) {
     return CupertinoApp(
       title: title,
       onGenerateRoute: serviceLocator<AppNavigator>().navigate,
       theme: CupertinoThemeData(
+        brightness: Brightness.dark,
         primaryColor: primaryColor,
       ),
     );
   }
 
   @override
-  MaterialApp buildMaterial() {
+  MaterialApp buildMaterial(BuildContext context) {
     return MaterialApp(
-        title: title,
-        onGenerateRoute: serviceLocator<AppNavigator>().navigate,
-        theme: ThemeData(
-          primaryColor: primaryColor,
-        ));
+      title: title,
+      onGenerateRoute: serviceLocator<AppNavigator>().navigate,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: primaryColor,
+      ),
+    );
   }
 }

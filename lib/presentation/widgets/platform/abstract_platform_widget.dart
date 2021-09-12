@@ -10,13 +10,13 @@ class AbstractPlatformWidget<C extends Widget, M extends Widget>
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
-      return buildMaterial();
+      return buildMaterial(context);
     } else {
-      return buildCupertino();
+      return buildCupertino(context);
     }
   }
 
-  C buildCupertino() => throw UnimplementedError();
+  C buildCupertino(BuildContext context) => throw UnimplementedError();
 
-  M buildMaterial() => throw UnimplementedError();
+  M buildMaterial(BuildContext context) => throw UnimplementedError();
 }

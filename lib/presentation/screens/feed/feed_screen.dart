@@ -16,7 +16,7 @@ class FeedScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => serviceLocator.get<FeedBloc>(
           param1: serviceLocator.get<RedditScrapperFacade>(),
-        )..add(FeedEvent.init()),
+        )..add(const FeedEvent.refresh()),
         child: Feed(),
       ),
     );

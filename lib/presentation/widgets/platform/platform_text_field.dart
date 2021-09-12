@@ -26,7 +26,7 @@ class PlatformTextField
   final ToolbarOptions? toolbarOptions;
 
   @override
-  CupertinoTextField buildCupertino() {
+  CupertinoTextField buildCupertino(BuildContext context) {
     return CupertinoTextField(
       controller: controller,
       focusNode: focusNode,
@@ -39,7 +39,7 @@ class PlatformTextField
   }
 
   @override
-  TextField buildMaterial() {
+  TextField buildMaterial(BuildContext context) {
     return TextField(
       controller: controller,
       focusNode: focusNode,
