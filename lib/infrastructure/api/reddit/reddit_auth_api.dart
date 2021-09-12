@@ -1,21 +1,21 @@
 import 'package:devour/domain/auth/reddit_account.dart';
 import 'package:devour/domain/repositories/account_repository.dart';
+import 'package:devour/infrastructure/api/reddit/response/reddit_auth_response.dart';
 import 'package:devour/infrastructure/core/env.dart';
 import 'package:devour/infrastructure/core/misc.dart';
 import 'package:devour/infrastructure/register_module.dart';
 import 'package:devour/injection.dart';
 import 'package:dio/dio.dart' hide Headers;
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'reddit_auth_api.g.dart';
-part 'reddit_auth_api.freezed.dart';
 
 const String _kBaseUrl = 'https://www.reddit.com/api/v1/';
+const String kAccessTokenPath = '/access_token';
 // add ignored to path, because flutter sometimes dont show first path element
 const String _kRedirectUrl = 'devour://ignored/reddit/auth_redirect';
-const int _kRefreshTokenNeeded = 0;
+const int _kRefreshTokenNeeded = 401;
 
 @Singleton()
 @RestApi(baseUrl: _kBaseUrl)
@@ -23,7 +23,7 @@ abstract class RedditAuthAPI {
   @factoryMethod
   factory RedditAuthAPI(@Named(kRedditDioName) Dio dio) = _RedditAuthAPI;
 
-  @POST('/access_token')
+  @POST(kAccessTokenPath)
   Future<AuthorizationResponse> _getAccessToken({
     @Query('grant_type') required String grantType,
     @Query('refresh_token') String? refreshToken,
@@ -45,7 +45,8 @@ class RefreshTokenInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == _kRefreshTokenNeeded) {
+    if (err.response?.statusCode == _kRefreshTokenNeeded &&
+        err.response?.requestOptions.path != kAccessTokenPath) {
       final requestOptions = err.response!.requestOptions;
       final options = Options(
         method: requestOptions.method,
@@ -56,33 +57,21 @@ class RefreshTokenInterceptor extends Interceptor {
           .getAccount<RedditAccount>()
           .toNullable()!;
       final newAccount = RedditAccount.fromResponse(
-          await serviceLocator<RedditAuthAPI>().refreshToken(account));
+        await serviceLocator<RedditAuthAPI>().refreshToken(account),
+      );
       serviceLocator<AccountsRepository>().setAccount(newAccount);
-      options.headers!['Authorization'] = 'Bearer ${newAccount.accessToken}';
+      options.headers!['Authorization'] = 'bearer ${newAccount.accessToken}';
 
-      final cloneRequest = await dio.request(requestOptions.path,
-          options: options, queryParameters: requestOptions.queryParameters);
+      final cloneRequest = await dio.request(
+        requestOptions.path,
+        options: options,
+        queryParameters: requestOptions.queryParameters,
+      );
       handler.resolve(cloneRequest);
     } else {
       handler.next(err);
     }
   }
-}
-
-/// Authorization response data
-@freezed
-class AuthorizationResponse with _$AuthorizationResponse {
-  // ignore: public_member_api_docs
-  factory AuthorizationResponse({
-    @JsonKey(name: 'access_token') required String accessToken,
-    @JsonKey(name: 'token_type') required String tokenType,
-    @JsonKey(name: 'expires_in') required int expiresIn,
-    @JsonKey(name: 'refresh_token') required String refreshToken,
-    @JsonKey(name: 'scope') required String scope,
-  }) = _AuthorizationResponse;
-
-  factory AuthorizationResponse.fromJson(Map<String, Object?> json) =>
-      _$AuthorizationResponseFromJson(json);
 }
 
 /// Extension for authorization
@@ -91,6 +80,7 @@ extension Authorize on RedditAuthAPI {
       _getAccessToken(
         grantType: 'refresh_token',
         refreshToken: account.refreshToken,
+        authorization: getBasicCredentials(EnvVariables.clientId, ''),
       );
 
   Future<AuthorizationResponse> getAccessToken(String code) => _getAccessToken(

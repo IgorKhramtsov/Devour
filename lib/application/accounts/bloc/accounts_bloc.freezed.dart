@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'accounts_bloc.dart';
 
@@ -54,6 +55,15 @@ mixin _$AccountsEvent {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
@@ -72,6 +82,16 @@ mixin _$AccountsEvent {
         RequestAuthorizationVK,
     required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -152,6 +172,18 @@ class _$_Fetching implements _Fetching {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+  }) {
+    return Fetching?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
@@ -178,6 +210,19 @@ class _$_Fetching implements _Fetching {
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
   }) {
     return Fetching(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+  }) {
+    return Fetching?.call(this);
   }
 
   @override
@@ -255,6 +300,18 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+  }) {
+    return RequestAuthorizationReddit?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
@@ -281,6 +338,19 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
   }) {
     return RequestAuthorizationReddit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+  }) {
+    return RequestAuthorizationReddit?.call(this);
   }
 
   @override
@@ -356,6 +426,18 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+  }) {
+    return RequestAuthorizationVK?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
@@ -382,6 +464,19 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
   }) {
     return RequestAuthorizationVK(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+  }) {
+    return RequestAuthorizationVK?.call(this);
   }
 
   @override
@@ -491,6 +586,18 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+  }) {
+    return AuthorizeReddit?.call(args);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
@@ -517,6 +624,19 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
   }) {
     return AuthorizeReddit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+  }) {
+    return AuthorizeReddit?.call(this);
   }
 
   @override
@@ -597,6 +717,18 @@ class _$_AuthorizeVK implements _AuthorizeVK {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+  }) {
+    return AuthorizeVK?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? Fetching,
     TResult Function()? RequestAuthorizationReddit,
@@ -623,6 +755,19 @@ class _$_AuthorizeVK implements _AuthorizeVK {
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
   }) {
     return AuthorizeVK(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+  }) {
+    return AuthorizeVK?.call(this);
   }
 
   @override

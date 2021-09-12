@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:devour/application/navigator/routes.dart';
 import 'package:devour/presentation/screens/accounts/accounts_screen.dart';
+import 'package:devour/presentation/screens/feed/feed_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class AppNavigator {
         return (BuildContext ctx) => AccountScreen(
             redirectArguments: settings.arguments! as RedditRedirectArguments);
       default:
-        return (BuildContext ctx) => AccountScreen();
+        return (BuildContext ctx) => const FeedScreen();
     }
   }
 
