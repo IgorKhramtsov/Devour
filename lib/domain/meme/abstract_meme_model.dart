@@ -10,7 +10,8 @@ abstract class AbstractMemeModel with _$AbstractMemeModel {
     required String imageLink,
     required String title,
     required String author,
-    required List<String> imagePreviews,
+    required int likes,
+    required int comments,
   }) = _AbstractMemeModel;
 
   // ignore: public_member_api_docs
@@ -21,7 +22,8 @@ abstract class AbstractMemeModel with _$AbstractMemeModel {
     required String imageLink,
     required String sourceLink,
     required String subreddit,
-    required int ups,
+    required int comments,
+    required int likes,
     required bool nsfw,
   }) = RedditMemeModel;
 }

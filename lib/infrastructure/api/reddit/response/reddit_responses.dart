@@ -43,8 +43,9 @@ class RedditPostResponse with _$RedditPostResponse {
     @JsonKey(name: 'num_comments') required int numComments,
     @JsonKey(name: 'stickied') required bool stickied, // is 'pinned'
     @JsonKey(name: 'created_utc') required double createdUtc,
-    @JsonKey(name: 'is_video') required bool isVide,
+    @JsonKey(name: 'is_video') required bool isVideo,
     @JsonKey(name: 'url') required String url,
+    @JsonKey(name: 'permalink') required String permalink,
     @JsonKey(name: 'over_18') required bool over18,
   }) = _RedditPostResponse;
 

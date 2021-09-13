@@ -20,7 +20,7 @@ class Feed extends StatelessWidget {
           return Center(child: Text('loading...'));
         }
 
-        final currentPost = state.memes[state.iterator] as RedditMemeModel;
+        final currentPost = state.memes[state.iterator];
         return Stack(
           children: [
             Center(
@@ -39,7 +39,7 @@ class Feed extends StatelessWidget {
               left: 20,
               bottom: 60,
               child: PostDescriptionWidget(
-                currentPost: currentPost as RedditMemeModel,
+                currentPost: currentPost,
               ),
             ),
           ],
@@ -55,7 +55,7 @@ class PostActionsWidget extends StatelessWidget {
     required this.currentPost,
   }) : super(key: key);
 
-  final RedditMemeModel currentPost;
+  final AbstractMemeModel currentPost;
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +67,14 @@ class PostActionsWidget extends StatelessWidget {
           icon: CupertinoIcons.heart,
           size: 42,
           color: Colors.white,
-          text: currentPost.ups.toShortString(),
+          text: currentPost.likes.toShortString(),
         ),
         PlatformIconButton(
           onPressed: () => null,
           icon: CupertinoIcons.chat_bubble_2,
           size: 42,
           color: Colors.white,
-          text: 5000.toShortString(),
+          text: currentPost.comments.toShortString(),
         ),
         PlatformIconButton(
           onPressed: () => null,
@@ -94,7 +94,7 @@ class PostDescriptionWidget extends StatelessWidget {
     required this.currentPost,
   }) : super(key: key);
 
-  final RedditMemeModel currentPost;
+  final AbstractMemeModel currentPost;
 
   @override
   Widget build(BuildContext context) {
@@ -107,10 +107,11 @@ class PostDescriptionWidget extends StatelessWidget {
           '/u/${currentPost.author}',
           style: textStyle.copyWith(fontWeight: FontWeight.w600),
         ),
-        Text(
-          '/r/${currentPost.subreddit}',
-          style: textStyle.copyWith(fontWeight: FontWeight.w400),
-        ),
+        if (currentPost is RedditMemeModel)
+          Text(
+            '/r/${(currentPost as RedditMemeModel).subreddit}',
+            style: textStyle.copyWith(fontWeight: FontWeight.w400),
+          ),
         const SizedBox(height: 10),
         Text(
           currentPost.title,

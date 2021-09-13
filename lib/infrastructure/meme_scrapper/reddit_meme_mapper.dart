@@ -7,9 +7,10 @@ class RedditMemeMapper {
       title: response.title,
       author: response.author,
       imageLink: response.url,
-      sourceLink: '',
+      sourceLink: 'https://reddit.com/${response.permalink}',
       subreddit: response.subreddit,
-      ups: response.ups,
+      likes: response.ups,
+      comments: response.numComments,
       nsfw: response.over18,
     );
   }

@@ -54,8 +54,9 @@ _$_RedditPostResponse _$$_RedditPostResponseFromJson(
       numComments: json['num_comments'] as int,
       stickied: json['stickied'] as bool,
       createdUtc: (json['created_utc'] as num).toDouble(),
-      isVide: json['is_video'] as bool,
+      isVideo: json['is_video'] as bool,
       url: json['url'] as String,
+      permalink: json['permalink'] as String,
       over18: json['over_18'] as bool,
     );
 
@@ -70,7 +71,8 @@ Map<String, dynamic> _$$_RedditPostResponseToJson(
       'num_comments': instance.numComments,
       'stickied': instance.stickied,
       'created_utc': instance.createdUtc,
-      'is_video': instance.isVide,
+      'is_video': instance.isVideo,
       'url': instance.url,
+      'permalink': instance.permalink,
       'over_18': instance.over18,
     };
