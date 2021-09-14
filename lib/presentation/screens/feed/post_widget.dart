@@ -1,42 +1,52 @@
+import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/domain/meme/abstract_meme_model.dart';
 import 'package:devour/domain/misc/helper.dart';
 import 'package:devour/presentation/widgets/platform/platform_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PostWidget extends StatelessWidget {
-  const PostWidget(
-    this.memeModel, {
+class PostOverlayWidget extends StatelessWidget {
+  const PostOverlayWidget(
+    this.bloc, {
     Key? key,
   }) : super(key: key);
 
-  final AbstractMemeModel memeModel;
+  final FeedBloc bloc;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: Image.network(memeModel.imageLink),
-        ),
-        Positioned.fill(
-          top: 100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+    return BlocBuilder<FeedBloc, FeedState>(
+        bloc: bloc,
+        builder: (context, state) {
+          if (state.isLoading) {
+            return Container();
+          }
+
+          return Stack(
             children: [
-              PostActionsWidget(currentPost: memeModel),
+              // Center(
+              //   child: Image.network(memeModel.imageLink),
+              // ),
+              Positioned.fill(
+                top: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    PostActionsWidget(currentPost: bloc.currentMemeModel),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 20,
+                bottom: 60,
+                child: PostDescriptionWidget(
+                  currentPost: bloc.currentMemeModel,
+                ),
+              ),
             ],
-          ),
-        ),
-        Positioned(
-          left: 20,
-          bottom: 60,
-          child: PostDescriptionWidget(
-            currentPost: memeModel,
-          ),
-        ),
-      ],
-    );
+          );
+        });
   }
 }
 

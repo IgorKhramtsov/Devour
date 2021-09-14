@@ -5,8 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Feed extends StatelessWidget {
+class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);
+
+  @override
+  State<Feed> createState() => _FeedState();
+}
+
+class _FeedState extends State<Feed> {
+  late OverlayEntry overlay;
+  @override
+  void initState() {
+    super.initState();
+    final bloc = BlocProvider.of<FeedBloc>(context);
+    overlay = OverlayEntry(
+      builder: (BuildContext ctx) => PostOverlayWidget(bloc),
+    );
+
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      Overlay.of(context)!.insert(overlay);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +35,15 @@ class Feed extends StatelessWidget {
           return Center(child: Text('loading...'));
         }
 
-        // final currentPost = state.memes[state.iterator];
         return PageView.builder(
-          scrollDirection: Axis.vertical,
           itemCount: state.memes.length,
           itemBuilder: (BuildContext context, int index) {
-            return PostWidget(state.memes[index]);
+            return Container(
+              color: Colors.amber,
+              child: Image.network(state.memes[index].imageLink),
+            );
           },
         );
-        // ListWheelScrollView(
-        //   itemExtent: itemExtent,
-        //   children: state.memes.map((post) => PostWidget(currentPost: post)).toList(),
-        // );
       },
     );
   }

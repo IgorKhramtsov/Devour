@@ -41,4 +41,6 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       },
     );
   }
+
+  AbstractMemeModel get currentMemeModel => state.memes[state.iterator];
 }
