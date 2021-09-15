@@ -36,8 +36,10 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       like: (e) async* {
         yield state;
       },
-      next: (e) async* {
-        yield state;
+      select: (e) async* {
+        yield state.copyWith(
+          iterator: e.index,
+        );
       },
     );
   }

@@ -25,8 +25,10 @@ class _$FeedEventTearOff {
     return const _Refresh();
   }
 
-  _Next next() {
-    return const _Next();
+  _Select select(int index) {
+    return _Select(
+      index,
+    );
   }
 }
 
@@ -39,21 +41,21 @@ mixin _$FeedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(int index) select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,21 +63,21 @@ mixin _$FeedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -135,7 +137,7 @@ class _$_Like implements _Like {
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(int index) select,
   }) {
     return like();
   }
@@ -145,7 +147,7 @@ class _$_Like implements _Like {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
   }) {
     return like?.call();
   }
@@ -155,7 +157,7 @@ class _$_Like implements _Like {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
     required TResult orElse(),
   }) {
     if (like != null) {
@@ -169,7 +171,7 @@ class _$_Like implements _Like {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) {
     return like(this);
   }
@@ -179,7 +181,7 @@ class _$_Like implements _Like {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) {
     return like?.call(this);
   }
@@ -189,7 +191,7 @@ class _$_Like implements _Like {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) {
     if (like != null) {
@@ -242,7 +244,7 @@ class _$_Refresh implements _Refresh {
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(int index) select,
   }) {
     return refresh();
   }
@@ -252,7 +254,7 @@ class _$_Refresh implements _Refresh {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
   }) {
     return refresh?.call();
   }
@@ -262,7 +264,7 @@ class _$_Refresh implements _Refresh {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -276,7 +278,7 @@ class _$_Refresh implements _Refresh {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) {
     return refresh(this);
   }
@@ -286,7 +288,7 @@ class _$_Refresh implements _Refresh {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) {
     return refresh?.call(this);
   }
@@ -296,7 +298,7 @@ class _$_Refresh implements _Refresh {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -311,47 +313,72 @@ abstract class _Refresh implements FeedEvent {
 }
 
 /// @nodoc
-abstract class _$NextCopyWith<$Res> {
-  factory _$NextCopyWith(_Next value, $Res Function(_Next) then) =
-      __$NextCopyWithImpl<$Res>;
+abstract class _$SelectCopyWith<$Res> {
+  factory _$SelectCopyWith(_Select value, $Res Function(_Select) then) =
+      __$SelectCopyWithImpl<$Res>;
+  $Res call({int index});
 }
 
 /// @nodoc
-class __$NextCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
-    implements _$NextCopyWith<$Res> {
-  __$NextCopyWithImpl(_Next _value, $Res Function(_Next) _then)
-      : super(_value, (v) => _then(v as _Next));
+class __$SelectCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
+    implements _$SelectCopyWith<$Res> {
+  __$SelectCopyWithImpl(_Select _value, $Res Function(_Select) _then)
+      : super(_value, (v) => _then(v as _Select));
 
   @override
-  _Next get _value => super._value as _Next;
+  _Select get _value => super._value as _Select;
+
+  @override
+  $Res call({
+    Object? index = freezed,
+  }) {
+    return _then(_Select(
+      index == freezed
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Next implements _Next {
-  const _$_Next();
+class _$_Select implements _Select {
+  const _$_Select(this.index);
+
+  @override
+  final int index;
 
   @override
   String toString() {
-    return 'FeedEvent.next()';
+    return 'FeedEvent.select(index: $index)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Next);
+    return identical(this, other) ||
+        (other is _Select &&
+            (identical(other.index, index) ||
+                const DeepCollectionEquality().equals(other.index, index)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(index);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SelectCopyWith<_Select> get copyWith =>
+      __$SelectCopyWithImpl<_Select>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(int index) select,
   }) {
-    return next();
+    return select(index);
   }
 
   @override
@@ -359,9 +386,9 @@ class _$_Next implements _Next {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
   }) {
-    return next?.call();
+    return select?.call(index);
   }
 
   @override
@@ -369,11 +396,11 @@ class _$_Next implements _Next {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index)? select,
     required TResult orElse(),
   }) {
-    if (next != null) {
-      return next();
+    if (select != null) {
+      return select(index);
     }
     return orElse();
   }
@@ -383,9 +410,9 @@ class _$_Next implements _Next {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) {
-    return next(this);
+    return select(this);
   }
 
   @override
@@ -393,9 +420,9 @@ class _$_Next implements _Next {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) {
-    return next?.call(this);
+    return select?.call(this);
   }
 
   @override
@@ -403,18 +430,22 @@ class _$_Next implements _Next {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) {
-    if (next != null) {
-      return next(this);
+    if (select != null) {
+      return select(this);
     }
     return orElse();
   }
 }
 
-abstract class _Next implements FeedEvent {
-  const factory _Next() = _$_Next;
+abstract class _Select implements FeedEvent {
+  const factory _Select(int index) = _$_Select;
+
+  int get index => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$SelectCopyWith<_Select> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

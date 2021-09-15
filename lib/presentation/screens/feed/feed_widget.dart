@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);
@@ -13,7 +14,6 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
-  late OverlayEntry overlay;
   @override
   void initState() {
     super.initState();
@@ -21,11 +21,27 @@ class _FeedState extends State<Feed> {
     overlay = OverlayEntry(
       builder: (BuildContext ctx) => PostOverlayWidget(bloc),
     );
+    listener.itemPositions.addListener(() {
+      // Gets closest item, which leading edge is less than 0.3 (first third of screen)
+      // but not more than 0.3
+      final selectedMeme = listener.itemPositions.value
+          .where((el) => el.itemLeadingEdge < 0.3)
+          .reduce(
+            (max, element) =>
+                element.itemLeadingEdge > max.itemLeadingEdge ? element : max,
+          );
+      bloc.add(FeedEvent.select(selectedMeme.index));
+      print('selectedMeme: $selectedMeme');
+    });
 
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       Overlay.of(context)!.insert(overlay);
     });
   }
+
+  late OverlayEntry overlay;
+  final ScrollController controller = ScrollController();
+  final ItemPositionsListener listener = ItemPositionsListener.create();
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +51,9 @@ class _FeedState extends State<Feed> {
           return Center(child: Text('loading...'));
         }
 
-        return PageView.builder(
+        return ScrollablePositionedList.builder(
           itemCount: state.memes.length,
+          itemPositionsListener: listener,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               color: Colors.amber,
