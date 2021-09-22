@@ -22,6 +22,10 @@ class _FeedState extends State<Feed> {
       builder: (BuildContext ctx) => PostOverlayWidget(bloc),
     );
     listener.itemPositions.addListener(() {
+      if (listener.itemPositions.value.isEmpty) {
+        return;
+      }
+      
       // Gets closest item, which leading edge is less than 0.3 (first third of screen)
       // but not more than 0.3
       final selectedMeme = listener.itemPositions.value
