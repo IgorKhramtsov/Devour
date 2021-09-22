@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/domain/meme/abstract_meme_model.dart';
 import 'package:devour/domain/misc/helper.dart';
 import 'package:devour/presentation/widgets/platform/platform_icon_button.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,11 +26,32 @@ class PostOverlayWidget extends StatelessWidget {
             return Container();
           }
 
+          final key = bloc.state.currentMemeWidget.toNullable();
+          final box = key?.currentContext?.findRenderObject() as RenderBox?;
+          final pos = box?.localToGlobal(Offset.zero) ?? Offset.zero;
+
           return Stack(
             children: [
-              // Center(
-              //   child: Image.network(memeModel.imageLink),
-              // ),
+              // Idk, maybe remove animated
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 50),
+                top: pos.dy,
+                left: pos.dx,
+                width: box?.size.width,
+                height: box?.size.height,
+                child: IgnorePointer(
+                  child: BackdropFilter(
+                    filter: ImageFilter.compose(
+                      outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                      inner: ColorFilter.mode(
+                        Colors.black.withOpacity(.3),
+                        BlendMode.darken,
+                      ),
+                    ),
+                    child: Image.network(bloc.currentMemeModel.imageLink),
+                  ),
+                ),
+              ),
               Positioned.fill(
                 top: 100,
                 child: Row(

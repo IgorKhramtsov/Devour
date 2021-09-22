@@ -7,6 +7,7 @@ part 'reddit_account.freezed.dart';
 part 'reddit_account.g.dart';
 
 // TODO: currently, there is bad inheritance because of freezed. Try to do something.
+// TODO: here is Hive annotation, which resulting in mixing of domain and infrastructure. Fix.
 @freezed
 class RedditAccount extends OAuthAccountModel with _$RedditAccount {
   /// Creates a reddit account model

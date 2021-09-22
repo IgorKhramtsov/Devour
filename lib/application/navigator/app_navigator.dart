@@ -60,7 +60,7 @@ class AppNavigator {
         return (BuildContext ctx) => AccountScreen(
             redirectArguments: settings.arguments! as RedditRedirectArguments);
       default:
-        return (BuildContext ctx) => AccountScreen();
+        return (BuildContext ctx) => FeedScreen();
     }
   }
 

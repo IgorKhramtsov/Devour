@@ -4,5 +4,5 @@ part of 'feed_bloc.dart';
 class FeedEvent with _$FeedEvent {
   const factory FeedEvent.like() = _Like;
   const factory FeedEvent.refresh() = _Refresh;
-  const factory FeedEvent.select(int index) = _Select;
+  const factory FeedEvent.select(int index, Option<GlobalKey> key) = _Select;
 }
