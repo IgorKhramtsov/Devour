@@ -1,4 +1,5 @@
 import 'package:devour/application/feed/bloc/feed_bloc.dart';
+import 'package:devour/presentation/screens/feed/feed_scroll_physics.dart';
 import 'package:devour/presentation/screens/feed/post_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,14 +64,18 @@ class _FeedState extends State<Feed> {
         }
 
         return ScrollablePositionedList.builder(
+          physics: FeedScrollPhysics(renderedMemes),
           itemCount: state.memes.length,
           itemPositionsListener: listener,
           itemBuilder: (BuildContext context, int index) {
             final key = renderedMemes.putIfAbsent(index, () => GlobalKey());
 
-            return Container(
-              key: key,
-              child: Image.network(state.memes[index].imageLink),
+            return ConstrainedBox(
+              constraints: BoxConstraints(minHeight: 200, minWidth: 200),
+              child: Container(
+                key: key,
+                child: Image.network(state.memes[index].imageLink),
+              ),
             );
           },
         );
