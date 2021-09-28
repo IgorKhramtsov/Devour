@@ -25,8 +25,11 @@ class _$FeedEventTearOff {
     return const _Refresh();
   }
 
-  _Next next() {
-    return const _Next();
+  _Select select(int index, Option<GlobalKey<State<StatefulWidget>>> key) {
+    return _Select(
+      index,
+      key,
+    );
   }
 }
 
@@ -39,21 +42,25 @@ mixin _$FeedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(
+            int index, Option<GlobalKey<State<StatefulWidget>>> key)
+        select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,21 +68,21 @@ mixin _$FeedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -135,7 +142,9 @@ class _$_Like implements _Like {
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(
+            int index, Option<GlobalKey<State<StatefulWidget>>> key)
+        select,
   }) {
     return like();
   }
@@ -145,7 +154,8 @@ class _$_Like implements _Like {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
   }) {
     return like?.call();
   }
@@ -155,7 +165,8 @@ class _$_Like implements _Like {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
     required TResult orElse(),
   }) {
     if (like != null) {
@@ -169,7 +180,7 @@ class _$_Like implements _Like {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) {
     return like(this);
   }
@@ -179,7 +190,7 @@ class _$_Like implements _Like {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) {
     return like?.call(this);
   }
@@ -189,7 +200,7 @@ class _$_Like implements _Like {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) {
     if (like != null) {
@@ -242,7 +253,9 @@ class _$_Refresh implements _Refresh {
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(
+            int index, Option<GlobalKey<State<StatefulWidget>>> key)
+        select,
   }) {
     return refresh();
   }
@@ -252,7 +265,8 @@ class _$_Refresh implements _Refresh {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
   }) {
     return refresh?.call();
   }
@@ -262,7 +276,8 @@ class _$_Refresh implements _Refresh {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -276,7 +291,7 @@ class _$_Refresh implements _Refresh {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) {
     return refresh(this);
   }
@@ -286,7 +301,7 @@ class _$_Refresh implements _Refresh {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) {
     return refresh?.call(this);
   }
@@ -296,7 +311,7 @@ class _$_Refresh implements _Refresh {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -311,47 +326,85 @@ abstract class _Refresh implements FeedEvent {
 }
 
 /// @nodoc
-abstract class _$NextCopyWith<$Res> {
-  factory _$NextCopyWith(_Next value, $Res Function(_Next) then) =
-      __$NextCopyWithImpl<$Res>;
+abstract class _$SelectCopyWith<$Res> {
+  factory _$SelectCopyWith(_Select value, $Res Function(_Select) then) =
+      __$SelectCopyWithImpl<$Res>;
+  $Res call({int index, Option<GlobalKey<State<StatefulWidget>>> key});
 }
 
 /// @nodoc
-class __$NextCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
-    implements _$NextCopyWith<$Res> {
-  __$NextCopyWithImpl(_Next _value, $Res Function(_Next) _then)
-      : super(_value, (v) => _then(v as _Next));
+class __$SelectCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
+    implements _$SelectCopyWith<$Res> {
+  __$SelectCopyWithImpl(_Select _value, $Res Function(_Select) _then)
+      : super(_value, (v) => _then(v as _Select));
 
   @override
-  _Next get _value => super._value as _Next;
+  _Select get _value => super._value as _Select;
+
+  @override
+  $Res call({
+    Object? index = freezed,
+    Object? key = freezed,
+  }) {
+    return _then(_Select(
+      index == freezed
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as Option<GlobalKey<State<StatefulWidget>>>,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Next implements _Next {
-  const _$_Next();
+class _$_Select implements _Select {
+  const _$_Select(this.index, this.key);
+
+  @override
+  final int index;
+  @override
+  final Option<GlobalKey<State<StatefulWidget>>> key;
 
   @override
   String toString() {
-    return 'FeedEvent.next()';
+    return 'FeedEvent.select(index: $index, key: $key)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Next);
+    return identical(this, other) ||
+        (other is _Select &&
+            (identical(other.index, index) ||
+                const DeepCollectionEquality().equals(other.index, index)) &&
+            (identical(other.key, key) ||
+                const DeepCollectionEquality().equals(other.key, key)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(index) ^
+      const DeepCollectionEquality().hash(key);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SelectCopyWith<_Select> get copyWith =>
+      __$SelectCopyWithImpl<_Select>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() like,
     required TResult Function() refresh,
-    required TResult Function() next,
+    required TResult Function(
+            int index, Option<GlobalKey<State<StatefulWidget>>> key)
+        select,
   }) {
-    return next();
+    return select(index, key);
   }
 
   @override
@@ -359,9 +412,10 @@ class _$_Next implements _Next {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
   }) {
-    return next?.call();
+    return select?.call(index, key);
   }
 
   @override
@@ -369,11 +423,12 @@ class _$_Next implements _Next {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? like,
     TResult Function()? refresh,
-    TResult Function()? next,
+    TResult Function(int index, Option<GlobalKey<State<StatefulWidget>>> key)?
+        select,
     required TResult orElse(),
   }) {
-    if (next != null) {
-      return next();
+    if (select != null) {
+      return select(index, key);
     }
     return orElse();
   }
@@ -383,9 +438,9 @@ class _$_Next implements _Next {
   TResult map<TResult extends Object?>({
     required TResult Function(_Like value) like,
     required TResult Function(_Refresh value) refresh,
-    required TResult Function(_Next value) next,
+    required TResult Function(_Select value) select,
   }) {
-    return next(this);
+    return select(this);
   }
 
   @override
@@ -393,9 +448,9 @@ class _$_Next implements _Next {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
   }) {
-    return next?.call(this);
+    return select?.call(this);
   }
 
   @override
@@ -403,18 +458,25 @@ class _$_Next implements _Next {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Like value)? like,
     TResult Function(_Refresh value)? refresh,
-    TResult Function(_Next value)? next,
+    TResult Function(_Select value)? select,
     required TResult orElse(),
   }) {
-    if (next != null) {
-      return next(this);
+    if (select != null) {
+      return select(this);
     }
     return orElse();
   }
 }
 
-abstract class _Next implements FeedEvent {
-  const factory _Next() = _$_Next;
+abstract class _Select implements FeedEvent {
+  const factory _Select(
+      int index, Option<GlobalKey<State<StatefulWidget>>> key) = _$_Select;
+
+  int get index => throw _privateConstructorUsedError;
+  Option<GlobalKey<State<StatefulWidget>>> get key =>
+      throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$SelectCopyWith<_Select> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -424,11 +486,13 @@ class _$FeedStateTearOff {
   _FeedState call(
       {required bool isLoading,
       required List<AbstractMemeModel> memes,
-      required int iterator}) {
+      required int iterator,
+      required Option<GlobalKey<State<StatefulWidget>>> currentMemeWidget}) {
     return _FeedState(
       isLoading: isLoading,
       memes: memes,
       iterator: iterator,
+      currentMemeWidget: currentMemeWidget,
     );
   }
 }
@@ -441,6 +505,8 @@ mixin _$FeedState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<AbstractMemeModel> get memes => throw _privateConstructorUsedError;
   int get iterator => throw _privateConstructorUsedError;
+  Option<GlobalKey<State<StatefulWidget>>> get currentMemeWidget =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FeedStateCopyWith<FeedState> get copyWith =>
@@ -451,7 +517,11 @@ mixin _$FeedState {
 abstract class $FeedStateCopyWith<$Res> {
   factory $FeedStateCopyWith(FeedState value, $Res Function(FeedState) then) =
       _$FeedStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, List<AbstractMemeModel> memes, int iterator});
+  $Res call(
+      {bool isLoading,
+      List<AbstractMemeModel> memes,
+      int iterator,
+      Option<GlobalKey<State<StatefulWidget>>> currentMemeWidget});
 }
 
 /// @nodoc
@@ -467,6 +537,7 @@ class _$FeedStateCopyWithImpl<$Res> implements $FeedStateCopyWith<$Res> {
     Object? isLoading = freezed,
     Object? memes = freezed,
     Object? iterator = freezed,
+    Object? currentMemeWidget = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -481,6 +552,10 @@ class _$FeedStateCopyWithImpl<$Res> implements $FeedStateCopyWith<$Res> {
           ? _value.iterator
           : iterator // ignore: cast_nullable_to_non_nullable
               as int,
+      currentMemeWidget: currentMemeWidget == freezed
+          ? _value.currentMemeWidget
+          : currentMemeWidget // ignore: cast_nullable_to_non_nullable
+              as Option<GlobalKey<State<StatefulWidget>>>,
     ));
   }
 }
@@ -491,7 +566,11 @@ abstract class _$FeedStateCopyWith<$Res> implements $FeedStateCopyWith<$Res> {
           _FeedState value, $Res Function(_FeedState) then) =
       __$FeedStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, List<AbstractMemeModel> memes, int iterator});
+  $Res call(
+      {bool isLoading,
+      List<AbstractMemeModel> memes,
+      int iterator,
+      Option<GlobalKey<State<StatefulWidget>>> currentMemeWidget});
 }
 
 /// @nodoc
@@ -508,6 +587,7 @@ class __$FeedStateCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? memes = freezed,
     Object? iterator = freezed,
+    Object? currentMemeWidget = freezed,
   }) {
     return _then(_FeedState(
       isLoading: isLoading == freezed
@@ -522,6 +602,10 @@ class __$FeedStateCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
           ? _value.iterator
           : iterator // ignore: cast_nullable_to_non_nullable
               as int,
+      currentMemeWidget: currentMemeWidget == freezed
+          ? _value.currentMemeWidget
+          : currentMemeWidget // ignore: cast_nullable_to_non_nullable
+              as Option<GlobalKey<State<StatefulWidget>>>,
     ));
   }
 }
@@ -530,7 +614,10 @@ class __$FeedStateCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
 
 class _$_FeedState implements _FeedState {
   const _$_FeedState(
-      {required this.isLoading, required this.memes, required this.iterator});
+      {required this.isLoading,
+      required this.memes,
+      required this.iterator,
+      required this.currentMemeWidget});
 
   @override
   final bool isLoading;
@@ -538,10 +625,12 @@ class _$_FeedState implements _FeedState {
   final List<AbstractMemeModel> memes;
   @override
   final int iterator;
+  @override
+  final Option<GlobalKey<State<StatefulWidget>>> currentMemeWidget;
 
   @override
   String toString() {
-    return 'FeedState(isLoading: $isLoading, memes: $memes, iterator: $iterator)';
+    return 'FeedState(isLoading: $isLoading, memes: $memes, iterator: $iterator, currentMemeWidget: $currentMemeWidget)';
   }
 
   @override
@@ -555,7 +644,10 @@ class _$_FeedState implements _FeedState {
                 const DeepCollectionEquality().equals(other.memes, memes)) &&
             (identical(other.iterator, iterator) ||
                 const DeepCollectionEquality()
-                    .equals(other.iterator, iterator)));
+                    .equals(other.iterator, iterator)) &&
+            (identical(other.currentMemeWidget, currentMemeWidget) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentMemeWidget, currentMemeWidget)));
   }
 
   @override
@@ -563,7 +655,8 @@ class _$_FeedState implements _FeedState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(memes) ^
-      const DeepCollectionEquality().hash(iterator);
+      const DeepCollectionEquality().hash(iterator) ^
+      const DeepCollectionEquality().hash(currentMemeWidget);
 
   @JsonKey(ignore: true)
   @override
@@ -575,7 +668,9 @@ abstract class _FeedState implements FeedState {
   const factory _FeedState(
       {required bool isLoading,
       required List<AbstractMemeModel> memes,
-      required int iterator}) = _$_FeedState;
+      required int iterator,
+      required Option<GlobalKey<State<StatefulWidget>>>
+          currentMemeWidget}) = _$_FeedState;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -583,6 +678,9 @@ abstract class _FeedState implements FeedState {
   List<AbstractMemeModel> get memes => throw _privateConstructorUsedError;
   @override
   int get iterator => throw _privateConstructorUsedError;
+  @override
+  Option<GlobalKey<State<StatefulWidget>>> get currentMemeWidget =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FeedStateCopyWith<_FeedState> get copyWith =>

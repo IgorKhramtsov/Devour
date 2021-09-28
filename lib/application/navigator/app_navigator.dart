@@ -35,6 +35,10 @@ class AppNavigator {
     if (name.startsWith('/')) {
       name = name.substring(1);
     }
+    // For some reason, after redirect reddit sometime adds this to end of path
+    if (name.endsWith('#_')) {
+      name = name.substring(0, name.length - 2);
+    }
 
     dynamic arguments;
     // If deeplink with parameters
@@ -56,7 +60,7 @@ class AppNavigator {
         return (BuildContext ctx) => AccountScreen(
             redirectArguments: settings.arguments! as RedditRedirectArguments);
       default:
-        return (BuildContext ctx) => const FeedScreen();
+        return (BuildContext ctx) => FeedScreen();
     }
   }
 

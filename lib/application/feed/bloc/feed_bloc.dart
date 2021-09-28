@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:devour/domain/meme/abstract_meme_model.dart';
 import 'package:devour/infrastructure/meme_scrapper/reddit_scrapper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart' hide State;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -36,9 +38,14 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       like: (e) async* {
         yield state;
       },
-      next: (e) async* {
-        yield state;
+      select: (e) async* {
+        yield state.copyWith(
+          iterator: e.index,
+          currentMemeWidget: e.key,
+        );
       },
     );
   }
+
+  AbstractMemeModel get currentMemeModel => state.memes[state.iterator];
 }

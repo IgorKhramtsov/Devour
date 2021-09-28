@@ -1,42 +1,106 @@
+import 'dart:ui';
+
+import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/domain/meme/abstract_meme_model.dart';
 import 'package:devour/domain/misc/helper.dart';
 import 'package:devour/presentation/widgets/platform/platform_icon_button.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PostWidget extends StatelessWidget {
-  const PostWidget(
-    this.memeModel, {
+class PostOverlayWidget extends StatelessWidget {
+  const PostOverlayWidget(
+    this.bloc, {
     Key? key,
   }) : super(key: key);
 
-  final AbstractMemeModel memeModel;
+  final FeedBloc bloc;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: Image.network(memeModel.imageLink),
-        ),
-        Positioned.fill(
-          top: 100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+    return BlocBuilder<FeedBloc, FeedState>(
+        bloc: bloc,
+        builder: (context, state) {
+          if (state.isLoading) {
+            return Container();
+          }
+
+          final key = bloc.state.currentMemeWidget.toNullable();
+          final box = key?.currentContext?.findRenderObject() as RenderBox?;
+          final pos = box?.localToGlobal(Offset.zero) ?? Offset.zero;
+
+          return Stack(
             children: [
-              PostActionsWidget(currentPost: memeModel),
+              IgnorePointer(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(0, 0, 0, 0.3),
+                        Color.fromRGBO(0, 0, 0, 0.0),
+                        Color.fromRGBO(0, 0, 0, 0.0),
+                        Color.fromRGBO(0, 0, 0, 0.3),
+                      ]
+                    ),
+                  )
+                ),
+              ),
+              // Idk, maybe remove animated
+              Positioned(
+                top: pos.dy,
+                left: pos.dx,
+                width: box?.size.width,
+                height: box?.size.height,
+                child: IgnorePointer(
+                  child: BackdropFilter(
+                    filter: ImageFilter.compose(
+                      outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                      inner: ColorFilter.mode(
+                        Colors.black.withOpacity(.15),
+                        BlendMode.darken,
+                      ),
+                    ),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 100),
+                      layoutBuilder: (curr, prev) {
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            // ...prev,
+                            if (curr != null) curr,
+                          ],
+                        );
+                      },
+                      child: Container(
+                        key: Key(bloc.currentMemeModel.imageLink),
+                        child: Image.network(bloc.currentMemeModel.imageLink),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                top: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    PostActionsWidget(currentPost: bloc.currentMemeModel),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 20,
+                bottom: 60,
+                child: PostDescriptionWidget(
+                  currentPost: bloc.currentMemeModel,
+                ),
+              ),
             ],
-          ),
-        ),
-        Positioned(
-          left: 20,
-          bottom: 60,
-          child: PostDescriptionWidget(
-            currentPost: memeModel,
-          ),
-        ),
-      ],
-    );
+          );
+        });
   }
 }
 
