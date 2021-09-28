@@ -71,7 +71,11 @@ class _FeedState extends State<Feed> {
             final key = renderedMemes.putIfAbsent(index, () => GlobalKey());
 
             return ConstrainedBox(
-              constraints: BoxConstraints(minHeight: 200, minWidth: 200),
+              constraints: BoxConstraints(
+                minHeight: 200, 
+                minWidth: 200,
+                maxHeight: MediaQuery.of(context).size.height
+              ),
               child: Container(
                 key: key,
                 child: Image.network(state.memes[index].imageLink),

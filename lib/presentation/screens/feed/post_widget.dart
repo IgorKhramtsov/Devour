@@ -32,9 +32,24 @@ class PostOverlayWidget extends StatelessWidget {
 
           return Stack(
             children: [
+              IgnorePointer(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(0, 0, 0, 0.3),
+                        Color.fromRGBO(0, 0, 0, 0.0),
+                        Color.fromRGBO(0, 0, 0, 0.0),
+                        Color.fromRGBO(0, 0, 0, 0.3),
+                      ]
+                    ),
+                  )
+                ),
+              ),
               // Idk, maybe remove animated
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 50),
+              Positioned(
                 top: pos.dy,
                 left: pos.dx,
                 width: box?.size.width,
@@ -44,11 +59,26 @@ class PostOverlayWidget extends StatelessWidget {
                     filter: ImageFilter.compose(
                       outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
                       inner: ColorFilter.mode(
-                        Colors.black.withOpacity(.3),
+                        Colors.black.withOpacity(.15),
                         BlendMode.darken,
                       ),
                     ),
-                    child: Image.network(bloc.currentMemeModel.imageLink),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 100),
+                      layoutBuilder: (curr, prev) {
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            // ...prev,
+                            if (curr != null) curr,
+                          ],
+                        );
+                      },
+                      child: Container(
+                        key: Key(bloc.currentMemeModel.imageLink),
+                        child: Image.network(bloc.currentMemeModel.imageLink),
+                      ),
+                    ),
                   ),
                 ),
               ),
