@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:devour/application/navigator/routes.dart';
 import 'package:devour/presentation/screens/accounts/accounts_screen.dart';
 import 'package:devour/presentation/screens/feed/feed_screen.dart';
+import 'package:devour/presentation/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -57,10 +58,12 @@ class AppNavigator {
   Widget Function(BuildContext) _builder(RouteSettings settings) {
     switch (settings.name) {
       case Routes.reddit_auth_redirect:
-        return (BuildContext ctx) => AccountScreen(
-            redirectArguments: settings.arguments! as RedditRedirectArguments);
+        return (BuildContext ctx) => HomeScreen(
+              selectedPage: HomePages.accounts,
+              args: settings.arguments! as RouteArguments,
+            );
       default:
-        return (BuildContext ctx) => FeedScreen();
+        return (BuildContext ctx) => const HomeScreen();
     }
   }
 

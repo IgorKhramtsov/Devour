@@ -115,6 +115,7 @@ class __$RedditRedirectArgumentsCopyWithImpl<$Res>
 
 /// @nodoc
 
+@Implements(RouteArguments)
 class _$_RedditRedirectArguments implements _RedditRedirectArguments {
   _$_RedditRedirectArguments({required this.code, required this.state});
 
@@ -151,7 +152,8 @@ class _$_RedditRedirectArguments implements _RedditRedirectArguments {
           this, _$identity);
 }
 
-abstract class _RedditRedirectArguments implements RedditRedirectArguments {
+abstract class _RedditRedirectArguments
+    implements RedditRedirectArguments, RouteArguments {
   factory _RedditRedirectArguments(
       {required String code,
       required String state}) = _$_RedditRedirectArguments;

@@ -43,9 +43,9 @@ class PostOverlayWidget extends StatelessWidget {
                         Color.fromRGBO(0, 0, 0, 0.0),
                         Color.fromRGBO(0, 0, 0, 0.0),
                         Color.fromRGBO(0, 0, 0, 0.3),
-                      ]
+                      ],
                     ),
-                  )
+                  ),
                 ),
               ),
               // Idk, maybe remove animated

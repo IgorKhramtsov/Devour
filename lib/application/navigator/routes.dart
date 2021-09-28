@@ -10,6 +10,8 @@ class Routes {
   static const String reddit_auth_redirect = 'reddit/auth_redirect';
 }
 
+abstract class RouteArguments {}
+
 /// Arguments with user token and state after deeplinking back to app from reddit
 @freezed
 class RedditRedirectArguments with _$RedditRedirectArguments {
@@ -27,6 +29,8 @@ class RedditRedirectArguments with _$RedditRedirectArguments {
 
     return RedditRedirectArguments(state: state!, code: code!);
   }
+
+  @Implements(RouteArguments)
   factory RedditRedirectArguments({
     required String code,
     required String state,

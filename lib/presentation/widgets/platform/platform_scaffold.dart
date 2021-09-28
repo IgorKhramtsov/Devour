@@ -15,10 +15,11 @@ class PlatformScaffold
   @override
   CupertinoPageScaffold buildCupertino(BuildContext context) {
     return CupertinoPageScaffold(
-        // navigationBar: CupertinoNavigationBar(
-        //   middle: Text('Home'),
-        // ),
-        child: body);
+      // navigationBar: CupertinoNavigationBar(
+      //   middle: Text('Home'),
+      // ),
+      child: body,
+    );
   }
 
   @override
