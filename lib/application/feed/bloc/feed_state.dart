@@ -16,3 +16,7 @@ class FeedState with _$FeedState {
         currentMemeWidget: Option.none(),
       );
 }
+
+extension FeedStateX on FeedState {
+  AbstractMemeModel get currentMemeModel => memes[iterator];
+}

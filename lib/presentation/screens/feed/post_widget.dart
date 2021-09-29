@@ -7,100 +7,69 @@ import 'package:devour/presentation/widgets/platform/platform_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PostOverlayWidget extends StatelessWidget {
-  const PostOverlayWidget(
-    this.bloc, {
+class PostWidget extends StatelessWidget {
+  const PostWidget(
+    this.state, {
     Key? key,
   }) : super(key: key);
 
-  final FeedBloc bloc;
+  final FeedState state;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeedBloc, FeedState>(
-        bloc: bloc,
-        builder: (context, state) {
-          if (state.isLoading) {
-            return Container();
-          }
+    if (state.isLoading) {
+      return Container();
+    }
 
-          final key = bloc.state.currentMemeWidget.toNullable();
-          final box = key?.currentContext?.findRenderObject() as RenderBox?;
-          final pos = box?.localToGlobal(Offset.zero) ?? Offset.zero;
+    final key = state.currentMemeWidget.toNullable();
+    final box = key?.currentContext?.findRenderObject() as RenderBox?;
+    final pos = box?.localToGlobal(Offset.zero) ?? Offset.zero;
 
-          return Stack(
-            children: [
-              IgnorePointer(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(0, 0, 0, 0.3),
-                        Color.fromRGBO(0, 0, 0, 0.0),
-                        Color.fromRGBO(0, 0, 0, 0.0),
-                        Color.fromRGBO(0, 0, 0, 0.3),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              // Idk, maybe remove animated
-              Positioned(
-                top: pos.dy,
-                left: pos.dx,
-                width: box?.size.width,
-                height: box?.size.height,
-                child: IgnorePointer(
-                  child: BackdropFilter(
-                    filter: ImageFilter.compose(
-                      outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                      inner: ColorFilter.mode(
-                        Colors.black.withOpacity(.15),
-                        BlendMode.darken,
-                      ),
-                    ),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 100),
-                      layoutBuilder: (curr, prev) {
-                        return Stack(
-                          alignment: Alignment.center,
-                          children: <Widget>[
-                            // ...prev,
-                            if (curr != null) curr,
-                          ],
-                        );
-                      },
-                      child: Container(
-                        key: Key(bloc.currentMemeModel.imageLink),
-                        child: Image.network(bloc.currentMemeModel.imageLink),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                top: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    PostActionsWidget(currentPost: bloc.currentMemeModel),
+    return Stack(
+      children: [
+        Positioned(
+          top: pos.dy,
+          left: pos.dx,
+          width: box?.size.width,
+          height: box?.size.height,
+          child: IgnorePointer(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 100),
+              layoutBuilder: (curr, prev) {
+                return Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    // ...prev,
+                    if (curr != null) curr,
                   ],
-                ),
+                );
+              },
+              child: Container(
+                key: Key(state.currentMemeModel.imageLink),
+                child: Image.network(state.currentMemeModel.imageLink),
               ),
-              Positioned(
-                left: 20,
-                bottom: 60,
-                child: PostDescriptionWidget(
-                  currentPost: bloc.currentMemeModel,
-                ),
-              ),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          top: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              PostActionsWidget(currentPost: state.currentMemeModel),
             ],
-          );
-        });
+          ),
+        ),
+        Positioned(
+          left: 20,
+          bottom: 60,
+          child: PostDescriptionWidget(
+            currentPost: state.currentMemeModel,
+          ),
+        ),
+      ],
+    );
   }
 }
 
