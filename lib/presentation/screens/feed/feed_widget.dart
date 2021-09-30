@@ -9,8 +9,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart' show Option;
-import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:collection/collection.dart';
 
 class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);
@@ -24,21 +24,14 @@ class _FeedState extends State<Feed> {
   void initState() {
     super.initState();
     final bloc = BlocProvider.of<FeedBloc>(context);
-    // overlay = OverlayEntry(
-    //   builder: (BuildContext ctx) => PostOverlayWidget(bloc),
-    // );
     listener.itemPositions.addListener(() {
-      // Gets closest item, which leading edge is less than 0.3 (first third of screen)
-      // but not more than 0.3
-      final filteredItems =
-          listener.itemPositions.value.where((el) => el.itemLeadingEdge < 0.3);
-      if (filteredItems.isEmpty) {
+      final selectedMeme = listener.itemPositions.value
+          .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
+          .firstOrNull;
+      if (selectedMeme == null) {
+        assert(false);
         return;
       }
-      final selectedMeme = filteredItems.reduce(
-        (max, element) =>
-            element.itemLeadingEdge > max.itemLeadingEdge ? element : max,
-      );
 
       bloc.add(
         FeedEvent.select(
@@ -46,12 +39,7 @@ class _FeedState extends State<Feed> {
           Option.fromNullable(renderedMemes[selectedMeme.index]),
         ),
       );
-      // overlay.markNeedsBuild();
     });
-
-    // WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-    //   Overlay.of(context)!.insert(overlay);
-    // });
   }
 
   // late OverlayEntry overlay;
