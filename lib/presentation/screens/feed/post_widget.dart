@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/domain/meme/abstract_meme_model.dart';
 import 'package:devour/domain/misc/helper.dart';
@@ -7,6 +8,7 @@ import 'package:devour/presentation/widgets/platform/platform_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:octo_image/octo_image.dart';
 
 class PostWidget extends StatelessWidget {
   const PostWidget(
@@ -47,7 +49,11 @@ class PostWidget extends StatelessWidget {
               },
               child: Container(
                 key: Key(state.currentMemeModel.imageLink),
-                child: Image.network(state.currentMemeModel.imageLink),
+                child: OctoImage(
+                  image: CachedNetworkImageProvider(
+                    state.currentMemeModel.imageLink,
+                  ),
+                ),
               ),
             ),
           ),

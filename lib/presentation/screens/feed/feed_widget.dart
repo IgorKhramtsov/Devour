@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/presentation/screens/feed/feed_scroll_physics.dart';
 import 'package:devour/presentation/screens/feed/post_widget.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart' show Option;
+import 'package:octo_image/octo_image.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:collection/collection.dart';
 
@@ -23,23 +25,33 @@ class _FeedState extends State<Feed> {
   @override
   void initState() {
     super.initState();
-    final bloc = BlocProvider.of<FeedBloc>(context);
-    listener.itemPositions.addListener(() {
-      final selectedMeme = listener.itemPositions.value
-          .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
-          .firstOrNull;
-      if (selectedMeme == null) {
-        assert(false);
-        return;
-      }
 
-      bloc.add(
-        FeedEvent.select(
-          selectedMeme.index,
-          Option.fromNullable(renderedMemes[selectedMeme.index]),
-        ),
-      );
+    listener.itemPositions.addListener(() {
+      updateSelectedMeme(listener.itemPositions.value);
     });
+
+    // WidgetsBinding.instance!.addPostFrameCallback(
+    //   (_) => updateSelectedMeme(listener.itemPositions.value),
+    // );
+  }
+
+  void updateSelectedMeme(Iterable<ItemPosition> memePositions) {
+    final bloc = BlocProvider.of<FeedBloc>(context);
+
+    final selectedMeme = listener.itemPositions.value
+        .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
+        .firstOrNull;
+    if (selectedMeme == null) {
+      assert(false);
+      return;
+    }
+
+    bloc.add(
+      FeedEvent.select(
+        selectedMeme.index,
+        Option.fromNullable(renderedMemes[selectedMeme.index]),
+      ),
+    );
   }
 
   // late OverlayEntry overlay;
@@ -82,7 +94,11 @@ class _FeedState extends State<Feed> {
                       ),
                       child: Container(
                         key: key,
-                        child: Image.network(state.memes[index].imageLink),
+                        child: OctoImage(
+                          image: CachedNetworkImageProvider(
+                            state.memes[index].imageLink,
+                          ),
+                        ),
                       ),
                     );
                   },
