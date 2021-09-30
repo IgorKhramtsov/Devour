@@ -22,6 +22,8 @@ class RedditScrapperFacade {
     final memes = listing.children
         .map((post) => post as RedditPostResponse)
         .where((post) => !post.stickied)
+        // The videos are m3u8 format, and have its own data structure. Add its support later.
+        .where((post) => !post.isVideo)
         .map(RedditMemeMapper.map);
     return memes.toList();
   }
