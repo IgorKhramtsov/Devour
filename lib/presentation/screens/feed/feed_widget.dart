@@ -26,17 +26,18 @@ class _FeedState extends State<Feed> {
   void initState() {
     super.initState();
 
-    listener.itemPositions.addListener(() {
-      updateSelectedMeme(listener.itemPositions.value);
-    });
-
-    // WidgetsBinding.instance!.addPostFrameCallback(
-    //   (_) => updateSelectedMeme(listener.itemPositions.value),
-    // );
+    listener.itemPositions.addListener(updateSelectedMeme);
   }
 
-  void updateSelectedMeme(Iterable<ItemPosition> memePositions) {
+  @override
+  void dispose() {
+    listener.itemPositions.removeListener(updateSelectedMeme);
+    super.dispose();
+  }
+
+  void updateSelectedMeme() {
     final bloc = BlocProvider.of<FeedBloc>(context);
+    final memePositions = listener.itemPositions.value;
 
     final selectedMeme = listener.itemPositions.value
         .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
