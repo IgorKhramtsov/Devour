@@ -1,7 +1,9 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:devour/application/feed/bloc/feed_bloc.dart';
+import 'package:devour/injection.dart';
 import 'package:devour/presentation/screens/feed/feed_scroll_physics.dart';
 import 'package:devour/presentation/screens/feed/post_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fpdart/fpdart.dart' show Option;
 import 'package:octo_image/octo_image.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -50,15 +53,16 @@ class _FeedState extends State<Feed> {
     bloc.add(
       FeedEvent.select(
         selectedMeme.index,
-        Option.fromNullable(renderedMemes[selectedMeme.index]),
+        Option.fromNullable(renderedMemesKeys[selectedMeme.index]),
       ),
     );
   }
 
-  // late OverlayEntry overlay;
+  late CacheManager cacheManager = serviceLocator<CacheManager>();
   final ScrollController controller = ScrollController();
   final ItemPositionsListener listener = ItemPositionsListener.create();
-  final renderedMemes = <int, GlobalKey>{};
+  final renderedMemes = <int, Size>{};
+  final renderedMemesKeys = <int, GlobalKey>{};
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +73,7 @@ class _FeedState extends State<Feed> {
         }
 
         return LayoutBuilder(
-          builder: (BuildContext context, Constraints constraints) => Stack(
+          builder: (BuildContext context, BoxConstraints constraints) => Stack(
             children: [
               ImageFiltered(
                 imageFilter: ImageFilter.compose(
@@ -84,22 +88,52 @@ class _FeedState extends State<Feed> {
                   itemCount: state.memes.length,
                   itemPositionsListener: listener,
                   itemBuilder: (BuildContext context, int index) {
+                    // We can use safe area here, but it will create more problems
+                    final maxHeight = constraints.maxHeight -
+                        MediaQuery.of(context).padding.bottom -
+                        MediaQuery.of(context).padding.top;
                     final key =
-                        renderedMemes.putIfAbsent(index, () => GlobalKey());
+                        renderedMemesKeys.putIfAbsent(index, () => GlobalKey());
+                    final imageProvider = CachedNetworkImageProvider(
+                      state.memes[index].imageLink,
+                      cacheManager: cacheManager,
+                    );
+                    if (renderedMemes[index] == null) {
+                      imageProvider
+                          .resolve(ImageConfiguration.empty)
+                          .addListener(
+                        ImageStreamListener((info, synchronousCall) {
+                          Size size = Size(
+                            info.image.width.toDouble(),
+                            max(info.image.height.toDouble(), 200.0),
+                          );
+                          if (size.width > constraints.maxWidth) {
+                            size = Size(
+                              constraints.maxWidth,
+                              constraints.maxWidth / size.aspectRatio,
+                            );
+                          }
+                          if (size.height > maxHeight) {
+                            size = Size(
+                              maxHeight * size.aspectRatio,
+                              maxHeight,
+                            );
+                          }
+                          renderedMemes[index] = size;
+                        }),
+                      );
+                      renderedMemes[index] = Size.zero;
+                    }
 
                     return ConstrainedBox(
                       constraints: BoxConstraints(
                         minHeight: 200,
                         minWidth: 200,
-                        maxHeight: MediaQuery.of(context).size.height,
+                        maxHeight: maxHeight,
                       ),
-                      child: Container(
+                      child: OctoImage(
                         key: key,
-                        child: OctoImage(
-                          image: CachedNetworkImageProvider(
-                            state.memes[index].imageLink,
-                          ),
-                        ),
+                        image: imageProvider,
                       ),
                     );
                   },

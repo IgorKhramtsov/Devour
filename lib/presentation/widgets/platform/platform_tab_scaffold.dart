@@ -26,6 +26,7 @@ class PlatformTabScaffold
   CupertinoTabScaffold buildCupertino(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
+        backgroundColor: Colors.transparent,
         currentIndex: currentIndex,
         items: tabsIcons,
       ),
@@ -66,6 +67,7 @@ class _MaterialTabScaffoldState extends State<_MaterialTabScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.transparent,
         onTap: (index) => setState(() {
           _currentIndex = index;
         }),

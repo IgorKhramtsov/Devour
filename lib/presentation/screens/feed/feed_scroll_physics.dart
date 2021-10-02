@@ -26,24 +26,17 @@ extension PositionRetriever on GlobalKey<State<StatefulWidget>> {
 }
 
 class FeedScrollPhysics extends ScrollPhysics {
-  FeedScrollPhysics(this.elementsKeys, {ScrollPhysics? parent})
+  FeedScrollPhysics(this.elementsSizes, {ScrollPhysics? parent})
       : super(parent: parent);
 
-  Map<int, GlobalKey<State<StatefulWidget>>> elementsKeys;
-  final Map<int, double?> elementsHeights = <int, double>{};
+  Map<int, Size> elementsSizes;
 
   @override
   FeedScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return FeedScrollPhysics(elementsKeys, parent: buildParent(ancestor));
+    return FeedScrollPhysics(elementsSizes, parent: buildParent(ancestor));
   }
 
   double _getElement(ScrollMetrics position) {
-    for (int i = 0; i < elementsKeys.length; i++) {
-      final height = elementsKeys[i]?.getSize()?.height;
-      if (height != null) {
-        elementsHeights[i] = height;
-      }
-    }
     final viewportHeight = position.viewportDimension;
     // Target position
     final viewportCenter = position.pixels + (viewportHeight / 2.0);
@@ -51,8 +44,8 @@ class FeedScrollPhysics extends ScrollPhysics {
     double sum = 0.0;
     double elementCenter = 0.0;
     int elementIndex = 0;
-    for (int i = 0; i < elementsHeights.length; i++) {
-      final height = elementsHeights[i]!;
+    for (int i = 0; i < elementsSizes.length; i++) {
+      final height = elementsSizes[i]!.height;
 
       final nextElementCenter = sum + (height / 2);
       if ((viewportCenter - nextElementCenter).abs() <
@@ -65,7 +58,7 @@ class FeedScrollPhysics extends ScrollPhysics {
       }
     }
 
-    final itemHeight = elementsHeights[elementIndex]!;
+    final itemHeight = elementsSizes[elementIndex]!.height;
     final itemOffset = sum - itemHeight;
     final relativePos = viewportCenter - itemOffset;
     return elementIndex + ((relativePos / itemHeight) - 0.5);
@@ -76,9 +69,9 @@ class FeedScrollPhysics extends ScrollPhysics {
 
     double sum = 0;
     for (int i = 0; i < elementIndex; i++) {
-      sum += elementsHeights[i]!;
+      sum += elementsSizes[i]!.height;
     }
-    final elementCenter = sum + (elementsHeights[elementIndex]! / 2.0);
+    final elementCenter = sum + (elementsSizes[elementIndex]!.height / 2.0);
 
     return elementCenter - viewportCenter;
   }
