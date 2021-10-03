@@ -70,6 +70,7 @@ class PostWidget extends StatelessWidget {
         Positioned(
           left: 20,
           bottom: 100,
+          width: 400,
           child: PostDescriptionWidget(
             currentPost: state.currentMemeModel,
           ),
