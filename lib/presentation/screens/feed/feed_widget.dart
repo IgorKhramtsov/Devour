@@ -18,14 +18,20 @@ import 'package:octo_image/octo_image.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:collection/collection.dart';
 
-class Feed extends StatefulWidget {
-  const Feed({Key? key}) : super(key: key);
+class FeedWidget extends StatefulWidget {
+  const FeedWidget({Key? key}) : super(key: key);
 
   @override
-  State<Feed> createState() => _FeedState();
+  State<FeedWidget> createState() => _FeedWidgetState();
 }
 
-class _FeedState extends State<Feed> {
+class _FeedWidgetState extends State<FeedWidget> {
+  late CacheManager cacheManager = serviceLocator<CacheManager>();
+  final ScrollController controller = ScrollController();
+  final ItemPositionsListener listener = ItemPositionsListener.create();
+  final renderedMemes = <int, Size>{};
+  final renderedMemesKeys = <int, GlobalKey>{};
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +47,6 @@ class _FeedState extends State<Feed> {
 
   void updateSelectedMeme() {
     final bloc = BlocProvider.of<FeedBloc>(context);
-    final memePositions = listener.itemPositions.value;
 
     final selectedMeme = listener.itemPositions.value
         .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
@@ -59,122 +64,148 @@ class _FeedState extends State<Feed> {
     );
   }
 
-  late CacheManager cacheManager = serviceLocator<CacheManager>();
-  final ScrollController controller = ScrollController();
-  final ItemPositionsListener listener = ItemPositionsListener.create();
-  final renderedMemes = <int, Size>{};
-  final renderedMemesKeys = <int, GlobalKey>{};
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FeedBloc, FeedState>(
       builder: (context, state) {
-        if (state.isLoading) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Center(
-              child: Lottie.asset(
-                'lib/assets/animations/space_loader.json',
+        Widget getContent(BuildContext context, FeedState state) {
+          if (state.isLoading) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Center(
+                child: Lottie.asset('lib/assets/animations/space_loader.json'),
               ),
+            );
+          }
+
+          return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints cnstr) => Stack(
+              children: [
+                ImageFiltered(
+                  imageFilter: ImageFilter.compose(
+                    outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                    inner: ColorFilter.mode(
+                      Colors.black.withOpacity(.15),
+                      BlendMode.darken,
+                    ),
+                  ),
+                  child: ScrollablePositionedList.builder(
+                    physics: FeedScrollPhysics(renderedMemes),
+                    itemCount: state.memes.length,
+                    itemPositionsListener: listener,
+                    itemBuilder: (BuildContext context, int index) {
+                      final imageProvider = CachedNetworkImageProvider(
+                        state.memes[index].imageLink,
+                        cacheManager: cacheManager,
+                      );
+                      // We can use safe area here, but it will create more problems
+                      final maxHeight = cnstr.maxHeight -
+                          MediaQuery.of(context).padding.bottom -
+                          MediaQuery.of(context).padding.top;
+                      final key = renderedMemesKeys.putIfAbsent(
+                        index,
+                        () => GlobalKey(),
+                      );
+                      if (renderedMemes[index] == null) {
+                        propogateSizeToMap(
+                          imageProvider,
+                          cnstr,
+                          maxHeight,
+                          index,
+                        );
+                      }
+
+                      return ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: 200,
+                          minWidth: 200,
+                          maxHeight: maxHeight,
+                        ),
+                        child: OctoImage(
+                          key: key,
+                          image: imageProvider,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                buildVignette(),
+                // Build overlay with actions and description, with listenable of current
+                // scroll position
+                ValueListenableBuilder(
+                  valueListenable: listener.itemPositions,
+                  builder: (_, __, ___) {
+                    return PostWidget(state);
+                  },
+                )
+              ],
             ),
           );
         }
 
-        return LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) => Stack(
-            children: [
-              ImageFiltered(
-                imageFilter: ImageFilter.compose(
-                  outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                  inner: ColorFilter.mode(
-                    Colors.black.withOpacity(.15),
-                    BlendMode.darken,
-                  ),
-                ),
-                child: ScrollablePositionedList.builder(
-                  physics: FeedScrollPhysics(renderedMemes),
-                  itemCount: state.memes.length,
-                  itemPositionsListener: listener,
-                  itemBuilder: (BuildContext context, int index) {
-                    // We can use safe area here, but it will create more problems
-                    final maxHeight = constraints.maxHeight -
-                        MediaQuery.of(context).padding.bottom -
-                        MediaQuery.of(context).padding.top;
-                    final key =
-                        renderedMemesKeys.putIfAbsent(index, () => GlobalKey());
-                    final imageProvider = CachedNetworkImageProvider(
-                      state.memes[index].imageLink,
-                      cacheManager: cacheManager,
-                    );
-                    if (renderedMemes[index] == null) {
-                      imageProvider
-                          .resolve(ImageConfiguration.empty)
-                          .addListener(
-                        ImageStreamListener((info, synchronousCall) {
-                          Size size = Size(
-                            info.image.width.toDouble(),
-                            max(info.image.height.toDouble(), 200.0),
-                          );
-                          if (size.width > constraints.maxWidth) {
-                            size = Size(
-                              constraints.maxWidth,
-                              constraints.maxWidth / size.aspectRatio,
-                            );
-                          }
-                          if (size.height > maxHeight) {
-                            size = Size(
-                              maxHeight * size.aspectRatio,
-                              maxHeight,
-                            );
-                          }
-                          setState(() {
-                            renderedMemes[index] = size;
-                          });
-                        }),
-                      );
-                      renderedMemes[index] = Size(constraints.maxWidth, 200);
-                    }
-
-                    return ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: 200,
-                        minWidth: 200,
-                        maxHeight: maxHeight,
-                      ),
-                      child: OctoImage(
-                        key: key,
-                        image: imageProvider,
-                      ),
-                    );
-                  },
-                ),
-              ),
-              IgnorePointer(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(0, 0, 0, 0.3),
-                        Color.fromRGBO(0, 0, 0, 0.0),
-                        Color.fromRGBO(0, 0, 0, 0.0),
-                        Color.fromRGBO(0, 0, 0, 0.3),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              ValueListenableBuilder(
-                valueListenable: listener.itemPositions,
-                builder: (_, __, ___) {
-                  return PostWidget(state);
-                },
-              )
-            ],
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          child: Container(
+            key: Key(state.isLoading.toString()),
+            child: getContent(context, state),
           ),
         );
       },
     );
+  }
+
+  IgnorePointer buildVignette() {
+    return IgnorePointer(
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(0, 0, 0, 0.3),
+              Color.fromRGBO(0, 0, 0, 0.0),
+              Color.fromRGBO(0, 0, 0, 0.0),
+              Color.fromRGBO(0, 0, 0, 0.3),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void propogateSizeToMap(
+    CachedNetworkImageProvider imageProvider,
+    BoxConstraints constraints,
+    double maxHeight,
+    int index,
+  ) {
+    imageProvider.resolve(ImageConfiguration.empty).addListener(
+      ImageStreamListener((info, _) {
+        // Calculating correct size of resulting image
+        Size size = Size(
+          info.image.width.toDouble(),
+          max(info.image.height.toDouble(), 200.0),
+        );
+        if (size.width > constraints.maxWidth) {
+          size = Size(
+            constraints.maxWidth,
+            constraints.maxWidth / size.aspectRatio,
+          );
+        }
+        if (size.height > maxHeight) {
+          size = Size(
+            maxHeight * size.aspectRatio,
+            maxHeight,
+          );
+        }
+
+        // For updating UI after fetching image (without it overlayed image will be smol)
+        setState(() {
+          renderedMemes[index] = size;
+        });
+      }),
+    );
+
+    renderedMemes[index] = Size(constraints.maxWidth, 200);
   }
 }
