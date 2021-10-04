@@ -1,16 +1,17 @@
-# devour
+# Devour - a meme viewer app (WIP)
+<div align="center">
+    <img src="github/preview.gif">
+</div>
 
-A new Flutter project.
+## Features
+- Reddit OAuth 
+- Tiktok-like feed page
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technical specifiaction
+DDD implementation, with Presentation, Domain, Infrastructure and Application layers. Trying to implement platform-specific widgets implementation.
+### Libs:
+- Database: Hive
+- Network: Dio, Retrofit
+- State managment: BLoC
+- UI: Lottie, Rive
+- Other: FPDart, GetIt, Freezed
