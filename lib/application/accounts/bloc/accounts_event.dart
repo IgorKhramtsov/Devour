@@ -12,4 +12,6 @@ class AccountsEvent with _$AccountsEvent {
   const factory AccountsEvent.AuthorizeReddit(RedditRedirectArguments args) =
       _AuthorizeReddit;
   const factory AccountsEvent.AuthorizeVK() = _AuthorizeVK;
+  const factory AccountsEvent.ForgetVK() = _ForgetVK;
+  const factory AccountsEvent.ForgetReddit() = _ForgetReddit;
 }

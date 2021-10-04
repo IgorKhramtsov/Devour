@@ -26,9 +26,11 @@ dependencies:
   hive_flutter: ^1.1.0
   injectable: ^1.5.0
   logger: ^1.1.0
+  lottie: ^1.2.1
   octo_image: ^1.0.0+1
   provider: ^6.0.0
   retrofit: ^2.0.1
+  rive: ^0.7.28
   rxdart: ^0.27.2
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   url_launcher: ^6.0.10
@@ -49,3 +51,5 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - lib/assets/animations/space_coffee.riv
+    - lib/assets/animations/space_loader.json

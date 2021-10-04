@@ -13,6 +13,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fpdart/fpdart.dart' show Option;
+import 'package:lottie/lottie.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:collection/collection.dart';
@@ -69,7 +70,14 @@ class _FeedState extends State<Feed> {
     return BlocBuilder<FeedBloc, FeedState>(
       builder: (context, state) {
         if (state.isLoading) {
-          return Center(child: Text('loading...'));
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: Center(
+              child: Lottie.asset(
+                'lib/assets/animations/space_loader.json',
+              ),
+            ),
+          );
         }
 
         return LayoutBuilder(
@@ -119,10 +127,12 @@ class _FeedState extends State<Feed> {
                               maxHeight,
                             );
                           }
-                          renderedMemes[index] = size;
+                          setState(() {
+                            renderedMemes[index] = size;
+                          });
                         }),
                       );
-                      renderedMemes[index] = Size.zero;
+                      renderedMemes[index] = Size(constraints.maxWidth, 200);
                     }
 
                     return ConstrainedBox(

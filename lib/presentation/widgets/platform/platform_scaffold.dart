@@ -18,6 +18,7 @@ class PlatformScaffold
       // navigationBar: CupertinoNavigationBar(
       //   middle: Text('Home'),
       // ),
+      backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
       child: body,
     );
   }
@@ -25,6 +26,7 @@ class PlatformScaffold
   @override
   Scaffold buildMaterial(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: body,
     );
   }

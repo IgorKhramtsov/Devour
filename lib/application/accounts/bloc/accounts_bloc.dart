@@ -61,6 +61,13 @@ class AccountsBloc extends Bloc<AccountsEvent, AccountsState> {
       RequestAuthorizationVK: (e) async* {
         yield state;
       },
+      ForgetReddit: (e) async* {
+        _accountsRepository.removeAccount<RedditAccount>();
+        yield state.copyWith(redditAccount: Option.none());
+      },
+      ForgetVK: (e) async* {
+        yield state;
+      },
     );
   }
 }
