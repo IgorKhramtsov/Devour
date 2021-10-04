@@ -90,7 +90,12 @@ class _FeedWidgetState extends State<FeedWidget> {
                     ),
                   ),
                   child: ScrollablePositionedList.builder(
-                    physics: FeedScrollPhysics(renderedMemes),
+                    physics: FeedScrollPhysics(
+                      renderedMemes,
+                      // sbustract bottom tab navbar size, because we cant see anything
+                      // behide it (unlike top unsafe area)
+                      cnstr.maxHeight - MediaQuery.of(context).padding.bottom,
+                    ),
                     itemCount: state.memes.length,
                     itemPositionsListener: listener,
                     itemBuilder: (BuildContext context, int index) {

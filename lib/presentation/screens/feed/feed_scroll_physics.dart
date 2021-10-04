@@ -25,19 +25,31 @@ extension PositionRetriever on GlobalKey<State<StatefulWidget>> {
   }
 }
 
+/// By element scroll physics
 class FeedScrollPhysics extends ScrollPhysics {
-  FeedScrollPhysics(this.elementsSizes, {ScrollPhysics? parent})
-      : super(parent: parent);
+  FeedScrollPhysics(
+    this.elementsSizes,
+    this.activeViewportHeight, {
+    ScrollPhysics? parent,
+  }) : super(parent: parent);
 
+  /// Sizes of elements, to calculate correct item positions
   Map<int, Size> elementsSizes;
+
+  /// Height of visible viewport, to centrate element
+  double activeViewportHeight;
 
   @override
   FeedScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return FeedScrollPhysics(elementsSizes, parent: buildParent(ancestor));
+    return FeedScrollPhysics(
+      elementsSizes,
+      activeViewportHeight,
+      parent: buildParent(ancestor),
+    );
   }
 
   double _getElement(ScrollMetrics position) {
-    final viewportHeight = position.viewportDimension;
+    final viewportHeight = activeViewportHeight;
     // Target position
     final viewportCenter = position.pixels + (viewportHeight / 2.0);
 
@@ -65,7 +77,7 @@ class FeedScrollPhysics extends ScrollPhysics {
   }
 
   double _getPixels(ScrollMetrics position, int elementIndex) {
-    final viewportCenter = position.viewportDimension / 2.0;
+    final viewportCenter = activeViewportHeight / 2.0;
 
     double sum = 0;
     for (int i = 0; i < elementIndex; i++) {
