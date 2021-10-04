@@ -13,9 +13,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const PlatformApp(
-      title: 'Devour',
-      primaryColor: Colors.blue,
-    );
+    return const PlatformApp();
   }
 }

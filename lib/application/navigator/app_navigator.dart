@@ -59,7 +59,7 @@ class AppNavigator {
     switch (settings.name) {
       case Routes.reddit_auth_redirect:
         return (BuildContext ctx) => HomeScreen(
-              selectedPage: HomePages.accounts,
+              selectedPage: HomePage.accounts,
               args: settings.arguments! as RouteArguments,
             );
       default:

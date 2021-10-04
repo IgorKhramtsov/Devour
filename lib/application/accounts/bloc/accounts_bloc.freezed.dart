@@ -38,6 +38,14 @@ class _$AccountsEventTearOff {
   _AuthorizeVK AuthorizeVK() {
     return const _AuthorizeVK();
   }
+
+  _ForgetVK ForgetVK() {
+    return const _ForgetVK();
+  }
+
+  _ForgetReddit ForgetReddit() {
+    return const _ForgetReddit();
+  }
 }
 
 /// @nodoc
@@ -52,6 +60,8 @@ mixin _$AccountsEvent {
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
     required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +71,8 @@ mixin _$AccountsEvent {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +82,8 @@ mixin _$AccountsEvent {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -82,6 +96,8 @@ mixin _$AccountsEvent {
         RequestAuthorizationVK,
     required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -92,6 +108,8 @@ mixin _$AccountsEvent {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -102,6 +120,8 @@ mixin _$AccountsEvent {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -166,6 +186,8 @@ class _$_Fetching implements _Fetching {
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
     required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
   }) {
     return Fetching();
   }
@@ -178,6 +200,8 @@ class _$_Fetching implements _Fetching {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
   }) {
     return Fetching?.call();
   }
@@ -190,6 +214,8 @@ class _$_Fetching implements _Fetching {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
     required TResult orElse(),
   }) {
     if (Fetching != null) {
@@ -208,6 +234,8 @@ class _$_Fetching implements _Fetching {
         RequestAuthorizationVK,
     required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
   }) {
     return Fetching(this);
   }
@@ -221,6 +249,8 @@ class _$_Fetching implements _Fetching {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
   }) {
     return Fetching?.call(this);
   }
@@ -234,6 +264,8 @@ class _$_Fetching implements _Fetching {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
     required TResult orElse(),
   }) {
     if (Fetching != null) {
@@ -294,6 +326,8 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
     required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
   }) {
     return RequestAuthorizationReddit();
   }
@@ -306,6 +340,8 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
   }) {
     return RequestAuthorizationReddit?.call();
   }
@@ -318,6 +354,8 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
     required TResult orElse(),
   }) {
     if (RequestAuthorizationReddit != null) {
@@ -336,6 +374,8 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
         RequestAuthorizationVK,
     required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
   }) {
     return RequestAuthorizationReddit(this);
   }
@@ -349,6 +389,8 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
   }) {
     return RequestAuthorizationReddit?.call(this);
   }
@@ -362,6 +404,8 @@ class _$_RequestAuthorizationReddit implements _RequestAuthorizationReddit {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
     required TResult orElse(),
   }) {
     if (RequestAuthorizationReddit != null) {
@@ -420,6 +464,8 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
     required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
   }) {
     return RequestAuthorizationVK();
   }
@@ -432,6 +478,8 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
   }) {
     return RequestAuthorizationVK?.call();
   }
@@ -444,6 +492,8 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
     required TResult orElse(),
   }) {
     if (RequestAuthorizationVK != null) {
@@ -462,6 +512,8 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
         RequestAuthorizationVK,
     required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
   }) {
     return RequestAuthorizationVK(this);
   }
@@ -475,6 +527,8 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
   }) {
     return RequestAuthorizationVK?.call(this);
   }
@@ -488,6 +542,8 @@ class _$_RequestAuthorizationVK implements _RequestAuthorizationVK {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
     required TResult orElse(),
   }) {
     if (RequestAuthorizationVK != null) {
@@ -580,6 +636,8 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
     required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
   }) {
     return AuthorizeReddit(args);
   }
@@ -592,6 +650,8 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
   }) {
     return AuthorizeReddit?.call(args);
   }
@@ -604,6 +664,8 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
     required TResult orElse(),
   }) {
     if (AuthorizeReddit != null) {
@@ -622,6 +684,8 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
         RequestAuthorizationVK,
     required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
   }) {
     return AuthorizeReddit(this);
   }
@@ -635,6 +699,8 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
   }) {
     return AuthorizeReddit?.call(this);
   }
@@ -648,6 +714,8 @@ class _$_AuthorizeReddit implements _AuthorizeReddit {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
     required TResult orElse(),
   }) {
     if (AuthorizeReddit != null) {
@@ -711,6 +779,8 @@ class _$_AuthorizeVK implements _AuthorizeVK {
     required TResult Function() RequestAuthorizationVK,
     required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
     required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
   }) {
     return AuthorizeVK();
   }
@@ -723,6 +793,8 @@ class _$_AuthorizeVK implements _AuthorizeVK {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
   }) {
     return AuthorizeVK?.call();
   }
@@ -735,6 +807,8 @@ class _$_AuthorizeVK implements _AuthorizeVK {
     TResult Function()? RequestAuthorizationVK,
     TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
     TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
     required TResult orElse(),
   }) {
     if (AuthorizeVK != null) {
@@ -753,6 +827,8 @@ class _$_AuthorizeVK implements _AuthorizeVK {
         RequestAuthorizationVK,
     required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
     required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
   }) {
     return AuthorizeVK(this);
   }
@@ -766,6 +842,8 @@ class _$_AuthorizeVK implements _AuthorizeVK {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
   }) {
     return AuthorizeVK?.call(this);
   }
@@ -779,6 +857,8 @@ class _$_AuthorizeVK implements _AuthorizeVK {
     TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
     TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
     TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
     required TResult orElse(),
   }) {
     if (AuthorizeVK != null) {
@@ -790,6 +870,279 @@ class _$_AuthorizeVK implements _AuthorizeVK {
 
 abstract class _AuthorizeVK implements AccountsEvent {
   const factory _AuthorizeVK() = _$_AuthorizeVK;
+}
+
+/// @nodoc
+abstract class _$ForgetVKCopyWith<$Res> {
+  factory _$ForgetVKCopyWith(_ForgetVK value, $Res Function(_ForgetVK) then) =
+      __$ForgetVKCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ForgetVKCopyWithImpl<$Res> extends _$AccountsEventCopyWithImpl<$Res>
+    implements _$ForgetVKCopyWith<$Res> {
+  __$ForgetVKCopyWithImpl(_ForgetVK _value, $Res Function(_ForgetVK) _then)
+      : super(_value, (v) => _then(v as _ForgetVK));
+
+  @override
+  _ForgetVK get _value => super._value as _ForgetVK;
+}
+
+/// @nodoc
+
+class _$_ForgetVK implements _ForgetVK {
+  const _$_ForgetVK();
+
+  @override
+  String toString() {
+    return 'AccountsEvent.ForgetVK()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ForgetVK);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
+    required TResult Function() RequestAuthorizationReddit,
+    required TResult Function() RequestAuthorizationVK,
+    required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
+    required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
+  }) {
+    return ForgetVK();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
+  }) {
+    return ForgetVK?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
+    required TResult orElse(),
+  }) {
+    if (ForgetVK != null) {
+      return ForgetVK();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
+    required TResult Function(_RequestAuthorizationReddit value)
+        RequestAuthorizationReddit,
+    required TResult Function(_RequestAuthorizationVK value)
+        RequestAuthorizationVK,
+    required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
+    required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
+  }) {
+    return ForgetVK(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
+  }) {
+    return ForgetVK?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
+    required TResult orElse(),
+  }) {
+    if (ForgetVK != null) {
+      return ForgetVK(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ForgetVK implements AccountsEvent {
+  const factory _ForgetVK() = _$_ForgetVK;
+}
+
+/// @nodoc
+abstract class _$ForgetRedditCopyWith<$Res> {
+  factory _$ForgetRedditCopyWith(
+          _ForgetReddit value, $Res Function(_ForgetReddit) then) =
+      __$ForgetRedditCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ForgetRedditCopyWithImpl<$Res>
+    extends _$AccountsEventCopyWithImpl<$Res>
+    implements _$ForgetRedditCopyWith<$Res> {
+  __$ForgetRedditCopyWithImpl(
+      _ForgetReddit _value, $Res Function(_ForgetReddit) _then)
+      : super(_value, (v) => _then(v as _ForgetReddit));
+
+  @override
+  _ForgetReddit get _value => super._value as _ForgetReddit;
+}
+
+/// @nodoc
+
+class _$_ForgetReddit implements _ForgetReddit {
+  const _$_ForgetReddit();
+
+  @override
+  String toString() {
+    return 'AccountsEvent.ForgetReddit()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ForgetReddit);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() Fetching,
+    required TResult Function() RequestAuthorizationReddit,
+    required TResult Function() RequestAuthorizationVK,
+    required TResult Function(RedditRedirectArguments args) AuthorizeReddit,
+    required TResult Function() AuthorizeVK,
+    required TResult Function() ForgetVK,
+    required TResult Function() ForgetReddit,
+  }) {
+    return ForgetReddit();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
+  }) {
+    return ForgetReddit?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? Fetching,
+    TResult Function()? RequestAuthorizationReddit,
+    TResult Function()? RequestAuthorizationVK,
+    TResult Function(RedditRedirectArguments args)? AuthorizeReddit,
+    TResult Function()? AuthorizeVK,
+    TResult Function()? ForgetVK,
+    TResult Function()? ForgetReddit,
+    required TResult orElse(),
+  }) {
+    if (ForgetReddit != null) {
+      return ForgetReddit();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetching value) Fetching,
+    required TResult Function(_RequestAuthorizationReddit value)
+        RequestAuthorizationReddit,
+    required TResult Function(_RequestAuthorizationVK value)
+        RequestAuthorizationVK,
+    required TResult Function(_AuthorizeReddit value) AuthorizeReddit,
+    required TResult Function(_AuthorizeVK value) AuthorizeVK,
+    required TResult Function(_ForgetVK value) ForgetVK,
+    required TResult Function(_ForgetReddit value) ForgetReddit,
+  }) {
+    return ForgetReddit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
+  }) {
+    return ForgetReddit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetching value)? Fetching,
+    TResult Function(_RequestAuthorizationReddit value)?
+        RequestAuthorizationReddit,
+    TResult Function(_RequestAuthorizationVK value)? RequestAuthorizationVK,
+    TResult Function(_AuthorizeReddit value)? AuthorizeReddit,
+    TResult Function(_AuthorizeVK value)? AuthorizeVK,
+    TResult Function(_ForgetVK value)? ForgetVK,
+    TResult Function(_ForgetReddit value)? ForgetReddit,
+    required TResult orElse(),
+  }) {
+    if (ForgetReddit != null) {
+      return ForgetReddit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ForgetReddit implements AccountsEvent {
+  const factory _ForgetReddit() = _$_ForgetReddit;
 }
 
 /// @nodoc

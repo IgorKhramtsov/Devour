@@ -10,12 +10,10 @@ class PlatformApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   /// Platform dependent app widget (CupertinoApp for iOS, MaterialApp for android)
   const PlatformApp({
     Key? key,
-    required this.title,
-    this.primaryColor,
   }) : super(key: key);
 
-  final String title;
-  final Color? primaryColor;
+  static const String title = 'Devour';
+  static final Color primaryColor = Colors.orange.shade800;
 
   @override
   CupertinoApp buildCupertino(BuildContext context) {

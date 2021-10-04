@@ -5,24 +5,31 @@ import 'package:devour/presentation/widgets/platform/platform_tab_scaffold.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
-enum HomePages { feed, accounts }
+enum HomePage { feed, accounts }
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
-    this.selectedPage = HomePages.feed,
+    this.selectedPage = HomePage.feed,
     this.args,
     Key? key,
   }) : super(key: key);
 
   /// Default selected page
-  final HomePages selectedPage;
+  final HomePage selectedPage;
 
   /// Optional arguments (like accounts adding redirect args)
   final RouteArguments? args;
 
   @override
   Widget build(BuildContext context) {
+    final tabs = <HomePage, Widget>{
+      HomePage.accounts: AccountScreen(
+        redirectArguments: args as RedditRedirectArguments?,
+      ),
+      HomePage.feed: const FeedScreen()
+    };
     return PlatformTabScaffold(
+      key: Key(selectedPage.index.toString()),
       currentIndex: selectedPage.index,
       tabsIcons: const [
         BottomNavigationBarItem(
@@ -34,17 +41,8 @@ class HomeScreen extends StatelessWidget {
           activeIcon: Icon(CupertinoIcons.person_fill),
         ),
       ],
-      tabBuilder: (BuildContext context, int index) {
-        if (index == HomePages.feed.index) {
-          return const FeedScreen();
-        } else if (index == HomePages.accounts.index) {
-          return AccountScreen(
-            redirectArguments: args as RedditRedirectArguments?,
-          );
-        } else {
-          throw Exception('Invalid index: $index');
-        }
-      },
+      tabBuilder: (BuildContext context, int index) =>
+          tabs[HomePage.values[index]]!,
     );
   }
 }
