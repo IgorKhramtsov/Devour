@@ -22,7 +22,7 @@ Map<String, dynamic> _$$_RedditResponseToJson<T>(
 _$_RedditListingResponse<T> _$$_RedditListingResponseFromJson<T>(
         Map<String, dynamic> json) =>
     _$_RedditListingResponse<T>(
-      after: json['after'] as String,
+      after: json['after'] as String?,
       dist: json['dist'] as int,
       modhash: json['modhash'] as String?,
       geo_filter: json['geo_filter'],
@@ -58,6 +58,7 @@ _$_RedditPostResponse _$$_RedditPostResponseFromJson(
       url: json['url'] as String,
       permalink: json['permalink'] as String,
       over18: json['over_18'] as bool,
+      name: json['name'] as String,
     );
 
 Map<String, dynamic> _$$_RedditPostResponseToJson(
@@ -75,4 +76,5 @@ Map<String, dynamic> _$$_RedditPostResponseToJson(
       'url': instance.url,
       'permalink': instance.permalink,
       'over_18': instance.over18,
+      'name': instance.name,
     };

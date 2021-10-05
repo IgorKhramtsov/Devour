@@ -34,7 +34,9 @@ abstract class RedditAPI {
       AuthenticationTokenInterceptor();
 }
 
+/// Wrapper for calling Retrofit generated methods.
 extension RedditAPIWrapper on RedditAPI {
+  /// [after] is newer, [before] is older posts.
   Future<RedditListingResponse> getMemes({
     String? after,
     String? before,

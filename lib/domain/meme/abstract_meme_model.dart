@@ -17,6 +17,7 @@ abstract class AbstractMemeModel with _$AbstractMemeModel {
   // ignore: public_member_api_docs
   // @Implements(AbstractMemeModel)
   factory AbstractMemeModel.reddit({
+    required String id,
     required String title,
     required String author,
     required String imageLink,

@@ -199,7 +199,7 @@ class _$RedditListingResponseTearOff {
   const _$RedditListingResponseTearOff();
 
   _RedditListingResponse<T> call<T>(
-      {@JsonKey(name: 'after') required String after,
+      {@JsonKey(name: 'after') required String? after,
       @JsonKey(name: 'dist') required int dist,
       @JsonKey(name: 'modhash') String? modhash,
       @JsonKey(name: 'geo_filter') Object? geo_filter,
@@ -226,7 +226,7 @@ const $RedditListingResponse = _$RedditListingResponseTearOff();
 /// @nodoc
 mixin _$RedditListingResponse<T> {
   @JsonKey(name: 'after')
-  String get after => throw _privateConstructorUsedError; // "t3_plk79v"
+  String? get after => throw _privateConstructorUsedError; // "t3_plk79v"
   @JsonKey(name: 'dist')
   int get dist => throw _privateConstructorUsedError; // 27
   @JsonKey(name: 'modhash')
@@ -251,7 +251,7 @@ abstract class $RedditListingResponseCopyWith<T, $Res> {
           $Res Function(RedditListingResponse<T>) then) =
       _$RedditListingResponseCopyWithImpl<T, $Res>;
   $Res call(
-      {@JsonKey(name: 'after') String after,
+      {@JsonKey(name: 'after') String? after,
       @JsonKey(name: 'dist') int dist,
       @JsonKey(name: 'modhash') String? modhash,
       @JsonKey(name: 'geo_filter') Object? geo_filter,
@@ -281,7 +281,7 @@ class _$RedditListingResponseCopyWithImpl<T, $Res>
       after: after == freezed
           ? _value.after
           : after // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       dist: dist == freezed
           ? _value.dist
           : dist // ignore: cast_nullable_to_non_nullable
@@ -311,7 +311,7 @@ abstract class _$RedditListingResponseCopyWith<T, $Res>
       __$RedditListingResponseCopyWithImpl<T, $Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'after') String after,
+      {@JsonKey(name: 'after') String? after,
       @JsonKey(name: 'dist') int dist,
       @JsonKey(name: 'modhash') String? modhash,
       @JsonKey(name: 'geo_filter') Object? geo_filter,
@@ -344,7 +344,7 @@ class __$RedditListingResponseCopyWithImpl<T, $Res>
       after: after == freezed
           ? _value.after
           : after // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       dist: dist == freezed
           ? _value.dist
           : dist // ignore: cast_nullable_to_non_nullable
@@ -382,7 +382,7 @@ class _$_RedditListingResponse<T> implements _RedditListingResponse<T> {
 
   @override
   @JsonKey(name: 'after')
-  final String after;
+  final String? after;
   @override // "t3_plk79v"
   @JsonKey(name: 'dist')
   final int dist;
@@ -450,7 +450,7 @@ class _$_RedditListingResponse<T> implements _RedditListingResponse<T> {
 
 abstract class _RedditListingResponse<T> implements RedditListingResponse<T> {
   factory _RedditListingResponse(
-      {@JsonKey(name: 'after') required String after,
+      {@JsonKey(name: 'after') required String? after,
       @JsonKey(name: 'dist') required int dist,
       @JsonKey(name: 'modhash') String? modhash,
       @JsonKey(name: 'geo_filter') Object? geo_filter,
@@ -462,7 +462,7 @@ abstract class _RedditListingResponse<T> implements RedditListingResponse<T> {
 
   @override
   @JsonKey(name: 'after')
-  String get after => throw _privateConstructorUsedError;
+  String? get after => throw _privateConstructorUsedError;
   @override // "t3_plk79v"
   @JsonKey(name: 'dist')
   int get dist => throw _privateConstructorUsedError;
@@ -505,7 +505,8 @@ class _$RedditPostResponseTearOff {
       @JsonKey(name: 'is_video') required bool isVideo,
       @JsonKey(name: 'url') required String url,
       @JsonKey(name: 'permalink') required String permalink,
-      @JsonKey(name: 'over_18') required bool over18}) {
+      @JsonKey(name: 'over_18') required bool over18,
+      @JsonKey(name: 'name') required String name}) {
     return _RedditPostResponse(
       subreddit: subreddit,
       author: author,
@@ -519,6 +520,7 @@ class _$RedditPostResponseTearOff {
       url: url,
       permalink: permalink,
       over18: over18,
+      name: name,
     );
   }
 
@@ -556,6 +558,8 @@ mixin _$RedditPostResponse {
   String get permalink => throw _privateConstructorUsedError;
   @JsonKey(name: 'over_18')
   bool get over18 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
+  String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -580,7 +584,8 @@ abstract class $RedditPostResponseCopyWith<$Res> {
       @JsonKey(name: 'is_video') bool isVideo,
       @JsonKey(name: 'url') String url,
       @JsonKey(name: 'permalink') String permalink,
-      @JsonKey(name: 'over_18') bool over18});
+      @JsonKey(name: 'over_18') bool over18,
+      @JsonKey(name: 'name') String name});
 }
 
 /// @nodoc
@@ -606,6 +611,7 @@ class _$RedditPostResponseCopyWithImpl<$Res>
     Object? url = freezed,
     Object? permalink = freezed,
     Object? over18 = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       subreddit: subreddit == freezed
@@ -656,6 +662,10 @@ class _$RedditPostResponseCopyWithImpl<$Res>
           ? _value.over18
           : over18 // ignore: cast_nullable_to_non_nullable
               as bool,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -679,7 +689,8 @@ abstract class _$RedditPostResponseCopyWith<$Res>
       @JsonKey(name: 'is_video') bool isVideo,
       @JsonKey(name: 'url') String url,
       @JsonKey(name: 'permalink') String permalink,
-      @JsonKey(name: 'over_18') bool over18});
+      @JsonKey(name: 'over_18') bool over18,
+      @JsonKey(name: 'name') String name});
 }
 
 /// @nodoc
@@ -707,6 +718,7 @@ class __$RedditPostResponseCopyWithImpl<$Res>
     Object? url = freezed,
     Object? permalink = freezed,
     Object? over18 = freezed,
+    Object? name = freezed,
   }) {
     return _then(_RedditPostResponse(
       subreddit: subreddit == freezed
@@ -757,6 +769,10 @@ class __$RedditPostResponseCopyWithImpl<$Res>
           ? _value.over18
           : over18 // ignore: cast_nullable_to_non_nullable
               as bool,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -776,7 +792,8 @@ class _$_RedditPostResponse implements _RedditPostResponse {
       @JsonKey(name: 'is_video') required this.isVideo,
       @JsonKey(name: 'url') required this.url,
       @JsonKey(name: 'permalink') required this.permalink,
-      @JsonKey(name: 'over_18') required this.over18});
+      @JsonKey(name: 'over_18') required this.over18,
+      @JsonKey(name: 'name') required this.name});
 
   factory _$_RedditPostResponse.fromJson(Map<String, dynamic> json) =>
       _$$_RedditPostResponseFromJson(json);
@@ -817,10 +834,13 @@ class _$_RedditPostResponse implements _RedditPostResponse {
   @override
   @JsonKey(name: 'over_18')
   final bool over18;
+  @override
+  @JsonKey(name: 'name')
+  final String name;
 
   @override
   String toString() {
-    return 'RedditPostResponse(subreddit: $subreddit, author: $author, title: $title, upvoteRatio: $upvoteRatio, ups: $ups, numComments: $numComments, stickied: $stickied, createdUtc: $createdUtc, isVideo: $isVideo, url: $url, permalink: $permalink, over18: $over18)';
+    return 'RedditPostResponse(subreddit: $subreddit, author: $author, title: $title, upvoteRatio: $upvoteRatio, ups: $ups, numComments: $numComments, stickied: $stickied, createdUtc: $createdUtc, isVideo: $isVideo, url: $url, permalink: $permalink, over18: $over18, name: $name)';
   }
 
   @override
@@ -857,7 +877,9 @@ class _$_RedditPostResponse implements _RedditPostResponse {
                 const DeepCollectionEquality()
                     .equals(other.permalink, permalink)) &&
             (identical(other.over18, over18) ||
-                const DeepCollectionEquality().equals(other.over18, over18)));
+                const DeepCollectionEquality().equals(other.over18, over18)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
   }
 
   @override
@@ -874,7 +896,8 @@ class _$_RedditPostResponse implements _RedditPostResponse {
       const DeepCollectionEquality().hash(isVideo) ^
       const DeepCollectionEquality().hash(url) ^
       const DeepCollectionEquality().hash(permalink) ^
-      const DeepCollectionEquality().hash(over18);
+      const DeepCollectionEquality().hash(over18) ^
+      const DeepCollectionEquality().hash(name);
 
   @JsonKey(ignore: true)
   @override
@@ -900,7 +923,8 @@ abstract class _RedditPostResponse implements RedditPostResponse {
       @JsonKey(name: 'is_video') required bool isVideo,
       @JsonKey(name: 'url') required String url,
       @JsonKey(name: 'permalink') required String permalink,
-      @JsonKey(name: 'over_18') required bool over18}) = _$_RedditPostResponse;
+      @JsonKey(name: 'over_18') required bool over18,
+      @JsonKey(name: 'name') required String name}) = _$_RedditPostResponse;
 
   factory _RedditPostResponse.fromJson(Map<String, dynamic> json) =
       _$_RedditPostResponse.fromJson;
@@ -941,6 +965,9 @@ abstract class _RedditPostResponse implements RedditPostResponse {
   @override
   @JsonKey(name: 'over_18')
   bool get over18 => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'name')
+  String get name => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RedditPostResponseCopyWith<_RedditPostResponse> get copyWith =>

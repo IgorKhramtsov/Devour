@@ -18,7 +18,7 @@ class RedditResponse<T> with _$RedditResponse<T> {
 @freezed
 class RedditListingResponse<T> with _$RedditListingResponse<T> {
   factory RedditListingResponse({
-    @JsonKey(name: 'after') required String after, // "t3_plk79v"
+    @JsonKey(name: 'after') required String? after, // "t3_plk79v"
     @JsonKey(name: 'dist') required int dist, // 27
     @JsonKey(name: 'modhash') String? modhash, // null
     @JsonKey(name: 'geo_filter') Object? geo_filter, // null
@@ -47,6 +47,7 @@ class RedditPostResponse with _$RedditPostResponse {
     @JsonKey(name: 'url') required String url,
     @JsonKey(name: 'permalink') required String permalink,
     @JsonKey(name: 'over_18') required bool over18,
+    @JsonKey(name: 'name') required String name,
   }) = _RedditPostResponse;
 
   factory RedditPostResponse.fromJson(Map<String, Object?> json) =>

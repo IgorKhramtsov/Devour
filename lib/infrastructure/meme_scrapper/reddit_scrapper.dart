@@ -17,8 +17,8 @@ class RedditScrapperFacade {
   }
 
   @override
-  Future<List<RedditMemeModel>> getMemes(int count) async {
-    final listing = await redditAPI.getMemes(limit: count);
+  Future<List<RedditMemeModel>> getMemes(int count, {String? after}) async {
+    final listing = await redditAPI.getMemes(limit: count, after: after);
     final memes = listing.children
         .map((post) => post as RedditPostResponse)
         .where((post) => !post.stickied)

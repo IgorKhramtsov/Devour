@@ -35,7 +35,8 @@ class _$AbstractMemeModelTearOff {
   }
 
   RedditMemeModel reddit(
-      {required String title,
+      {required String id,
+      required String title,
       required String author,
       required String imageLink,
       required String sourceLink,
@@ -44,6 +45,7 @@ class _$AbstractMemeModelTearOff {
       required int likes,
       required bool nsfw}) {
     return RedditMemeModel(
+      id: id,
       title: title,
       author: author,
       imageLink: imageLink,
@@ -74,6 +76,7 @@ mixin _$AbstractMemeModel {
             String author, int likes, int comments)
         $default, {
     required TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -91,6 +94,7 @@ mixin _$AbstractMemeModel {
             String author, int likes, int comments)?
         $default, {
     TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -108,6 +112,7 @@ mixin _$AbstractMemeModel {
             String author, int likes, int comments)?
         $default, {
     TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -343,6 +348,7 @@ class _$_AbstractMemeModel implements _AbstractMemeModel {
             String author, int likes, int comments)
         $default, {
     required TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -363,6 +369,7 @@ class _$_AbstractMemeModel implements _AbstractMemeModel {
             String author, int likes, int comments)?
         $default, {
     TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -384,6 +391,7 @@ class _$_AbstractMemeModel implements _AbstractMemeModel {
             String author, int likes, int comments)?
         $default, {
     TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -468,7 +476,8 @@ abstract class $RedditMemeModelCopyWith<$Res>
       _$RedditMemeModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title,
+      {String id,
+      String title,
       String author,
       String imageLink,
       String sourceLink,
@@ -491,6 +500,7 @@ class _$RedditMemeModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = freezed,
     Object? author = freezed,
     Object? imageLink = freezed,
@@ -501,6 +511,10 @@ class _$RedditMemeModelCopyWithImpl<$Res>
     Object? nsfw = freezed,
   }) {
     return _then(RedditMemeModel(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -541,7 +555,8 @@ class _$RedditMemeModelCopyWithImpl<$Res>
 
 class _$RedditMemeModel implements RedditMemeModel {
   _$RedditMemeModel(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.author,
       required this.imageLink,
       required this.sourceLink,
@@ -550,6 +565,8 @@ class _$RedditMemeModel implements RedditMemeModel {
       required this.likes,
       required this.nsfw});
 
+  @override
+  final String id;
   @override
   final String title;
   @override
@@ -569,13 +586,15 @@ class _$RedditMemeModel implements RedditMemeModel {
 
   @override
   String toString() {
-    return 'AbstractMemeModel.reddit(title: $title, author: $author, imageLink: $imageLink, sourceLink: $sourceLink, subreddit: $subreddit, comments: $comments, likes: $likes, nsfw: $nsfw)';
+    return 'AbstractMemeModel.reddit(id: $id, title: $title, author: $author, imageLink: $imageLink, sourceLink: $sourceLink, subreddit: $subreddit, comments: $comments, likes: $likes, nsfw: $nsfw)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is RedditMemeModel &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.author, author) ||
@@ -601,6 +620,7 @@ class _$RedditMemeModel implements RedditMemeModel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(author) ^
       const DeepCollectionEquality().hash(imageLink) ^
@@ -622,6 +642,7 @@ class _$RedditMemeModel implements RedditMemeModel {
             String author, int likes, int comments)
         $default, {
     required TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -632,8 +653,8 @@ class _$RedditMemeModel implements RedditMemeModel {
             bool nsfw)
         reddit,
   }) {
-    return reddit(
-        title, author, imageLink, sourceLink, subreddit, comments, likes, nsfw);
+    return reddit(id, title, author, imageLink, sourceLink, subreddit, comments,
+        likes, nsfw);
   }
 
   @override
@@ -643,6 +664,7 @@ class _$RedditMemeModel implements RedditMemeModel {
             String author, int likes, int comments)?
         $default, {
     TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -653,8 +675,8 @@ class _$RedditMemeModel implements RedditMemeModel {
             bool nsfw)?
         reddit,
   }) {
-    return reddit?.call(
-        title, author, imageLink, sourceLink, subreddit, comments, likes, nsfw);
+    return reddit?.call(id, title, author, imageLink, sourceLink, subreddit,
+        comments, likes, nsfw);
   }
 
   @override
@@ -664,6 +686,7 @@ class _$RedditMemeModel implements RedditMemeModel {
             String author, int likes, int comments)?
         $default, {
     TResult Function(
+            String id,
             String title,
             String author,
             String imageLink,
@@ -676,8 +699,8 @@ class _$RedditMemeModel implements RedditMemeModel {
     required TResult orElse(),
   }) {
     if (reddit != null) {
-      return reddit(title, author, imageLink, sourceLink, subreddit, comments,
-          likes, nsfw);
+      return reddit(id, title, author, imageLink, sourceLink, subreddit,
+          comments, likes, nsfw);
     }
     return orElse();
   }
@@ -716,7 +739,8 @@ class _$RedditMemeModel implements RedditMemeModel {
 
 abstract class RedditMemeModel implements AbstractMemeModel {
   factory RedditMemeModel(
-      {required String title,
+      {required String id,
+      required String title,
       required String author,
       required String imageLink,
       required String sourceLink,
@@ -725,6 +749,7 @@ abstract class RedditMemeModel implements AbstractMemeModel {
       required int likes,
       required bool nsfw}) = _$RedditMemeModel;
 
+  String get id => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart' hide State;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:synchronized/synchronized.dart';
 
 part 'feed_event.dart';
 part 'feed_state.dart';
@@ -16,10 +17,11 @@ const int kMemeChunkSize = 20;
 
 @injectable
 class FeedBloc extends Bloc<FeedEvent, FeedState> {
-  RedditScrapperFacade redditScrapper;
-
   /// BLoC for feed widget.
   FeedBloc(this.redditScrapper) : super(FeedState.loading());
+
+  RedditScrapperFacade redditScrapper;
+  final _gatheringLock = Lock();
 
   @override
   Stream<FeedState> mapEventToState(
@@ -43,8 +45,35 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           iterator: e.index,
           currentMemeWidget: e.key,
         );
+
+        // If only 5 memes left to end of list - populate with new memes
+        if (e.index > state.memes.length - 5) {
+          yield await _gatheringLock.synchronized(() async {
+            final lastId = (state.memes.last as RedditMemeModel).id;
+            final newMemesChunk = await getNewMemes(lastId);
+
+            return state.copyWith(
+              memes: state.memes..addAll(newMemesChunk),
+            );
+          });
+        }
       },
     );
+  }
+
+  /// Gather new memes from api, after [lastId]
+  Future<List<AbstractMemeModel>> getNewMemes(final String lastId) async {
+    List<AbstractMemeModel> newMemes = [];
+
+    try {
+      newMemes = await redditScrapper.getMemes(
+        kMemeChunkSize,
+        after: lastId,
+      );
+    } catch (e) {
+      print(e);
+    }
+    return newMemes;
   }
 
   AbstractMemeModel get currentMemeModel => state.memes[state.iterator];

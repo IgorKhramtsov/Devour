@@ -4,6 +4,7 @@ import 'package:devour/infrastructure/api/reddit/response/reddit_responses.dart'
 class RedditMemeMapper {
   static RedditMemeModel map(RedditPostResponse response) {
     return RedditMemeModel(
+      id: response.name,
       title: response.title,
       author: response.author,
       imageLink: response.url,

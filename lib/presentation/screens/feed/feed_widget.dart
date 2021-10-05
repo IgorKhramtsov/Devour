@@ -118,6 +118,7 @@ class _FeedWidgetState extends State<FeedWidget> {
                           maxHeight,
                           index,
                         );
+                        renderedMemes[index] = Size(cnstr.maxWidth, 200);
                       }
 
                       return ConstrainedBox(
@@ -205,12 +206,12 @@ class _FeedWidgetState extends State<FeedWidget> {
         }
 
         // For updating UI after fetching image (without it overlayed image will be smol)
-        setState(() {
-          renderedMemes[index] = size;
-        });
+        WidgetsBinding.instance!.addPostFrameCallback(
+          (_) => setState(() {
+            renderedMemes[index] = size;
+          }),
+        );
       }),
     );
-
-    renderedMemes[index] = Size(constraints.maxWidth, 200);
   }
 }
