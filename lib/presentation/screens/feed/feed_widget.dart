@@ -190,7 +190,7 @@ class _FeedWidgetState extends State<FeedWidget> {
         // Calculating correct size of resulting image
         Size size = Size(
           info.image.width.toDouble(),
-          max(info.image.height.toDouble(), 200.0),
+          info.image.height.toDouble(),
         );
         if (size.width > constraints.maxWidth) {
           size = Size(
@@ -202,6 +202,12 @@ class _FeedWidgetState extends State<FeedWidget> {
           size = Size(
             maxHeight * size.aspectRatio,
             maxHeight,
+          );
+        }
+        if (size.height < 200) {
+          size = Size(
+            200 * size.aspectRatio,
+            200,
           );
         }
 
