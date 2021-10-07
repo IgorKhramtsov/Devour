@@ -24,7 +24,9 @@ class RedditScrapperFacade {
         .where((post) => !post.stickied)
         // The videos are m3u8 format, and have its own data structure. Add its support later.
         .where((post) => !post.isVideo)
-        .map(RedditMemeMapper.map);
+        .map(RedditMemeMapper.map)
+        // Flutter nativly cant render gifv media
+        .where((post) => !post.imageLink.endsWith('.gifv'));
     return memes.toList();
   }
 }
