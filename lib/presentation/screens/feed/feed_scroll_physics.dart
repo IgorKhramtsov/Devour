@@ -30,26 +30,31 @@ class FeedScrollPhysics extends ScrollPhysics {
   FeedScrollPhysics(
     this.elementsSizes,
     this.activeViewportHeight, {
+    this.topPadding = 0.0,
     ScrollPhysics? parent,
   }) : super(parent: parent);
 
   /// Sizes of elements, to calculate correct item positions
-  Map<int, Size> elementsSizes;
+  final Map<int, Size> elementsSizes;
 
-  /// Height of visible viewport, to centrate element
-  double activeViewportHeight;
+  /// Height of visible viewport, to center element
+  final double activeViewportHeight;
+
+  /// Height of top safe area, to adjust centred element
+  final double topPadding;
 
   @override
   FeedScrollPhysics applyTo(ScrollPhysics? ancestor) {
     return FeedScrollPhysics(
       elementsSizes,
       activeViewportHeight,
+      topPadding: topPadding,
       parent: buildParent(ancestor),
     );
   }
 
   double _getElement(ScrollMetrics position) {
-    final viewportHeight = activeViewportHeight;
+    final viewportHeight = position.viewportDimension;
     // Target position
     final viewportCenter = position.pixels + (viewportHeight / 2.0);
 
@@ -85,7 +90,7 @@ class FeedScrollPhysics extends ScrollPhysics {
     }
     final elementCenter = sum + (elementsSizes[elementIndex]!.height / 2.0);
 
-    return elementCenter - viewportCenter;
+    return (elementCenter - viewportCenter) - topPadding;
   }
 
   double _getTargetPixels(

@@ -15,10 +15,12 @@ import 'package:octo_image/octo_image.dart';
 class PostWidget extends StatelessWidget {
   const PostWidget(
     this.state, {
+    required this.constraints,
     Key? key,
   }) : super(key: key);
 
   final FeedState state;
+  final BoxConstraints constraints;
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +51,20 @@ class PostWidget extends StatelessWidget {
                   ],
                 );
               },
-              child: Container(
+              child: ConstrainedBox(
                 key: Key(state.currentMemeModel.imageLink),
+                constraints: BoxConstraints(
+                  minWidth: constraints.maxWidth,
+                ),
                 child: OctoImage(
                   image: CachedNetworkImageProvider(
                     state.currentMemeModel.imageLink,
-                    errorListener: () => print('error (${state.currentMemeModel.imageLink})'),
+                    errorListener: () =>
+                        print('error (${state.currentMemeModel.imageLink})'),
                     cacheManager: serviceLocator<CacheManager>(),
                   ),
+                  fit: BoxFit.fitWidth,
+                  width: constraints.maxWidth,
                 ),
               ),
             ),

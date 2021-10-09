@@ -37,6 +37,7 @@ class _FeedWidgetState extends State<FeedWidget> {
     super.initState();
 
     listener.itemPositions.addListener(updateSelectedMeme);
+    // cacheManager.emptyCache();
   }
 
   @override
@@ -79,73 +80,86 @@ class _FeedWidgetState extends State<FeedWidget> {
           }
 
           return LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints cnstr) => Stack(
-              children: [
-                ImageFiltered(
-                  imageFilter: ImageFilter.compose(
-                    outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                    inner: ColorFilter.mode(
-                      Colors.black.withOpacity(.15),
-                      BlendMode.darken,
+            builder: (BuildContext context, BoxConstraints cnstr) {
+              // We can use safe area here, but it will create more problems
+              final maxHeight = cnstr.maxHeight -
+                  (MediaQuery.of(context).padding.bottom +
+                      MediaQuery.of(context).padding.top);
+
+              return Stack(
+                children: [
+                  ImageFiltered(
+                    imageFilter: ImageFilter.compose(
+                      outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                      inner: ColorFilter.mode(
+                        Colors.black.withOpacity(.15),
+                        BlendMode.darken,
+                      ),
+                    ),
+                    child: ScrollablePositionedList.builder(
+                      physics: FeedScrollPhysics(
+                        renderedMemes,
+                        // sbustract bottom tab navbar size, because we cant see anything
+                        // behide it (unlike top unsafe area)
+                        maxHeight,
+                        topPadding: MediaQuery.of(context).padding.top,
+                      ),
+                      itemCount: state.memes.length,
+                      itemPositionsListener: listener,
+                      itemBuilder: (BuildContext context, int index) {
+                        final imageProvider = CachedNetworkImageProvider(
+                          state.memes[index].imageLink,
+                          cacheManager: cacheManager,
+                        );
+
+                        final key = renderedMemesKeys.putIfAbsent(
+                          index,
+                          () => GlobalKey(),
+                        );
+                        if (renderedMemes[index] == null) {
+                          propogateSizeToMap(
+                            imageProvider,
+                            cnstr,
+                            maxHeight,
+                            index,
+                          );
+                          renderedMemes[index] = Size(cnstr.maxWidth, 200);
+                        }
+
+                        return ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: 200,
+                            // maxHeight: maxHeight,
+                            maxWidth: cnstr.maxWidth,
+                          ),
+                          child: OctoImage(
+                            key: key,
+                            image: imageProvider,
+                            fit: BoxFit.fitWidth,
+                            progressIndicatorBuilder: (context, progress) =>
+                                Lottie.asset(
+                              'lib/assets/animations/space_loader.json',
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                  child: ScrollablePositionedList.builder(
-                    physics: FeedScrollPhysics(
-                      renderedMemes,
-                      // sbustract bottom tab navbar size, because we cant see anything
-                      // behide it (unlike top unsafe area)
-                      cnstr.maxHeight - MediaQuery.of(context).padding.bottom,
-                    ),
-                    itemCount: state.memes.length,
-                    itemPositionsListener: listener,
-                    itemBuilder: (BuildContext context, int index) {
-                      final imageProvider = CachedNetworkImageProvider(
-                        state.memes[index].imageLink,
-                        cacheManager: cacheManager,
-                      );
-                      // We can use safe area here, but it will create more problems
-                      final maxHeight = cnstr.maxHeight -
-                          MediaQuery.of(context).padding.bottom -
-                          MediaQuery.of(context).padding.top;
-                      final key = renderedMemesKeys.putIfAbsent(
-                        index,
-                        () => GlobalKey(),
-                      );
-                      if (renderedMemes[index] == null) {
-                        propogateSizeToMap(
-                          imageProvider,
-                          cnstr,
-                          maxHeight,
-                          index,
-                        );
-                        renderedMemes[index] = Size(cnstr.maxWidth, 200);
-                      }
-
-                      return ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: 200,
-                          minWidth: 200,
-                          maxHeight: maxHeight,
-                        ),
-                        child: OctoImage(
-                          key: key,
-                          image: imageProvider,
-                        ),
+                  buildVignette(),
+                  // Build overlay with actions and description, with listenable of current
+                  // scroll position
+                  ValueListenableBuilder(
+                    valueListenable: listener.itemPositions,
+                    builder: (_, __, ___) {
+                      return PostWidget(
+                        state,
+                        constraints: cnstr,
                       );
                     },
-                  ),
-                ),
-                buildVignette(),
-                // Build overlay with actions and description, with listenable of current
-                // scroll position
-                ValueListenableBuilder(
-                  valueListenable: listener.itemPositions,
-                  builder: (_, __, ___) {
-                    return PostWidget(state);
-                  },
-                )
-              ],
-            ),
+                  )
+                ],
+              );
+            },
           );
         }
 
@@ -185,39 +199,30 @@ class _FeedWidgetState extends State<FeedWidget> {
     double maxHeight,
     int index,
   ) {
-    imageProvider.resolve(ImageConfiguration.empty).addListener(
-      ImageStreamListener((info, _) {
-        // Calculating correct size of resulting image
-        Size size = Size(
-          info.image.width.toDouble(),
-          info.image.height.toDouble(),
-        );
-        if (size.width > constraints.maxWidth) {
-          size = Size(
-            constraints.maxWidth,
-            constraints.maxWidth / size.aspectRatio,
-          );
-        }
-        if (size.height > maxHeight) {
-          size = Size(
-            maxHeight * size.aspectRatio,
-            maxHeight,
-          );
-        }
-        if (size.height < 200) {
-          size = Size(
-            200 * size.aspectRatio,
-            200,
-          );
-        }
+    late ImageStreamListener listener;
+    listener = ImageStreamListener((info, _) {
+      // Calculating correct size of resulting image
+      Size size = Size(
+        info.image.width.toDouble(),
+        info.image.height.toDouble(),
+      );
+      size = Size(
+        constraints.maxWidth,
+        constraints.maxWidth / size.aspectRatio,
+      );
 
-        // For updating UI after fetching image (without it overlayed image will be smol)
-        WidgetsBinding.instance!.addPostFrameCallback(
-          (_) => setState(() {
-            renderedMemes[index] = size;
-          }),
+      // For updating UI after fetching image (without it overlayed image will be smol)
+      WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => setState(() {
+          renderedMemes[index] = size;
+          imageProvider
+              .resolve(ImageConfiguration.empty)
+              .removeListener(listener);
+        }),
+      );
+    });
+    imageProvider.resolve(ImageConfiguration.empty).addListener(
+          listener,
         );
-      }),
-    );
   }
 }
