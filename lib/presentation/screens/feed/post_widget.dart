@@ -5,14 +5,17 @@ import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/domain/meme/abstract_meme_model.dart';
 import 'package:devour/domain/misc/helper.dart';
 import 'package:devour/injection.dart';
+import 'package:devour/presentation/screens/feed/feed_image_widget.dart';
 import 'package:devour/presentation/widgets/platform/platform_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:octo_image/octo_image.dart';
 
-class PostWidget extends StatelessWidget {
+/// Widget to show post information like description and likes and image,
+/// to create illusion of selecting meme from list.
+class PostWidget extends StatefulWidget {
+  /// Constructs PostWidget
   const PostWidget(
     this.state, {
     required this.constraints,
@@ -23,12 +26,18 @@ class PostWidget extends StatelessWidget {
   final BoxConstraints constraints;
 
   @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
+  @override
   Widget build(BuildContext context) {
-    if (state.isLoading) {
+    if (widget.state.isLoading) {
       return Container();
     }
 
-    final key = state.currentMemeWidget.toNullable();
+    final key = widget.state.currentMemeWidget.toNullable();
+    // key.currentWidget
     final box = key?.currentContext?.findRenderObject() as RenderBox?;
     final pos = box?.localToGlobal(Offset.zero) ?? Offset.zero;
 
@@ -41,33 +50,27 @@ class PostWidget extends StatelessWidget {
           height: box?.size.height,
           child: IgnorePointer(
             child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 100),
-              layoutBuilder: (curr, prev) {
-                return Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    // ...prev,
-                    if (curr != null) curr,
-                  ],
-                );
-              },
-              child: ConstrainedBox(
-                key: Key(state.currentMemeModel.imageLink),
-                constraints: BoxConstraints(
-                  minWidth: constraints.maxWidth,
-                ),
-                child: OctoImage(
-                  image: CachedNetworkImageProvider(
-                    state.currentMemeModel.imageLink,
-                    errorListener: () =>
-                        print('error (${state.currentMemeModel.imageLink})'),
+                duration: const Duration(milliseconds: 100),
+                layoutBuilder: (curr, prev) {
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      // ...prev,
+                      if (curr != null) curr,
+                    ],
+                  );
+                },
+                child: FeedImage(
+                  key: Key(widget.state.currentMemeModel.imageLink),
+                  imageProvider: CachedNetworkImageProvider(
+                    widget.state.currentMemeModel.imageLink,
+                    errorListener: () => print(
+                        'error (${widget.state.currentMemeModel.imageLink})'),
                     cacheManager: serviceLocator<CacheManager>(),
                   ),
-                  fit: BoxFit.fitWidth,
-                  width: constraints.maxWidth,
+                  constraints: widget.constraints,
                 ),
               ),
-            ),
           ),
         ),
         Positioned.fill(
@@ -75,7 +78,7 @@ class PostWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              PostActionsWidget(currentPost: state.currentMemeModel),
+              PostActionsWidget(currentPost: widget.state.currentMemeModel),
             ],
           ),
         ),
@@ -84,7 +87,7 @@ class PostWidget extends StatelessWidget {
           bottom: 100,
           width: 400,
           child: PostDescriptionWidget(
-            currentPost: state.currentMemeModel,
+            currentPost: widget.state.currentMemeModel,
           ),
         ),
       ],

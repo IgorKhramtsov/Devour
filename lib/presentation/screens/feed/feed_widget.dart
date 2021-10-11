@@ -1,11 +1,12 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/injection.dart';
+import 'package:devour/presentation/screens/feed/feed_image_widget.dart';
 import 'package:devour/presentation/screens/feed/feed_scroll_physics.dart';
 import 'package:devour/presentation/screens/feed/post_widget.dart';
+import 'package:devour/presentation/widgets/animations/animated_opacity_reverse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fpdart/fpdart.dart' show Option;
 import 'package:lottie/lottie.dart';
-import 'package:octo_image/octo_image.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:collection/collection.dart';
 
@@ -111,7 +111,6 @@ class _FeedWidgetState extends State<FeedWidget> {
                           state.memes[index].imageLink,
                           cacheManager: cacheManager,
                         );
-
                         final key = renderedMemesKeys.putIfAbsent(
                           index,
                           () => GlobalKey(),
@@ -126,20 +125,22 @@ class _FeedWidgetState extends State<FeedWidget> {
                           renderedMemes[index] = Size(cnstr.maxWidth, 200);
                         }
 
-                        return ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: 200,
-                            // maxHeight: maxHeight,
-                            maxWidth: cnstr.maxWidth,
-                          ),
-                          child: OctoImage(
+                        // Using [AnimatedVisibilityWithReversedDuration] to
+                        // hide with animation selected post and show immediately
+                        // if its not. Its because of postWidget, it will re-render
+                        // any error images, so they will reload, and this and post
+                        // widgets will have different state, but overlaping each other
+                        return AnimatedVisibilityWithReversedDuration(
+                          duration: const Duration(milliseconds: 300),
+                          reversedDuration: Duration.zero,
+                          visibility: index != state.iterator,
+                          child: FeedImage(
                             key: key,
-                            image: imageProvider,
-                            fit: BoxFit.fitWidth,
-                            progressIndicatorBuilder: (context, progress) =>
-                                Lottie.asset(
-                              'lib/assets/animations/space_loader.json',
-                            ),
+                            imageProvider: imageProvider,
+                            constraints: cnstr,
+                            onRefreshPressed: () => setState(() {
+                              renderedMemesKeys[index] = GlobalKey();
+                            }),
                           ),
                         );
                       },
@@ -215,6 +216,7 @@ class _FeedWidgetState extends State<FeedWidget> {
       WidgetsBinding.instance!.addPostFrameCallback(
         (_) => setState(() {
           renderedMemes[index] = size;
+          print('index $index is $size');
           imageProvider
               .resolve(ImageConfiguration.empty)
               .removeListener(listener);

@@ -16,7 +16,7 @@ class PlatformIconButton
   final double size;
   final Color color;
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   CupertinoButton buildCupertino(BuildContext context) {
@@ -52,6 +52,7 @@ class PlatformIconButton
     ];
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           String.fromCharCode(icon.codePoint),
