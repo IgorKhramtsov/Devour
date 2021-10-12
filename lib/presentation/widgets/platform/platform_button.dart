@@ -39,10 +39,8 @@ class PlatformButton
   ElevatedButton buildMaterial(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      child: Padding(
-        padding: padding,
-        child: child,
-      ),
+      style: ButtonStyle(padding: MaterialStateProperty.all(padding)),
+      child: child,
     );
   }
 }
