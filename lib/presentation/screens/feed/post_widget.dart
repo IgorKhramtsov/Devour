@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PostWidget extends StatelessWidget {
   const PostWidget(
@@ -93,6 +94,7 @@ class PostWidget extends StatelessWidget {
 }
 
 class PostActionsWidget extends StatelessWidget {
+  /// Column with actions, showed to user for certain post
   const PostActionsWidget({
     Key? key,
     required this.currentPost,
@@ -120,7 +122,7 @@ class PostActionsWidget extends StatelessWidget {
           text: currentPost.comments.toShortString(),
         ),
         PlatformIconButton(
-          onPressed: () => null,
+          onPressed: share,
           icon: CupertinoIcons.share,
           size: 42,
           color: CupertinoColors.white,
@@ -128,6 +130,14 @@ class PostActionsWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void share() async {
+    final cacheManager = serviceLocator<CacheManager>();
+    final file = await cacheManager.getSingleFile(currentPost.imageLink);
+    // TODO: currentPost.isVideo ? mimeType: 'video/*'
+
+    Share.shareFiles([file.path], mimeTypes: ['image/*']);
   }
 }
 
