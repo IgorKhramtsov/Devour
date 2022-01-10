@@ -3,6 +3,7 @@ import 'package:devour/application/navigator/routes.dart';
 import 'package:devour/injection.dart';
 import 'package:devour/presentation/widgets/platform/platform_button.dart';
 import 'package:devour/presentation/widgets/platform/platform_scaffold.dart';
+import 'package:devour/presentation/widgets/platform/platform_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -74,7 +75,7 @@ class AccountScreen extends StatelessWidget {
     required String text,
     required bool isEmpty,
   }) {
-    TextStyle textStyle = CupertinoTheme.of(context).textTheme.textStyle;
+    TextStyle textStyle = PlatformTheme.getTextStyle(context);
     textStyle = textStyle.copyWith(color: textStyle.color!.withOpacity(.8));
     return Row(
       mainAxisSize: MainAxisSize.min,

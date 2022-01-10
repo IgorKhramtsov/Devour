@@ -1,4 +1,5 @@
 import 'package:devour/presentation/widgets/platform/abstract_platform_widget.dart';
+import 'package:devour/presentation/widgets/platform/platform_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,15 +30,16 @@ class PlatformIconButton
   @override
   IconButton buildMaterial(BuildContext context) {
     return IconButton(
+      padding: EdgeInsets.zero,
+      iconSize: size * 1.75, // approximately
       icon: _buildContent(context),
       onPressed: onPressed,
     );
   }
 
   Widget _buildContent(BuildContext context) {
-    final textStyle = CupertinoTheme.of(context)
-        .textTheme
-        .actionTextStyle
+    final textStyle = PlatformTheme.getTextStyle(context)
+        // .actionTextStyle
         .copyWith(color: color);
     const List<Shadow> shadows = [
       Shadow(
