@@ -35,10 +35,12 @@ class HomeScreen extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.house),
           activeIcon: Icon(CupertinoIcons.house_fill),
+          label: 'feed',
         ),
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.person),
           activeIcon: Icon(CupertinoIcons.person_fill),
+          label: 'accounts',
         ),
       ],
       tabBuilder: (BuildContext context, int index) =>

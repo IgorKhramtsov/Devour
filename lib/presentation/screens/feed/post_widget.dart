@@ -7,10 +7,12 @@ import 'package:devour/domain/misc/helper.dart';
 import 'package:devour/injection.dart';
 import 'package:devour/presentation/screens/feed/feed_image_widget.dart';
 import 'package:devour/presentation/widgets/platform/platform_icon_button.dart';
+import 'package:devour/presentation/widgets/platform/platform_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// Widget to show post information like description and likes and image,
 /// to create illusion of selecting meme from list.
@@ -50,27 +52,27 @@ class _PostWidgetState extends State<PostWidget> {
           height: box?.size.height,
           child: IgnorePointer(
             child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 100),
-                layoutBuilder: (curr, prev) {
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      // ...prev,
-                      if (curr != null) curr,
-                    ],
-                  );
-                },
-                child: FeedImage(
-                  key: Key(widget.state.currentMemeModel.imageLink),
-                  imageProvider: CachedNetworkImageProvider(
-                    widget.state.currentMemeModel.imageLink,
-                    errorListener: () => print(
-                        'error (${widget.state.currentMemeModel.imageLink})'),
-                    cacheManager: serviceLocator<CacheManager>(),
-                  ),
-                  constraints: widget.constraints,
+              duration: const Duration(milliseconds: 100),
+              layoutBuilder: (curr, prev) {
+                return Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    // ...prev,
+                    if (curr != null) curr,
+                  ],
+                );
+              },
+              child: FeedImage(
+                key: Key(widget.state.currentMemeModel.imageLink),
+                imageProvider: CachedNetworkImageProvider(
+                  widget.state.currentMemeModel.imageLink,
+                  errorListener: () => print(
+                      'error (${widget.state.currentMemeModel.imageLink})'),
+                  cacheManager: serviceLocator<CacheManager>(),
                 ),
+                constraints: widget.constraints,
               ),
+            ),
           ),
         ),
         Positioned.fill(
@@ -96,6 +98,7 @@ class _PostWidgetState extends State<PostWidget> {
 }
 
 class PostActionsWidget extends StatelessWidget {
+  /// Column with actions, showed to user for certain post
   const PostActionsWidget({
     Key? key,
     required this.currentPost,
@@ -123,7 +126,7 @@ class PostActionsWidget extends StatelessWidget {
           text: currentPost.comments.toShortString(),
         ),
         PlatformIconButton(
-          onPressed: () => null,
+          onPressed: share,
           icon: CupertinoIcons.share,
           size: 42,
           color: CupertinoColors.white,
@@ -131,6 +134,14 @@ class PostActionsWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void share() async {
+    final cacheManager = serviceLocator<CacheManager>();
+    final file = await cacheManager.getSingleFile(currentPost.imageLink);
+    // TODO: currentPost.isVideo ? mimeType: 'video/*'
+
+    Share.shareFiles([file.path], mimeTypes: ['image/*']);
   }
 }
 
@@ -145,7 +156,7 @@ class PostDescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle =
-        CupertinoTheme.of(context).textTheme.textStyle.copyWith(fontSize: 19);
+        PlatformTheme.getTextStyle(context).copyWith(fontSize: 19);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
