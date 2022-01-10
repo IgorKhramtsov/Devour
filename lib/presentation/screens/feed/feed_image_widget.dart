@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:octo_image/octo_image.dart';
 
-/// A widget to show image from network or cache with correct size
+/// Widget, that shows image from network or cache with correct size
 class FeedImage extends StatelessWidget {
   /// Construct FeedImag
   const FeedImage({
@@ -17,7 +17,8 @@ class FeedImage extends StatelessWidget {
 
   final BoxConstraints? constraints;
   final ImageProvider imageProvider;
-  /// Callback fired, when user taps on error builder, when image is failed to load
+
+  /// Callback fired, when user taps on error builder (when image is failed to load)
   final VoidCallback? onRefreshPressed;
 
   @override

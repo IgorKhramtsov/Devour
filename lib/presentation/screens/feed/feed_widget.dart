@@ -82,6 +82,7 @@ class _FeedWidgetState extends State<FeedWidget> {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints cnstr) {
               // We can use safe area here, but it will create more problems
+              // UPD: What promlems?
               final maxHeight = cnstr.maxHeight -
                   (MediaQuery.of(context).padding.bottom +
                       MediaQuery.of(context).padding.top);
@@ -100,7 +101,7 @@ class _FeedWidgetState extends State<FeedWidget> {
                       physics: FeedScrollPhysics(
                         renderedMemes,
                         // sbustract bottom tab navbar size, because we cant see anything
-                        // behide it (unlike top unsafe area)
+                        // behind it (unlike top unsafe area)
                         maxHeight,
                         topPadding: MediaQuery.of(context).padding.top,
                       ),
@@ -126,10 +127,10 @@ class _FeedWidgetState extends State<FeedWidget> {
                         }
 
                         // Using [AnimatedVisibilityWithReversedDuration] to
-                        // hide with animation selected post and show immediately
-                        // if its not. Its because of postWidget, it will re-render
-                        // any error images, so they will reload, and this and post
-                        // widgets will have different state, but overlaping each other
+                        // hide selected post with animation and show immediately
+                        // if it was already hidden. PostWidget will re-render
+                        // any error images, so they will be reloaded, and 2 same widgets
+                        // will have different state, and overlaping each other
                         return AnimatedVisibilityWithReversedDuration(
                           duration: const Duration(milliseconds: 300),
                           reversedDuration: Duration.zero,
@@ -147,7 +148,7 @@ class _FeedWidgetState extends State<FeedWidget> {
                     ),
                   ),
                   buildVignette(),
-                  // Build overlay with actions and description, with listenable of current
+                  // Build overlay with actions, description and listenable of current
                   // scroll position
                   ValueListenableBuilder(
                     valueListenable: listener.itemPositions,
@@ -212,7 +213,7 @@ class _FeedWidgetState extends State<FeedWidget> {
         constraints.maxWidth / size.aspectRatio,
       );
 
-      // For updating UI after fetching image (without it overlayed image will be smol)
+      // For updating UI after fetching image (without it, overlayed image will be small)
       WidgetsBinding.instance!.addPostFrameCallback(
         (_) => setState(() {
           renderedMemes[index] = size;

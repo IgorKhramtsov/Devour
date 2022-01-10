@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-/// Widget to show post information like description and likes and image,
+/// Widget, that shows post information like description, likes and image,
 /// to create illusion of selecting meme from list.
 class PostWidget extends StatefulWidget {
   /// Constructs PostWidget
@@ -50,27 +50,27 @@ class _PostWidgetState extends State<PostWidget> {
           height: box?.size.height,
           child: IgnorePointer(
             child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 100),
-                layoutBuilder: (curr, prev) {
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      // ...prev,
-                      if (curr != null) curr,
-                    ],
-                  );
-                },
-                child: FeedImage(
-                  key: Key(widget.state.currentMemeModel.imageLink),
-                  imageProvider: CachedNetworkImageProvider(
-                    widget.state.currentMemeModel.imageLink,
-                    errorListener: () => print(
-                        'error (${widget.state.currentMemeModel.imageLink})'),
-                    cacheManager: serviceLocator<CacheManager>(),
-                  ),
-                  constraints: widget.constraints,
+              duration: const Duration(milliseconds: 100),
+              layoutBuilder: (curr, prev) {
+                return Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    // ...prev,
+                    if (curr != null) curr,
+                  ],
+                );
+              },
+              child: FeedImage(
+                key: Key(widget.state.currentMemeModel.imageLink),
+                imageProvider: CachedNetworkImageProvider(
+                  widget.state.currentMemeModel.imageLink,
+                  errorListener: () => print(
+                      'error (${widget.state.currentMemeModel.imageLink})'),
+                  cacheManager: serviceLocator<CacheManager>(),
                 ),
+                constraints: widget.constraints,
               ),
+            ),
           ),
         ),
         Positioned.fill(
