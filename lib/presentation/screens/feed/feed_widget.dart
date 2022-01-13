@@ -5,6 +5,7 @@ import 'package:devour/application/feed/bloc/feed_bloc.dart';
 import 'package:devour/injection.dart';
 import 'package:devour/presentation/screens/feed/feed_image_widget.dart';
 import 'package:devour/presentation/screens/feed/feed_scroll_physics.dart';
+import 'package:devour/presentation/screens/feed/feed_sliver_list.dart';
 import 'package:devour/presentation/screens/feed/post_widget.dart';
 import 'package:devour/presentation/widgets/animations/animated_opacity_reverse.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,6 +80,113 @@ class _FeedWidgetState extends State<FeedWidget> {
             );
           }
 
+          Widget buildList(double maxHeight, BoxConstraints cnstr) {
+            return ScrollablePositionedList.builder(
+              physics: FeedScrollPhysics(
+                renderedMemes,
+                // sbustract bottom tab navbar size, because we cant see anything
+                // behind it (unlike top unsafe area)
+                maxHeight,
+                topPadding: MediaQuery.of(context).padding.top,
+              ),
+              itemCount: state.memes.length,
+              itemPositionsListener: listener,
+              itemBuilder: (BuildContext context, int index) {
+                final imageProvider = CachedNetworkImageProvider(
+                  state.memes[index].imageLink,
+                  cacheManager: cacheManager,
+                );
+                final key = renderedMemesKeys.putIfAbsent(
+                  index,
+                  () => GlobalKey(),
+                );
+                if (renderedMemes[index] == null) {
+                  propogateSizeToMap(
+                    imageProvider,
+                    cnstr,
+                    maxHeight,
+                    index,
+                  );
+                  renderedMemes[index] = Size(cnstr.maxWidth, 200);
+                }
+
+                // Using [AnimatedVisibilityWithReversedDuration] to
+                // hide selected post with animation and show immediately
+                // if it was already hidden. PostWidget will re-render
+                // any error images, so they will be reloaded, and 2 same widgets
+                // will have different state, and overlaping each other
+                return AnimatedVisibilityWithReversedDuration(
+                  duration: const Duration(milliseconds: 300),
+                  reversedDuration: Duration.zero,
+                  visibility: index != state.iterator,
+                  child: FeedImage(
+                    key: key,
+                    imageProvider: imageProvider,
+                    constraints: cnstr,
+                    onRefreshPressed: () => setState(() {
+                      renderedMemesKeys[index] = GlobalKey();
+                    }),
+                  ),
+                );
+              },
+            );
+          }
+
+          Widget buildSliverList(double maxHeight, BoxConstraints cnstr) {
+            return CustomScrollView(
+              physics: FeedScrollPhysics(
+                renderedMemes,
+                // sbustract bottom tab navbar size, because we cant see anything
+                // behind it (unlike top unsafe area)
+                maxHeight,
+                topPadding: MediaQuery.of(context).padding.top,
+              ),
+              slivers: [
+                FeedSliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    final imageProvider = CachedNetworkImageProvider(
+                      state.memes[index].imageLink,
+                      cacheManager: cacheManager,
+                    );
+                    final key = renderedMemesKeys.putIfAbsent(
+                      index,
+                      () => GlobalKey(),
+                    );
+                    if (renderedMemes[index] == null) {
+                      propogateSizeToMap(
+                        imageProvider,
+                        cnstr,
+                        maxHeight,
+                        index,
+                      );
+                      renderedMemes[index] = Size(cnstr.maxWidth, 200);
+                    }
+
+                    // Using [AnimatedVisibilityWithReversedDuration] to
+                    // hide selected post with animation and show immediately
+                    // if it was already hidden. PostWidget will re-render
+                    // any error images, so they will be reloaded, and 2 same widgets
+                    // will have different state, and overlaping each other
+                    return AnimatedVisibilityWithReversedDuration(
+                      duration: const Duration(milliseconds: 300),
+                      reversedDuration: Duration.zero,
+                      visibility: index != state.iterator,
+                      child: FeedImage(
+                        key: key,
+                        imageProvider: imageProvider,
+                        constraints: cnstr,
+                        onRefreshPressed: () => setState(() {
+                          renderedMemesKeys[index] = GlobalKey();
+                        }),
+                      ),
+                    );
+                  }),
+                )
+              ],
+            );
+          }
+
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints cnstr) {
               // We can use safe area here, but it will create more problems
@@ -89,76 +197,29 @@ class _FeedWidgetState extends State<FeedWidget> {
 
               return Stack(
                 children: [
-                  ImageFiltered(
-                    imageFilter: ImageFilter.compose(
-                      outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                      inner: ColorFilter.mode(
-                        Colors.black.withOpacity(.15),
-                        BlendMode.darken,
-                      ),
-                    ),
-                    child: ScrollablePositionedList.builder(
-                      physics: FeedScrollPhysics(
-                        renderedMemes,
-                        // sbustract bottom tab navbar size, because we cant see anything
-                        // behind it (unlike top unsafe area)
-                        maxHeight,
-                        topPadding: MediaQuery.of(context).padding.top,
-                      ),
-                      itemCount: state.memes.length,
-                      itemPositionsListener: listener,
-                      itemBuilder: (BuildContext context, int index) {
-                        final imageProvider = CachedNetworkImageProvider(
-                          state.memes[index].imageLink,
-                          cacheManager: cacheManager,
-                        );
-                        final key = renderedMemesKeys.putIfAbsent(
-                          index,
-                          () => GlobalKey(),
-                        );
-                        if (renderedMemes[index] == null) {
-                          propogateSizeToMap(
-                            imageProvider,
-                            cnstr,
-                            maxHeight,
-                            index,
-                          );
-                          renderedMemes[index] = Size(cnstr.maxWidth, 200);
-                        }
-
-                        // Using [AnimatedVisibilityWithReversedDuration] to
-                        // hide selected post with animation and show immediately
-                        // if it was already hidden. PostWidget will re-render
-                        // any error images, so they will be reloaded, and 2 same widgets
-                        // will have different state, and overlaping each other
-                        return AnimatedVisibilityWithReversedDuration(
-                          duration: const Duration(milliseconds: 300),
-                          reversedDuration: Duration.zero,
-                          visibility: index != state.iterator,
-                          child: FeedImage(
-                            key: key,
-                            imageProvider: imageProvider,
-                            constraints: cnstr,
-                            onRefreshPressed: () => setState(() {
-                              renderedMemesKeys[index] = GlobalKey();
-                            }),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  // ImageFiltered(
+                  //   imageFilter: ImageFilter.compose(
+                  //     outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                  //     inner: ColorFilter.mode(
+                  //       Colors.black.withOpacity(.15),
+                  //       BlendMode.darken,
+                  //     ),
+                  //   ),
+                  // child:
+                  buildSliverList(maxHeight, cnstr),
+                  // ),
                   buildVignette(),
                   // Build overlay with actions, description and listenable of current
                   // scroll position
-                  ValueListenableBuilder(
-                    valueListenable: listener.itemPositions,
-                    builder: (_, __, ___) {
-                      return PostWidget(
-                        state,
-                        constraints: cnstr,
-                      );
-                    },
-                  )
+                  // ValueListenableBuilder(
+                  //   valueListenable: listener.itemPositions,
+                  //   builder: (_, __, ___) {
+                  //     return PostWidget(
+                  //       state,
+                  //       constraints: cnstr,
+                  //     );
+                  //   },
+                  // )
                 ],
               );
             },
