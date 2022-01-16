@@ -12,7 +12,9 @@ class FeedSliverList extends SliverList {
   const FeedSliverList({
     Key? key,
     required SliverChildDelegate delegate,
+    this.listener,
   }) : super(key: key, delegate: delegate);
+  final CurrentElementListener? listener;
 
   @override
   SliverMultiBoxAdaptorElement createElement() =>
@@ -22,7 +24,7 @@ class FeedSliverList extends SliverList {
   RenderSliverList createRenderObject(BuildContext context) {
     final SliverMultiBoxAdaptorElement element =
         context as SliverMultiBoxAdaptorElement;
-    return RenderFeedSliverList(childManager: element);
+    return RenderFeedSliverList(childManager: element, listener: listener);
   }
 }
 
@@ -31,7 +33,42 @@ class RenderFeedSliverList extends RenderSliverList {
   // ignore: public_member_api_docs
   RenderFeedSliverList({
     required RenderSliverBoxChildManager childManager,
+    this.listener,
   }) : super(childManager: childManager);
+
+  final CurrentElementListener? listener;
+
+  /// Calculating how far is center of element from center of viewport in percents (0.0 - 1.0).
+  double getDistanceToViewportCenter(RenderBox child) {
+    final viewportCenter = constraints.viewportMainAxisExtent / 2.0;
+
+    final double mainAxisDelta = childMainAxisPosition(child);
+    final childCenter = mainAxisDelta + (paintExtentOf(child) / 2.0);
+    return (viewportCenter - childCenter).abs() /
+        constraints.viewportMainAxisExtent;
+  }
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    if (firstChild == null) return;
+
+    var minDistanceChild = firstChild!;
+    RenderBox? child = childAfter(minDistanceChild);
+    while (child != null) {
+      final distance = getDistanceToViewportCenter(child);
+      if (distance < getDistanceToViewportCenter(minDistanceChild)) {
+        minDistanceChild = child;
+      } else {
+        break; // If we start having larger number - we cant get minimal distance anymore.
+      }
+
+      child = childAfter(child);
+    }
+    final minDistanceChildIndex = indexOf(minDistanceChild);
+
+    listener?.currentIndex.value = minDistanceChildIndex;
+  }
 
   /// Copy of original function with bluring side elements.
   @override
@@ -69,7 +106,6 @@ class RenderFeedSliverList extends RenderSliverList {
         break;
     }
     RenderBox? child = firstChild;
-    final viewportCenter = constraints.viewportMainAxisExtent / 2.0;
     while (child != null) {
       final double mainAxisDelta = childMainAxisPosition(child);
       final double crossAxisDelta = childCrossAxisPosition(child);
@@ -87,10 +123,7 @@ class RenderFeedSliverList extends RenderSliverList {
       // does not intersect the paint extent interval (0, constraints.remainingPaintExtent), it's hidden.
       if (mainAxisDelta < constraints.remainingPaintExtent &&
           mainAxisDelta + paintExtentOf(child) > 0) {
-        final childCenter = mainAxisDelta + (paintExtentOf(child) / 2.0);
-        // Calculating how far is center of element from center of viewport in percents (0.0 - 1.0).
-        var fadeStrength = (viewportCenter - childCenter).abs() /
-            constraints.viewportMainAxisExtent;
+        var fadeStrength = getDistanceToViewportCenter(child);
         // Special non-linear function, to blur faster
         fadeStrength =
             (pow(fadeStrength + 0.4, 4.0) + pow(fadeStrength, 2.0)).toDouble();
@@ -129,4 +162,8 @@ class RenderFeedSliverList extends RenderSliverList {
       child = childAfter(child);
     }
   }
+}
+
+class CurrentElementListener {
+  final ValueNotifier<int> currentIndex = ValueNotifier(0);
 }

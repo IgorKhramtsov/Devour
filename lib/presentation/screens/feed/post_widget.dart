@@ -38,43 +38,8 @@ class _PostWidgetState extends State<PostWidget> {
       return Container();
     }
 
-    final key = widget.state.currentMemeWidget.toNullable();
-    // key.currentWidget
-    final box = key?.currentContext?.findRenderObject() as RenderBox?;
-    final pos = box?.localToGlobal(Offset.zero) ?? Offset.zero;
-
     return Stack(
       children: [
-        Positioned(
-          top: pos.dy,
-          left: pos.dx,
-          width: box?.size.width,
-          height: box?.size.height,
-          child: IgnorePointer(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 100),
-              layoutBuilder: (curr, prev) {
-                return Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    // ...prev,
-                    if (curr != null) curr,
-                  ],
-                );
-              },
-              child: FeedImage(
-                key: Key(widget.state.currentMemeModel.imageLink),
-                imageProvider: CachedNetworkImageProvider(
-                  widget.state.currentMemeModel.imageLink,
-                  errorListener: () => print(
-                      'error (${widget.state.currentMemeModel.imageLink})'),
-                  cacheManager: serviceLocator<CacheManager>(),
-                ),
-                constraints: widget.constraints,
-              ),
-            ),
-          ),
-        ),
         Positioned.fill(
           top: 100,
           child: Row(

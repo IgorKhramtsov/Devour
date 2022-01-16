@@ -30,6 +30,8 @@ class _FeedWidgetState extends State<FeedWidget> {
   late CacheManager cacheManager = serviceLocator<CacheManager>();
   final ScrollController controller = ScrollController();
   final ItemPositionsListener listener = ItemPositionsListener.create();
+  final CurrentElementListener currentElementListener =
+      CurrentElementListener();
   final renderedMemes = <int, Size>{};
   final renderedMemesKeys = <int, GlobalKey>{};
 
@@ -37,6 +39,7 @@ class _FeedWidgetState extends State<FeedWidget> {
   void initState() {
     super.initState();
 
+    currentElementListener.currentIndex.addListener(updateSelectedMeme);
     listener.itemPositions.addListener(updateSelectedMeme);
     // cacheManager.emptyCache();
   }
@@ -44,24 +47,26 @@ class _FeedWidgetState extends State<FeedWidget> {
   @override
   void dispose() {
     listener.itemPositions.removeListener(updateSelectedMeme);
+    currentElementListener.currentIndex.removeListener(updateSelectedMeme);
     super.dispose();
   }
 
   void updateSelectedMeme() {
     final bloc = BlocProvider.of<FeedBloc>(context);
 
-    final selectedMeme = listener.itemPositions.value
-        .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
-        .firstOrNull;
-    if (selectedMeme == null) {
-      assert(false);
-      return;
-    }
+    // final selectedMeme = listener.itemPositions.value
+    //     .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
+    //     .firstOrNull;
+    // if (selectedMeme == null) {
+    //   assert(false);
+    //   return;
+    // }
 
     bloc.add(
       FeedEvent.select(
-        selectedMeme.index,
-        Option.fromNullable(renderedMemesKeys[selectedMeme.index]),
+        currentElementListener.currentIndex.value,
+        Option.fromNullable(
+            renderedMemesKeys[currentElementListener.currentIndex.value]),
       ),
     );
   }
@@ -136,13 +141,12 @@ class _FeedWidgetState extends State<FeedWidget> {
             return CustomScrollView(
               physics: FeedScrollPhysics(
                 renderedMemes,
-                // sbustract bottom tab navbar size, because we cant see anything
-                // behind it (unlike top unsafe area)
                 maxHeight,
                 topPadding: MediaQuery.of(context).padding.top,
               ),
               slivers: [
                 FeedSliverList(
+                  listener: currentElementListener,
                   delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                     final imageProvider = CachedNetworkImageProvider(
@@ -163,23 +167,13 @@ class _FeedWidgetState extends State<FeedWidget> {
                       renderedMemes[index] = Size(cnstr.maxWidth, 200);
                     }
 
-                    // Using [AnimatedVisibilityWithReversedDuration] to
-                    // hide selected post with animation and show immediately
-                    // if it was already hidden. PostWidget will re-render
-                    // any error images, so they will be reloaded, and 2 same widgets
-                    // will have different state, and overlaping each other
-                    return AnimatedVisibilityWithReversedDuration(
-                      duration: const Duration(milliseconds: 300),
-                      reversedDuration: Duration.zero,
-                      visibility: index != state.iterator,
-                      child: FeedImage(
-                        key: key,
-                        imageProvider: imageProvider,
-                        constraints: cnstr,
-                        onRefreshPressed: () => setState(() {
-                          renderedMemesKeys[index] = GlobalKey();
-                        }),
-                      ),
+                    return FeedImage(
+                      key: key,
+                      imageProvider: imageProvider,
+                      constraints: cnstr,
+                      onRefreshPressed: () => setState(() {
+                        renderedMemesKeys[index] = GlobalKey();
+                      }),
                     );
                   }),
                 )
@@ -211,15 +205,15 @@ class _FeedWidgetState extends State<FeedWidget> {
                   buildVignette(),
                   // Build overlay with actions, description and listenable of current
                   // scroll position
-                  // ValueListenableBuilder(
-                  //   valueListenable: listener.itemPositions,
-                  //   builder: (_, __, ___) {
-                  //     return PostWidget(
-                  //       state,
-                  //       constraints: cnstr,
-                  //     );
-                  //   },
-                  // )
+                  ValueListenableBuilder(
+                    valueListenable: listener.itemPositions,
+                    builder: (_, __, ___) {
+                      return PostWidget(
+                        state,
+                        constraints: cnstr,
+                      );
+                    },
+                  )
                 ],
               );
             },
