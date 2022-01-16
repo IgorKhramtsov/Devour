@@ -29,7 +29,6 @@ class FeedWidget extends StatefulWidget {
 class _FeedWidgetState extends State<FeedWidget> {
   late CacheManager cacheManager = serviceLocator<CacheManager>();
   final ScrollController controller = ScrollController();
-  final ItemPositionsListener listener = ItemPositionsListener.create();
   final CurrentElementListener currentElementListener =
       CurrentElementListener();
   final renderedMemes = <int, Size>{};
@@ -40,13 +39,11 @@ class _FeedWidgetState extends State<FeedWidget> {
     super.initState();
 
     currentElementListener.currentIndex.addListener(updateSelectedMeme);
-    listener.itemPositions.addListener(updateSelectedMeme);
     // cacheManager.emptyCache();
   }
 
   @override
   void dispose() {
-    listener.itemPositions.removeListener(updateSelectedMeme);
     currentElementListener.currentIndex.removeListener(updateSelectedMeme);
     super.dispose();
   }
@@ -54,19 +51,12 @@ class _FeedWidgetState extends State<FeedWidget> {
   void updateSelectedMeme() {
     final bloc = BlocProvider.of<FeedBloc>(context);
 
-    // final selectedMeme = listener.itemPositions.value
-    //     .where((e) => e.itemLeadingEdge <= 0.5 && e.itemTrailingEdge >= 0.5)
-    //     .firstOrNull;
-    // if (selectedMeme == null) {
-    //   assert(false);
-    //   return;
-    // }
-
     bloc.add(
       FeedEvent.select(
         currentElementListener.currentIndex.value,
         Option.fromNullable(
-            renderedMemesKeys[currentElementListener.currentIndex.value]),
+          renderedMemesKeys[currentElementListener.currentIndex.value],
+        ),
       ),
     );
   }
@@ -82,58 +72,6 @@ class _FeedWidgetState extends State<FeedWidget> {
               child: Center(
                 child: Lottie.asset('lib/assets/animations/space_loader.json'),
               ),
-            );
-          }
-
-          Widget buildList(double maxHeight, BoxConstraints cnstr) {
-            return ScrollablePositionedList.builder(
-              physics: FeedScrollPhysics(
-                renderedMemes,
-                // sbustract bottom tab navbar size, because we cant see anything
-                // behind it (unlike top unsafe area)
-                maxHeight,
-                topPadding: MediaQuery.of(context).padding.top,
-              ),
-              itemCount: state.memes.length,
-              itemPositionsListener: listener,
-              itemBuilder: (BuildContext context, int index) {
-                final imageProvider = CachedNetworkImageProvider(
-                  state.memes[index].imageLink,
-                  cacheManager: cacheManager,
-                );
-                final key = renderedMemesKeys.putIfAbsent(
-                  index,
-                  () => GlobalKey(),
-                );
-                if (renderedMemes[index] == null) {
-                  propogateSizeToMap(
-                    imageProvider,
-                    cnstr,
-                    maxHeight,
-                    index,
-                  );
-                  renderedMemes[index] = Size(cnstr.maxWidth, 200);
-                }
-
-                // Using [AnimatedVisibilityWithReversedDuration] to
-                // hide selected post with animation and show immediately
-                // if it was already hidden. PostWidget will re-render
-                // any error images, so they will be reloaded, and 2 same widgets
-                // will have different state, and overlaping each other
-                return AnimatedVisibilityWithReversedDuration(
-                  duration: const Duration(milliseconds: 300),
-                  reversedDuration: Duration.zero,
-                  visibility: index != state.iterator,
-                  child: FeedImage(
-                    key: key,
-                    imageProvider: imageProvider,
-                    constraints: cnstr,
-                    onRefreshPressed: () => setState(() {
-                      renderedMemesKeys[index] = GlobalKey();
-                    }),
-                  ),
-                );
-              },
             );
           }
 
@@ -194,20 +132,14 @@ class _FeedWidgetState extends State<FeedWidget> {
                   buildSliverList(maxHeight, cnstr),
                   buildVignette(),
                   // Build overlay with actions, description and listenable of current
-                  ValueListenableBuilder(
-                    valueListenable: listener.itemPositions,
-                    builder: (_, __, ___) {
-                      return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 150),
-                        child: PostWidget(
-                          state,
-                          constraints: cnstr,
-                          key: ValueKey(state.currentMemeModel.sourceLink),
-                        ),
-                      );
-                    },
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 150),
+                    child: PostWidget(
+                      state,
+                      constraints: cnstr,
+                      key: ValueKey(state.currentMemeModel.sourceLink),
+                    ),
                   )
-                  // scroll position
                 ],
               );
             },
