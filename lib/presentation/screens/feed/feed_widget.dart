@@ -191,29 +191,23 @@ class _FeedWidgetState extends State<FeedWidget> {
 
               return Stack(
                 children: [
-                  // ImageFiltered(
-                  //   imageFilter: ImageFilter.compose(
-                  //     outer: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                  //     inner: ColorFilter.mode(
-                  //       Colors.black.withOpacity(.15),
-                  //       BlendMode.darken,
-                  //     ),
-                  //   ),
-                  // child:
                   buildSliverList(maxHeight, cnstr),
-                  // ),
                   buildVignette(),
                   // Build overlay with actions, description and listenable of current
-                  // scroll position
                   ValueListenableBuilder(
                     valueListenable: listener.itemPositions,
                     builder: (_, __, ___) {
-                      return PostWidget(
-                        state,
-                        constraints: cnstr,
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 150),
+                        child: PostWidget(
+                          state,
+                          constraints: cnstr,
+                          key: ValueKey(state.currentMemeModel.sourceLink),
+                        ),
                       );
                     },
                   )
+                  // scroll position
                 ],
               );
             },
