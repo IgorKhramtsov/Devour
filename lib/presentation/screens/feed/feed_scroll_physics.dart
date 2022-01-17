@@ -25,7 +25,7 @@ extension PositionRetriever on GlobalKey<State<StatefulWidget>> {
   }
 }
 
-/// By element scroll physics
+/// Scroll physics with snaping to elements (based on PageScrollPhysics)
 class FeedScrollPhysics extends ScrollPhysics {
   FeedScrollPhysics(
     this.elementsSizes,
