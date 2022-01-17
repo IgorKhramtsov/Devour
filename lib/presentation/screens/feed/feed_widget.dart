@@ -7,7 +7,6 @@ import 'package:devour/presentation/screens/feed/feed_image_widget.dart';
 import 'package:devour/presentation/screens/feed/feed_scroll_physics.dart';
 import 'package:devour/presentation/screens/feed/feed_sliver_list.dart';
 import 'package:devour/presentation/screens/feed/post_widget.dart';
-import 'package:devour/presentation/widgets/animations/animated_opacity_reverse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fpdart/fpdart.dart' show Option;
 import 'package:lottie/lottie.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:collection/collection.dart';
 
 class FeedWidget extends StatefulWidget {
@@ -131,7 +129,7 @@ class _FeedWidgetState extends State<FeedWidget> {
                 children: [
                   buildSliverList(maxHeight, cnstr),
                   buildVignette(),
-                  // Build overlay with actions, description and listenable of current
+                  // Build overlay with actions and description description
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 150),
                     child: PostWidget(
