@@ -133,7 +133,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -625,6 +625,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.2"
+  scrollable_positioned_list:
+    dependency: "direct main"
+    description:
+      name: scrollable_positioned_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0-nullsafety.0"
   share_plus:
     dependency: "direct main"
     description:
@@ -846,7 +853,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   watcher:
     dependency: transitive
     description:
@@ -883,5 +890,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.14.0-360.0.dev <3.0.0"
+  dart: ">=2.14.0 <3.0.0"
   flutter: ">=2.0.0"
